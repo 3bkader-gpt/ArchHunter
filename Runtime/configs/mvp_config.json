@@ -1,0 +1,15 @@
+{
+  "session_id": "session_mvp_2026",
+  "ingestion": {
+    "batch_size": 10,
+    "throttle_ms": 100
+  },
+  "graph": {
+    "persistence_mode": "local",
+    "db_path": "testdata/graph.db"
+  },
+  "inference": {
+    "agents": ["parser", "identity"],
+    "min_confidence": 0.4
+  }
+}

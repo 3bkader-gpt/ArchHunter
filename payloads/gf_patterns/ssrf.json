@@ -1,0 +1,4 @@
+{
+  "flags": "-HnriE",
+  "pattern": "(dest=|destination=|redirect=|redirect_uri=|redirect_url=|url=|uri=|target=|rurl=|return=|return_to=|return_url=|next=|link=|src=|source=|host=|hostname=|domain=|feed=|api=|site=|view=|endpoint=|proxy=|load=|callback=|val=|ref=|reference=)"
+}

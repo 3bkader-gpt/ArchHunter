@@ -1,0 +1,848 @@
+{
+  "nodes": [
+    {
+      "id": "start",
+      "type": "text",
+      "x": 0,
+      "y": 0,
+      "width": 300,
+      "height": 120,
+      "text": "# ▶ START\nNew target in scope.\nConfirm policy first.",
+      "color": "3"
+    },
+    {
+      "id": "r1",
+      "type": "text",
+      "x": 0,
+      "y": 180,
+      "width": 300,
+      "height": 70,
+      "text": "1. Subdomains + live hosts",
+      "color": "5"
+    },
+    {
+      "id": "r2",
+      "type": "text",
+      "x": 0,
+      "y": 280,
+      "width": 300,
+      "height": 70,
+      "text": "2. Content + params",
+      "color": "5"
+    },
+    {
+      "id": "r3",
+      "type": "text",
+      "x": 0,
+      "y": 380,
+      "width": 300,
+      "height": 70,
+      "text": "3. Fingerprint stack",
+      "color": "5"
+    },
+    {
+      "id": "r4",
+      "type": "text",
+      "x": 0,
+      "y": 480,
+      "width": 300,
+      "height": 70,
+      "text": "4. Mine JS (blueprint)",
+      "color": "5"
+    },
+    {
+      "id": "pick",
+      "type": "text",
+      "x": 420,
+      "y": 60,
+      "width": 300,
+      "height": 140,
+      "text": "# 🎯 Pick a feature\nProxy it with 2 accounts.\nAsk each question →",
+      "color": "3"
+    },
+    {
+      "id": "d1",
+      "type": "text",
+      "x": 900,
+      "y": 0,
+      "width": 300,
+      "height": 70,
+      "text": "❓ Has an ID / object ref?",
+      "color": "1"
+    },
+    {
+      "id": "f_d1",
+      "type": "file",
+      "x": 1320,
+      "y": 0,
+      "width": 320,
+      "height": 70,
+      "file": "01-access-control/01-idor-bola.md",
+      "color": "1"
+    },
+    {
+      "id": "d2",
+      "type": "text",
+      "x": 900,
+      "y": 110,
+      "width": 300,
+      "height": 70,
+      "text": "❓ Money / price / qty?",
+      "color": "2"
+    },
+    {
+      "id": "f_d2",
+      "type": "file",
+      "x": 1320,
+      "y": 110,
+      "width": 320,
+      "height": 70,
+      "file": "02-business-logic/01-price-manipulation.md",
+      "color": "2"
+    },
+    {
+      "id": "d3",
+      "type": "text",
+      "x": 900,
+      "y": 220,
+      "width": 300,
+      "height": 70,
+      "text": "❓ Input reflected / stored?",
+      "color": "1"
+    },
+    {
+      "id": "f_d3",
+      "type": "file",
+      "x": 1320,
+      "y": 220,
+      "width": 320,
+      "height": 70,
+      "file": "03-injection/02-xss.md",
+      "color": "1"
+    },
+    {
+      "id": "d4",
+      "type": "text",
+      "x": 900,
+      "y": 330,
+      "width": 300,
+      "height": 70,
+      "text": "❓ Auth transition?",
+      "color": "6"
+    },
+    {
+      "id": "f_d4",
+      "type": "file",
+      "x": 1320,
+      "y": 330,
+      "width": 320,
+      "height": 70,
+      "file": "09-advanced/07-account-takeover-chains.md",
+      "color": "6"
+    },
+    {
+      "id": "d5",
+      "type": "text",
+      "x": 900,
+      "y": 440,
+      "width": 300,
+      "height": 70,
+      "text": "❓ State-changing action?",
+      "color": "4"
+    },
+    {
+      "id": "f_d5",
+      "type": "file",
+      "x": 1320,
+      "y": 440,
+      "width": 320,
+      "height": 70,
+      "file": "05-client-side/01-csrf.md",
+      "color": "4"
+    },
+    {
+      "id": "d6",
+      "type": "text",
+      "x": 900,
+      "y": 550,
+      "width": 300,
+      "height": 70,
+      "text": "❓ Server fetches a URL?",
+      "color": "1"
+    },
+    {
+      "id": "f_d6",
+      "type": "file",
+      "x": 1320,
+      "y": 550,
+      "width": 320,
+      "height": 70,
+      "file": "09-advanced/06-dns-rebinding-and-ssrf-chains.md",
+      "color": "1"
+    },
+    {
+      "id": "d7",
+      "type": "text",
+      "x": 900,
+      "y": 660,
+      "width": 300,
+      "height": 70,
+      "text": "❓ File upload?",
+      "color": "2"
+    },
+    {
+      "id": "f_d7",
+      "type": "file",
+      "x": 1320,
+      "y": 660,
+      "width": 320,
+      "height": 70,
+      "file": "06-file-upload/02-xss-via-image-upload.md",
+      "color": "2"
+    },
+    {
+      "id": "d8",
+      "type": "text",
+      "x": 900,
+      "y": 770,
+      "width": 300,
+      "height": 70,
+      "text": "❓ Object create / update?",
+      "color": "5"
+    },
+    {
+      "id": "f_d8",
+      "type": "file",
+      "x": 1320,
+      "y": 770,
+      "width": 320,
+      "height": 70,
+      "file": "07-api/03-mass-assignment.md",
+      "color": "5"
+    },
+    {
+      "id": "d9",
+      "type": "text",
+      "x": 900,
+      "y": 880,
+      "width": 300,
+      "height": 70,
+      "text": "❓ Stored, read later elsewhere?",
+      "color": "6"
+    },
+    {
+      "id": "f_d9",
+      "type": "file",
+      "x": 1320,
+      "y": 880,
+      "width": 320,
+      "height": 70,
+      "file": "09-advanced/01-second-order.md",
+      "color": "6"
+    },
+    {
+      "id": "d10",
+      "type": "text",
+      "x": 900,
+      "y": 990,
+      "width": 300,
+      "height": 70,
+      "text": "❓ JSON merge / a[b]=c params?",
+      "color": "6"
+    },
+    {
+      "id": "f_d10",
+      "type": "file",
+      "x": 1320,
+      "y": 990,
+      "width": 320,
+      "height": 70,
+      "file": "09-advanced/02-prototype-pollution.md",
+      "color": "6"
+    },
+    {
+      "id": "d11",
+      "type": "text",
+      "x": 900,
+      "y": 1100,
+      "width": 300,
+      "height": 70,
+      "text": "❓ Validator + separate executor?",
+      "color": "6"
+    },
+    {
+      "id": "f_d11",
+      "type": "file",
+      "x": 1320,
+      "y": 1100,
+      "width": 320,
+      "height": 70,
+      "file": "09-advanced/04-parser-differentials.md",
+      "color": "6"
+    },
+    {
+      "id": "d12",
+      "type": "text",
+      "x": 900,
+      "y": 1210,
+      "width": 300,
+      "height": 70,
+      "text": "❓ Behind CDN / proxy?",
+      "color": "3"
+    },
+    {
+      "id": "f_d12",
+      "type": "file",
+      "x": 1320,
+      "y": 1210,
+      "width": 320,
+      "height": 70,
+      "file": "10-server-edge/03-cdn-cache-poisoning-deep.md",
+      "color": "3"
+    },
+    {
+      "id": "d13",
+      "type": "text",
+      "x": 900,
+      "y": 1320,
+      "width": 300,
+      "height": 70,
+      "text": "❓ Server: nginx?",
+      "color": "3"
+    },
+    {
+      "id": "f_d13",
+      "type": "file",
+      "x": 1320,
+      "y": 1320,
+      "width": 320,
+      "height": 70,
+      "file": "10-server-edge/01-nginx-misconfig.md",
+      "color": "3"
+    },
+    {
+      "id": "d14",
+      "type": "text",
+      "x": 900,
+      "y": 1430,
+      "width": 300,
+      "height": 70,
+      "text": "❓ WAF present?",
+      "color": "3"
+    },
+    {
+      "id": "f_d14",
+      "type": "file",
+      "x": 1320,
+      "y": 1430,
+      "width": 320,
+      "height": 70,
+      "file": "10-server-edge/04-waf-and-origin-bypass.md",
+      "color": "3"
+    },
+    {
+      "id": "d15",
+      "type": "text",
+      "x": 900,
+      "y": 1540,
+      "width": 300,
+      "height": 70,
+      "text": "❓ CSP / XFO / headers set?",
+      "color": "4"
+    },
+    {
+      "id": "f_d15",
+      "type": "file",
+      "x": 1320,
+      "y": 1540,
+      "width": 320,
+      "height": 70,
+      "file": "05-client-side/06-security-headers-bypass.md",
+      "color": "4"
+    },
+    {
+      "id": "d16",
+      "type": "text",
+      "x": 900,
+      "y": 1650,
+      "width": 300,
+      "height": 70,
+      "text": "❓ XSS on a subdomain?",
+      "color": "6"
+    },
+    {
+      "id": "f_d16",
+      "type": "file",
+      "x": 1320,
+      "y": 1650,
+      "width": 320,
+      "height": 70,
+      "file": "04-auth-session/07-session-hijacking.md",
+      "color": "6"
+    },
+    {
+      "id": "verify",
+      "type": "file",
+      "x": 1720,
+      "y": 300,
+      "width": 320,
+      "height": 150,
+      "file": "99-reference/05-response-manipulation-and-verification.md",
+      "color": "4"
+    },
+    {
+      "id": "report",
+      "type": "file",
+      "x": 1720,
+      "y": 480,
+      "width": 320,
+      "height": 130,
+      "file": "99-reference/03-methodology.md",
+      "color": "4"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_start_r1",
+      "fromNode": "start",
+      "toNode": "r1",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "e_r1_r2",
+      "fromNode": "r1",
+      "toNode": "r2",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "e_r2_r3",
+      "fromNode": "r2",
+      "toNode": "r3",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "e_r3_r4",
+      "fromNode": "r3",
+      "toNode": "r4",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "e_r4_pick",
+      "fromNode": "r4",
+      "toNode": "pick",
+      "fromSide": "right",
+      "toSide": "left"
+    },
+    {
+      "id": "e_pick_d1",
+      "fromNode": "pick",
+      "toNode": "d1",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "1"
+    },
+    {
+      "id": "e_d1_f_d1",
+      "fromNode": "d1",
+      "toNode": "f_d1",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "test →",
+      "color": "1"
+    },
+    {
+      "id": "e_pick_d2",
+      "fromNode": "pick",
+      "toNode": "d2",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "2"
+    },
+    {
+      "id": "e_d2_f_d2",
+      "fromNode": "d2",
+      "toNode": "f_d2",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "test →",
+      "color": "2"
+    },
+    {
+      "id": "e_pick_d3",
+      "fromNode": "pick",
+      "toNode": "d3",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "1"
+    },
+    {
+      "id": "e_d3_f_d3",
+      "fromNode": "d3",
+      "toNode": "f_d3",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "test →",
+      "color": "1"
+    },
+    {
+      "id": "e_pick_d4",
+      "fromNode": "pick",
+      "toNode": "d4",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "6"
+    },
+    {
+      "id": "e_d4_f_d4",
+      "fromNode": "d4",
+      "toNode": "f_d4",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "test →",
+      "color": "6"
+    },
+    {
+      "id": "e_pick_d5",
+      "fromNode": "pick",
+      "toNode": "d5",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "4"
+    },
+    {
+      "id": "e_d5_f_d5",
+      "fromNode": "d5",
+      "toNode": "f_d5",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "test →",
+      "color": "4"
+    },
+    {
+      "id": "e_pick_d6",
+      "fromNode": "pick",
+      "toNode": "d6",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "1"
+    },
+    {
+      "id": "e_d6_f_d6",
+      "fromNode": "d6",
+      "toNode": "f_d6",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "test →",
+      "color": "1"
+    },
+    {
+      "id": "e_pick_d7",
+      "fromNode": "pick",
+      "toNode": "d7",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "2"
+    },
+    {
+      "id": "e_d7_f_d7",
+      "fromNode": "d7",
+      "toNode": "f_d7",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "test →",
+      "color": "2"
+    },
+    {
+      "id": "e_pick_d8",
+      "fromNode": "pick",
+      "toNode": "d8",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "5"
+    },
+    {
+      "id": "e_d8_f_d8",
+      "fromNode": "d8",
+      "toNode": "f_d8",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "test →",
+      "color": "5"
+    },
+    {
+      "id": "e_pick_d9",
+      "fromNode": "pick",
+      "toNode": "d9",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "6"
+    },
+    {
+      "id": "e_d9_f_d9",
+      "fromNode": "d9",
+      "toNode": "f_d9",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "test →",
+      "color": "6"
+    },
+    {
+      "id": "e_pick_d10",
+      "fromNode": "pick",
+      "toNode": "d10",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "6"
+    },
+    {
+      "id": "e_d10_f_d10",
+      "fromNode": "d10",
+      "toNode": "f_d10",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "test →",
+      "color": "6"
+    },
+    {
+      "id": "e_pick_d11",
+      "fromNode": "pick",
+      "toNode": "d11",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "6"
+    },
+    {
+      "id": "e_d11_f_d11",
+      "fromNode": "d11",
+      "toNode": "f_d11",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "test →",
+      "color": "6"
+    },
+    {
+      "id": "e_pick_d12",
+      "fromNode": "pick",
+      "toNode": "d12",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "3"
+    },
+    {
+      "id": "e_d12_f_d12",
+      "fromNode": "d12",
+      "toNode": "f_d12",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "test →",
+      "color": "3"
+    },
+    {
+      "id": "e_pick_d13",
+      "fromNode": "pick",
+      "toNode": "d13",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "3"
+    },
+    {
+      "id": "e_d13_f_d13",
+      "fromNode": "d13",
+      "toNode": "f_d13",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "test →",
+      "color": "3"
+    },
+    {
+      "id": "e_pick_d14",
+      "fromNode": "pick",
+      "toNode": "d14",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "3"
+    },
+    {
+      "id": "e_d14_f_d14",
+      "fromNode": "d14",
+      "toNode": "f_d14",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "test →",
+      "color": "3"
+    },
+    {
+      "id": "e_pick_d15",
+      "fromNode": "pick",
+      "toNode": "d15",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "4"
+    },
+    {
+      "id": "e_d15_f_d15",
+      "fromNode": "d15",
+      "toNode": "f_d15",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "test →",
+      "color": "4"
+    },
+    {
+      "id": "e_pick_d16",
+      "fromNode": "pick",
+      "toNode": "d16",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "6"
+    },
+    {
+      "id": "e_d16_f_d16",
+      "fromNode": "d16",
+      "toNode": "f_d16",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "test →",
+      "color": "6"
+    },
+    {
+      "id": "e_f_d1_verify",
+      "fromNode": "f_d1",
+      "toNode": "verify",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "4"
+    },
+    {
+      "id": "e_f_d2_verify",
+      "fromNode": "f_d2",
+      "toNode": "verify",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "4"
+    },
+    {
+      "id": "e_f_d3_verify",
+      "fromNode": "f_d3",
+      "toNode": "verify",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "4"
+    },
+    {
+      "id": "e_f_d4_verify",
+      "fromNode": "f_d4",
+      "toNode": "verify",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "4"
+    },
+    {
+      "id": "e_f_d5_verify",
+      "fromNode": "f_d5",
+      "toNode": "verify",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "4"
+    },
+    {
+      "id": "e_f_d6_verify",
+      "fromNode": "f_d6",
+      "toNode": "verify",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "4"
+    },
+    {
+      "id": "e_f_d7_verify",
+      "fromNode": "f_d7",
+      "toNode": "verify",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "4"
+    },
+    {
+      "id": "e_f_d8_verify",
+      "fromNode": "f_d8",
+      "toNode": "verify",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "4"
+    },
+    {
+      "id": "e_f_d9_verify",
+      "fromNode": "f_d9",
+      "toNode": "verify",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "4"
+    },
+    {
+      "id": "e_f_d10_verify",
+      "fromNode": "f_d10",
+      "toNode": "verify",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "4"
+    },
+    {
+      "id": "e_f_d11_verify",
+      "fromNode": "f_d11",
+      "toNode": "verify",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "4"
+    },
+    {
+      "id": "e_f_d12_verify",
+      "fromNode": "f_d12",
+      "toNode": "verify",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "4"
+    },
+    {
+      "id": "e_f_d13_verify",
+      "fromNode": "f_d13",
+      "toNode": "verify",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "4"
+    },
+    {
+      "id": "e_f_d14_verify",
+      "fromNode": "f_d14",
+      "toNode": "verify",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "4"
+    },
+    {
+      "id": "e_f_d15_verify",
+      "fromNode": "f_d15",
+      "toNode": "verify",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "4"
+    },
+    {
+      "id": "e_f_d16_verify",
+      "fromNode": "f_d16",
+      "toNode": "verify",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "4"
+    },
+    {
+      "id": "e_verify_report",
+      "fromNode": "verify",
+      "toNode": "report",
+      "fromSide": "bottom",
+      "toSide": "top"
+    }
+  ]
+}

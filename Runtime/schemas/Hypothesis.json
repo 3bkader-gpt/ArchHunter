@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AttackHypothesis",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string" },
+    "mechanism": { "type": "string" },
+    "path": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "risk_score": { "type": "number", "minimum": 0, "maximum": 1 },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "evidence_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "rationale": { "type": "string" },
+    "explainability_trace_id": { "type": "string" }
+  },
+  "required": ["id", "mechanism", "risk_score", "confidence"]
+}

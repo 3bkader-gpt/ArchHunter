@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package runtime.hypothesis;
+option go_package = "github.com/hacker/runtime/proto/hypothesis";
+
+import "google/protobuf/timestamp.proto";
+
+enum MechanismClass {
+  UNKNOWN_MECHANISM = 0;
+  PARSER_DIFFERENTIAL = 1;
+  IDENTITY_LEAK = 2;
+  WORKLOAD_ESCALATION = 3;
+  ASYNC_TRUST_DECAY = 4;
+  CONSISTENCY_FAILURE = 5;
+  STALE_AUTH_PROPAGATION = 6;
+}
+
+message AttackHypothesis {
+  string id = 1;
+  MechanismClass mechanism = 2;
+  repeated string path_node_ids = 3;
+  float risk_score = 4;
+  float confidence_score = 5;
+  repeated string evidence_ids = 6;
+  string rationale = 7;
+  string explainability_trace_id = 8;
+  map<string, string> architectural_indicators = 9; // e.g., "cloud": "aws"
+  google.protobuf.Timestamp generated_at = 10;
+  int32 priority_ranking = 11;
+}
+
+message HypothesisReport {
+  string session_id = 1;
+  repeated AttackHypothesis hypotheses = 2;
+  google.protobuf.Timestamp timestamp = 3;
+}
+
+service HypothesisRegistry {
+  rpc SubmitHypotheses(HypothesisReport) returns (RegistryResponse);
+  rpc GetHypotheses(SessionQuery) returns (HypothesisReport);
+}
+
+message RegistryResponse {
+  bool success = 1;
+  repeated string registered_ids = 2;
+}
+
+message SessionQuery {
+  string session_id = 1;
+  float min_risk = 2;
+}

@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package runtime.signal;
+option go_package = "github.com/hacker/runtime/proto/signal";
+
+import "google/protobuf/timestamp.proto";
+
+message ArchitecturalSignal {
+  string id = 1;
+  string source = 2; // e.g., "httpx", "katana", "cloudsploit"
+  google.protobuf.Timestamp timestamp = 3;
+  string asset_identifier = 4; // URL, IP, ARN, etc.
+  
+  // Normalized attributes (e.g., headers, status codes)
+  map<string, string> attributes = 5;
+  
+  // Inferred traits (e.g., "uses_graphql", "has_oidc")
+  repeated string inferred_traits = 6;
+  
+  float confidence = 7; // 0.0 to 1.0
+  
+  SignalMetadata metadata = 8;
+}
+
+message SignalMetadata {
+  string reasoning_trace_id = 1;
+  string provenance_id = 2; // Links back to raw tool output line
+  string tool_version = 3;
+  string scan_session_id = 4;
+  map<string, string> correlation_ids = 5; // e.g., "aws_account_id": "..."
+}
+
+service SignalIngestion {
+  rpc Ingest(ArchitecturalSignal) returns (IngestionResponse);
+  rpc StreamIngest(stream ArchitecturalSignal) returns (IngestionResponse);
+}
+
+message IngestionResponse {
+  bool success = 1;
+  string error_message = 2;
+  string signal_id = 3;
+}

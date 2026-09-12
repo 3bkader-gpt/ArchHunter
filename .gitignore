@@ -1,0 +1,21 @@
+# Exclude temporary ingestion sessions and raw downloads per instruction
+tele_session/
+tele_docs/
+
+# Python cache & virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+
+# Temporary session & log files
+*.session
+*.session-journal
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,4 @@
+{
+  "flags": "-HnriE",
+  "pattern": "(file=|document=|folder=|root=|path=|pg=|style=|pdf=|template=|php_path=|doc=|page=|name=|cat=|dir=|action=|board=|date=|detail=|download=|prefix=)"
+}

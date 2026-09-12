@@ -1,0 +1,4 @@
+{
+  "flags": "-HnriE",
+  "pattern": "(=|<|>|\"|'|%22|%27|%3c|%3e|q=|s=|search=|query=|keyword=|lang=|msg=|message=|error=|err=|alert=|text=|input=|name=|title=|content=|comment=|redirect=|view=|url=|uri=)"
+}

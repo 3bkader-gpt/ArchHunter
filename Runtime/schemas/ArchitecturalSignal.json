@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ArchitecturalSignal",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string" },
+    "source": { "type": "string" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "asset_identifier": { "type": "string" },
+    "attributes": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "reasoning_trace_id": { "type": "string" },
+        "provenance_id": { "type": "string" }
+      }
+    }
+  },
+  "required": ["id", "source", "asset_identifier"]
+}

@@ -1,0 +1,29 @@
+{"url":"https://api.target.com/v1/users","server":"cloudflare","status_code":200,"content_type":"application/json","x-forwarded-for":"10.0.1.5","cf-ray":"abc123-IAD"}
+{"url":"https://target.com","server":"cloudflare","status_code":200,"content_type":"text/html","cf-ray":"def456-CDG"}
+{"url":"https://api.target.com/v1/auth/login","server":"cloudflare","status_code":200,"content_type":"application/json"}
+{"url":"https://api.target.com/.well-known/openid-configuration","server":"cloudflare","status_code":200,"content_type":"application/json"}
+{"url":"https://internal-api.target.com:8443/v2/orders","server":"nginx/1.21","status_code":200,"content_type":"application/json","authorization":"Bearer eyJhbGciOiJSUzI1NiJ9"}
+{"url":"https://internal-api.target.com:8443/v2/payments","server":"nginx/1.21","status_code":403,"content_type":"application/json"}
+{"url":"https://grpc.target.com:50051/service.OrderService","server":"envoy","status_code":200,"content_type":"application/grpc"}
+{"url":"https://api.target.com/v1/webhooks/callback","server":"cloudflare","status_code":202,"content_type":"application/json","retry-after":"5"}
+{"url":"https://ws.target.com/realtime","server":"nginx/1.21","status_code":101,"upgrade":"websocket","sec-websocket-key":"dGhlIHNhbXBsZSBub25jZQ=="}
+{"url":"https://cdn.target.com/assets/app.js","server":"cloudfront","status_code":200,"content_type":"application/javascript","x-amz-cf-id":"XYZ789"}
+{"url":"https://api.target.com/v1/upload","server":"cloudflare","status_code":200,"content_type":"multipart/form-data"}
+{"url":"https://api.target.com/v1/export/pdf","server":"cloudflare","status_code":202,"content_type":"application/json","retry-after":"30"}
+{"url":"https://admin.target.com/dashboard","server":"nginx/1.21","status_code":401,"content_type":"text/html"}
+{"url":"https://admin.target.com/api/users","server":"nginx/1.21","status_code":200,"content_type":"application/json","cookie":"session=abc123; admin=true","authorization":"Bearer eyJhbGciOiJSUzI1NiJ9"}
+{"url":"https://api.target.com/graphql","server":"cloudflare","status_code":200,"content_type":"application/json","x-forwarded-for":"10.0.2.10"}
+{"url":"https://s3.amazonaws.com/target-uploads/config.json","status_code":200,"content_type":"application/json","x-amz-request-id":"ABCDEF123456"}
+{"url":"https://staging.target.com","server":"apache/2.4","status_code":200,"content_type":"text/html"}
+{"url":"https://staging.target.com/api/v1/debug","server":"apache/2.4","status_code":200,"content_type":"application/json"}
+{"url":"https://monitoring.target.com:9090/metrics","server":"prometheus","status_code":200,"content_type":"text/plain"}
+{"url":"https://api.target.com/v1/auth/oauth/authorize","server":"cloudflare","status_code":302,"content_type":"text/html"}
+{"url":"https://api.target.com/v1/auth/token","server":"cloudflare","status_code":200,"content_type":"application/json"}
+{"url":"https://api.target.com/v1/account/reset-password","server":"cloudflare","status_code":200,"content_type":"application/json"}
+{"url":"https://events.target.com/v1/track","server":"nginx/1.21","status_code":202,"content_type":"application/json"}
+{"url":"https://api.target.com/v1/search","server":"cloudflare","status_code":200,"content_type":"application/json","access-control-allow-origin":"*"}
+{"url":"https://api.target.com/v1/cors-test","server":"cloudflare","status_code":200,"access-control-allow-origin":"*","access-control-allow-credentials":"true"}
+{"input":"https://api.target.com/v1/users/profile","source":"katana","method":"GET","endpoint":"https://api.target.com/v1/users/profile"}
+{"input":"https://api.target.com/v1/admin/settings","source":"katana","method":"GET","endpoint":"https://api.target.com/v1/admin/settings"}
+{"input":"https://api.target.com/static/js/app.bundle.js","source":"katana","method":"GET","endpoint":"https://api.target.com/static/js/app.bundle.js"}
+{"input":"https://api.target.com/v1/integrations/slack/webhook","source":"katana","method":"POST","endpoint":"https://api.target.com/v1/integrations/slack/webhook"}

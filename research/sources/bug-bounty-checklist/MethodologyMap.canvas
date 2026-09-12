@@ -1,0 +1,1402 @@
+{
+  "nodes": [
+    {
+      "id": "hub",
+      "type": "text",
+      "text": "# 🐛 Bug Bounty Master Methodology\n\nZero → deep cuts. 66 files, 12 classes.\n**Loop:** Scope → Recon → Map → Attack → Verify → Report\nSee `README.md` + `99-reference/03-methodology.md`",
+      "x": 2100,
+      "y": 0,
+      "width": 620,
+      "height": 180,
+      "color": "3"
+    },
+    {
+      "id": "h_00-recon",
+      "type": "text",
+      "text": "## 🔍 00 · Recon",
+      "x": 0,
+      "y": 260,
+      "width": 340,
+      "height": 70,
+      "color": "5"
+    },
+    {
+      "id": "n_00-recon_01-scope-and-assets.md",
+      "type": "file",
+      "file": "00-recon/01-scope-and-assets.md",
+      "x": 0,
+      "y": 370,
+      "width": 340,
+      "height": 56,
+      "color": "5"
+    },
+    {
+      "id": "n_00-recon_02-subdomain-enum.md",
+      "type": "file",
+      "file": "00-recon/02-subdomain-enum.md",
+      "x": 0,
+      "y": 440,
+      "width": 340,
+      "height": 56,
+      "color": "5"
+    },
+    {
+      "id": "n_00-recon_03-content-discovery.md",
+      "type": "file",
+      "file": "00-recon/03-content-discovery.md",
+      "x": 0,
+      "y": 510,
+      "width": 340,
+      "height": 56,
+      "color": "5"
+    },
+    {
+      "id": "n_00-recon_04-fingerprinting.md",
+      "type": "file",
+      "file": "00-recon/04-fingerprinting.md",
+      "x": 0,
+      "y": 580,
+      "width": 340,
+      "height": 56,
+      "color": "5"
+    },
+    {
+      "id": "n_00-recon_05-js-analysis.md",
+      "type": "file",
+      "file": "00-recon/05-js-analysis.md",
+      "x": 0,
+      "y": 650,
+      "width": 340,
+      "height": 56,
+      "color": "5"
+    },
+    {
+      "id": "h_01-access-control",
+      "type": "text",
+      "text": "## 🔑 01 · Access Control",
+      "x": 400,
+      "y": 260,
+      "width": 340,
+      "height": 70,
+      "color": "1"
+    },
+    {
+      "id": "n_01-access-control_01-idor-bola.md",
+      "type": "file",
+      "file": "01-access-control/01-idor-bola.md",
+      "x": 400,
+      "y": 370,
+      "width": 340,
+      "height": 56,
+      "color": "1"
+    },
+    {
+      "id": "n_01-access-control_02-id-tamper-methods.md",
+      "type": "file",
+      "file": "01-access-control/02-id-tamper-methods.md",
+      "x": 400,
+      "y": 440,
+      "width": 340,
+      "height": 56,
+      "color": "1"
+    },
+    {
+      "id": "n_01-access-control_03-privilege-escalation.md",
+      "type": "file",
+      "file": "01-access-control/03-privilege-escalation.md",
+      "x": 400,
+      "y": 510,
+      "width": 340,
+      "height": 56,
+      "color": "1"
+    },
+    {
+      "id": "n_01-access-control_04-forced-browsing.md",
+      "type": "file",
+      "file": "01-access-control/04-forced-browsing.md",
+      "x": 400,
+      "y": 580,
+      "width": 340,
+      "height": 56,
+      "color": "1"
+    },
+    {
+      "id": "h_02-business-logic",
+      "type": "text",
+      "text": "## 💰 02 · Business Logic",
+      "x": 800,
+      "y": 260,
+      "width": 340,
+      "height": 70,
+      "color": "2"
+    },
+    {
+      "id": "n_02-business-logic_01-price-manipulation.md",
+      "type": "file",
+      "file": "02-business-logic/01-price-manipulation.md",
+      "x": 800,
+      "y": 370,
+      "width": 340,
+      "height": 56,
+      "color": "2"
+    },
+    {
+      "id": "n_02-business-logic_02-cart-and-checkout.md",
+      "type": "file",
+      "file": "02-business-logic/02-cart-and-checkout.md",
+      "x": 800,
+      "y": 440,
+      "width": 340,
+      "height": 56,
+      "color": "2"
+    },
+    {
+      "id": "n_02-business-logic_03-coupons-and-discounts.md",
+      "type": "file",
+      "file": "02-business-logic/03-coupons-and-discounts.md",
+      "x": 800,
+      "y": 510,
+      "width": 340,
+      "height": 56,
+      "color": "2"
+    },
+    {
+      "id": "n_02-business-logic_04-refund-and-currency.md",
+      "type": "file",
+      "file": "02-business-logic/04-refund-and-currency.md",
+      "x": 800,
+      "y": 580,
+      "width": 340,
+      "height": 56,
+      "color": "2"
+    },
+    {
+      "id": "n_02-business-logic_05-premium-feature-abuse.md",
+      "type": "file",
+      "file": "02-business-logic/05-premium-feature-abuse.md",
+      "x": 800,
+      "y": 650,
+      "width": 340,
+      "height": 56,
+      "color": "2"
+    },
+    {
+      "id": "n_02-business-logic_06-reviews-comments-ratings.md",
+      "type": "file",
+      "file": "02-business-logic/06-reviews-comments-ratings.md",
+      "x": 800,
+      "y": 720,
+      "width": 340,
+      "height": 56,
+      "color": "2"
+    },
+    {
+      "id": "n_02-business-logic_07-race-conditions.md",
+      "type": "file",
+      "file": "02-business-logic/07-race-conditions.md",
+      "x": 800,
+      "y": 790,
+      "width": 340,
+      "height": 56,
+      "color": "2"
+    },
+    {
+      "id": "n_02-business-logic_08-workflow-and-result-tampering.md",
+      "type": "file",
+      "file": "02-business-logic/08-workflow-and-result-tampering.md",
+      "x": 800,
+      "y": 860,
+      "width": 340,
+      "height": 56,
+      "color": "2"
+    },
+    {
+      "id": "h_03-injection",
+      "type": "text",
+      "text": "## 💉 03 · Injection",
+      "x": 1200,
+      "y": 260,
+      "width": 340,
+      "height": 70,
+      "color": "1"
+    },
+    {
+      "id": "n_03-injection_01-sqli.md",
+      "type": "file",
+      "file": "03-injection/01-sqli.md",
+      "x": 1200,
+      "y": 370,
+      "width": 340,
+      "height": 56,
+      "color": "1"
+    },
+    {
+      "id": "n_03-injection_02-xss.md",
+      "type": "file",
+      "file": "03-injection/02-xss.md",
+      "x": 1200,
+      "y": 440,
+      "width": 340,
+      "height": 56,
+      "color": "1"
+    },
+    {
+      "id": "n_03-injection_03-ssti.md",
+      "type": "file",
+      "file": "03-injection/03-ssti.md",
+      "x": 1200,
+      "y": 510,
+      "width": 340,
+      "height": 56,
+      "color": "1"
+    },
+    {
+      "id": "n_03-injection_04-command-injection.md",
+      "type": "file",
+      "file": "03-injection/04-command-injection.md",
+      "x": 1200,
+      "y": 580,
+      "width": 340,
+      "height": 56,
+      "color": "1"
+    },
+    {
+      "id": "n_03-injection_05-xxe.md",
+      "type": "file",
+      "file": "03-injection/05-xxe.md",
+      "x": 1200,
+      "y": 650,
+      "width": 340,
+      "height": 56,
+      "color": "1"
+    },
+    {
+      "id": "n_03-injection_06-ssrf.md",
+      "type": "file",
+      "file": "03-injection/06-ssrf.md",
+      "x": 1200,
+      "y": 720,
+      "width": 340,
+      "height": 56,
+      "color": "1"
+    },
+    {
+      "id": "n_03-injection_07-nosql-and-misc.md",
+      "type": "file",
+      "file": "03-injection/07-nosql-and-misc.md",
+      "x": 1200,
+      "y": 790,
+      "width": 340,
+      "height": 56,
+      "color": "1"
+    },
+    {
+      "id": "h_04-auth-session",
+      "type": "text",
+      "text": "## 🎫 04 · Auth / Session",
+      "x": 1600,
+      "y": 260,
+      "width": 340,
+      "height": 70,
+      "color": "6"
+    },
+    {
+      "id": "n_04-auth-session_01-login-and-registration.md",
+      "type": "file",
+      "file": "04-auth-session/01-login-and-registration.md",
+      "x": 1600,
+      "y": 370,
+      "width": 340,
+      "height": 56,
+      "color": "6"
+    },
+    {
+      "id": "n_04-auth-session_02-2fa-otp.md",
+      "type": "file",
+      "file": "04-auth-session/02-2fa-otp.md",
+      "x": 1600,
+      "y": 440,
+      "width": 340,
+      "height": 56,
+      "color": "6"
+    },
+    {
+      "id": "n_04-auth-session_03-jwt.md",
+      "type": "file",
+      "file": "04-auth-session/03-jwt.md",
+      "x": 1600,
+      "y": 510,
+      "width": 340,
+      "height": 56,
+      "color": "6"
+    },
+    {
+      "id": "n_04-auth-session_04-oauth-sso.md",
+      "type": "file",
+      "file": "04-auth-session/04-oauth-sso.md",
+      "x": 1600,
+      "y": 580,
+      "width": 340,
+      "height": 56,
+      "color": "6"
+    },
+    {
+      "id": "n_04-auth-session_05-password-reset.md",
+      "type": "file",
+      "file": "04-auth-session/05-password-reset.md",
+      "x": 1600,
+      "y": 650,
+      "width": 340,
+      "height": 56,
+      "color": "6"
+    },
+    {
+      "id": "n_04-auth-session_06-session-management.md",
+      "type": "file",
+      "file": "04-auth-session/06-session-management.md",
+      "x": 1600,
+      "y": 720,
+      "width": 340,
+      "height": 56,
+      "color": "6"
+    },
+    {
+      "id": "n_04-auth-session_07-session-hijacking.md",
+      "type": "file",
+      "file": "04-auth-session/07-session-hijacking.md",
+      "x": 1600,
+      "y": 790,
+      "width": 340,
+      "height": 56,
+      "color": "6"
+    },
+    {
+      "id": "h_05-client-side",
+      "type": "text",
+      "text": "## 🖥️ 05 · Client-Side",
+      "x": 2000,
+      "y": 260,
+      "width": 340,
+      "height": 70,
+      "color": "4"
+    },
+    {
+      "id": "n_05-client-side_01-csrf.md",
+      "type": "file",
+      "file": "05-client-side/01-csrf.md",
+      "x": 2000,
+      "y": 370,
+      "width": 340,
+      "height": 56,
+      "color": "4"
+    },
+    {
+      "id": "n_05-client-side_02-cors.md",
+      "type": "file",
+      "file": "05-client-side/02-cors.md",
+      "x": 2000,
+      "y": 440,
+      "width": 340,
+      "height": 56,
+      "color": "4"
+    },
+    {
+      "id": "n_05-client-side_03-clickjacking.md",
+      "type": "file",
+      "file": "05-client-side/03-clickjacking.md",
+      "x": 2000,
+      "y": 510,
+      "width": 340,
+      "height": 56,
+      "color": "4"
+    },
+    {
+      "id": "n_05-client-side_04-postmessage-dom.md",
+      "type": "file",
+      "file": "05-client-side/04-postmessage-dom.md",
+      "x": 2000,
+      "y": 580,
+      "width": 340,
+      "height": 56,
+      "color": "4"
+    },
+    {
+      "id": "n_05-client-side_05-open-redirect.md",
+      "type": "file",
+      "file": "05-client-side/05-open-redirect.md",
+      "x": 2000,
+      "y": 650,
+      "width": 340,
+      "height": 56,
+      "color": "4"
+    },
+    {
+      "id": "n_05-client-side_06-security-headers-bypass.md",
+      "type": "file",
+      "file": "05-client-side/06-security-headers-bypass.md",
+      "x": 2000,
+      "y": 720,
+      "width": 340,
+      "height": 56,
+      "color": "4"
+    },
+    {
+      "id": "h_06-file-upload",
+      "type": "text",
+      "text": "## 📤 06 · File Upload",
+      "x": 2400,
+      "y": 260,
+      "width": 340,
+      "height": 70,
+      "color": "2"
+    },
+    {
+      "id": "n_06-file-upload_01-upload-attacks.md",
+      "type": "file",
+      "file": "06-file-upload/01-upload-attacks.md",
+      "x": 2400,
+      "y": 370,
+      "width": 340,
+      "height": 56,
+      "color": "2"
+    },
+    {
+      "id": "n_06-file-upload_02-xss-via-image-upload.md",
+      "type": "file",
+      "file": "06-file-upload/02-xss-via-image-upload.md",
+      "x": 2400,
+      "y": 440,
+      "width": 340,
+      "height": 56,
+      "color": "2"
+    },
+    {
+      "id": "h_07-api",
+      "type": "text",
+      "text": "## 🔌 07 · API",
+      "x": 2800,
+      "y": 260,
+      "width": 340,
+      "height": 70,
+      "color": "5"
+    },
+    {
+      "id": "n_07-api_01-rest-api.md",
+      "type": "file",
+      "file": "07-api/01-rest-api.md",
+      "x": 2800,
+      "y": 370,
+      "width": 340,
+      "height": 56,
+      "color": "5"
+    },
+    {
+      "id": "n_07-api_02-graphql.md",
+      "type": "file",
+      "file": "07-api/02-graphql.md",
+      "x": 2800,
+      "y": 440,
+      "width": 340,
+      "height": 56,
+      "color": "5"
+    },
+    {
+      "id": "n_07-api_03-mass-assignment.md",
+      "type": "file",
+      "file": "07-api/03-mass-assignment.md",
+      "x": 2800,
+      "y": 510,
+      "width": 340,
+      "height": 56,
+      "color": "5"
+    },
+    {
+      "id": "n_07-api_04-rate-limiting.md",
+      "type": "file",
+      "file": "07-api/04-rate-limiting.md",
+      "x": 2800,
+      "y": 580,
+      "width": 340,
+      "height": 56,
+      "color": "5"
+    },
+    {
+      "id": "h_08-infra",
+      "type": "text",
+      "text": "## 🏗️ 08 · Infra",
+      "x": 3200,
+      "y": 260,
+      "width": 340,
+      "height": 70,
+      "color": "3"
+    },
+    {
+      "id": "n_08-infra_01-subdomain-takeover.md",
+      "type": "file",
+      "file": "08-infra/01-subdomain-takeover.md",
+      "x": 3200,
+      "y": 370,
+      "width": 340,
+      "height": 56,
+      "color": "3"
+    },
+    {
+      "id": "n_08-infra_02-request-smuggling.md",
+      "type": "file",
+      "file": "08-infra/02-request-smuggling.md",
+      "x": 3200,
+      "y": 440,
+      "width": 340,
+      "height": 56,
+      "color": "3"
+    },
+    {
+      "id": "n_08-infra_03-cache-poisoning-and-deception.md",
+      "type": "file",
+      "file": "08-infra/03-cache-poisoning-and-deception.md",
+      "x": 3200,
+      "y": 510,
+      "width": 340,
+      "height": 56,
+      "color": "3"
+    },
+    {
+      "id": "n_08-infra_04-secrets-and-exposure.md",
+      "type": "file",
+      "file": "08-infra/04-secrets-and-exposure.md",
+      "x": 3200,
+      "y": 580,
+      "width": 340,
+      "height": 56,
+      "color": "3"
+    },
+    {
+      "id": "h_09-advanced",
+      "type": "text",
+      "text": "## 🧪 09 · Advanced / Obscure",
+      "x": 3600,
+      "y": 260,
+      "width": 340,
+      "height": 70,
+      "color": "6"
+    },
+    {
+      "id": "n_09-advanced_01-second-order.md",
+      "type": "file",
+      "file": "09-advanced/01-second-order.md",
+      "x": 3600,
+      "y": 370,
+      "width": 340,
+      "height": 56,
+      "color": "6"
+    },
+    {
+      "id": "n_09-advanced_02-prototype-pollution.md",
+      "type": "file",
+      "file": "09-advanced/02-prototype-pollution.md",
+      "x": 3600,
+      "y": 440,
+      "width": 340,
+      "height": 56,
+      "color": "6"
+    },
+    {
+      "id": "n_09-advanced_03-dependency-confusion.md",
+      "type": "file",
+      "file": "09-advanced/03-dependency-confusion.md",
+      "x": 3600,
+      "y": 510,
+      "width": 340,
+      "height": 56,
+      "color": "6"
+    },
+    {
+      "id": "n_09-advanced_04-parser-differentials.md",
+      "type": "file",
+      "file": "09-advanced/04-parser-differentials.md",
+      "x": 3600,
+      "y": 580,
+      "width": 340,
+      "height": 56,
+      "color": "6"
+    },
+    {
+      "id": "n_09-advanced_05-dangling-markup-and-css-injection.md",
+      "type": "file",
+      "file": "09-advanced/05-dangling-markup-and-css-injection.md",
+      "x": 3600,
+      "y": 650,
+      "width": 340,
+      "height": 56,
+      "color": "6"
+    },
+    {
+      "id": "n_09-advanced_06-dns-rebinding-and-ssrf-chains.md",
+      "type": "file",
+      "file": "09-advanced/06-dns-rebinding-and-ssrf-chains.md",
+      "x": 3600,
+      "y": 720,
+      "width": 340,
+      "height": 56,
+      "color": "6"
+    },
+    {
+      "id": "n_09-advanced_07-account-takeover-chains.md",
+      "type": "file",
+      "file": "09-advanced/07-account-takeover-chains.md",
+      "x": 3600,
+      "y": 790,
+      "width": 340,
+      "height": 56,
+      "color": "6"
+    },
+    {
+      "id": "n_09-advanced_08-obscure-and-overlooked.md",
+      "type": "file",
+      "file": "09-advanced/08-obscure-and-overlooked.md",
+      "x": 3600,
+      "y": 860,
+      "width": 340,
+      "height": 56,
+      "color": "6"
+    },
+    {
+      "id": "h_10-server-edge",
+      "type": "text",
+      "text": "## 🌐 10 · Server / Edge",
+      "x": 4000,
+      "y": 260,
+      "width": 340,
+      "height": 70,
+      "color": "3"
+    },
+    {
+      "id": "n_10-server-edge_01-nginx-misconfig.md",
+      "type": "file",
+      "file": "10-server-edge/01-nginx-misconfig.md",
+      "x": 4000,
+      "y": 370,
+      "width": 340,
+      "height": 56,
+      "color": "3"
+    },
+    {
+      "id": "n_10-server-edge_02-load-balancer-proxy-desync.md",
+      "type": "file",
+      "file": "10-server-edge/02-load-balancer-proxy-desync.md",
+      "x": 4000,
+      "y": 440,
+      "width": 340,
+      "height": 56,
+      "color": "3"
+    },
+    {
+      "id": "n_10-server-edge_03-cdn-cache-poisoning-deep.md",
+      "type": "file",
+      "file": "10-server-edge/03-cdn-cache-poisoning-deep.md",
+      "x": 4000,
+      "y": 510,
+      "width": 340,
+      "height": 56,
+      "color": "3"
+    },
+    {
+      "id": "n_10-server-edge_04-waf-and-origin-bypass.md",
+      "type": "file",
+      "file": "10-server-edge/04-waf-and-origin-bypass.md",
+      "x": 4000,
+      "y": 580,
+      "width": 340,
+      "height": 56,
+      "color": "3"
+    },
+    {
+      "id": "n_10-server-edge_05-http-quirks-and-headers.md",
+      "type": "file",
+      "file": "10-server-edge/05-http-quirks-and-headers.md",
+      "x": 4000,
+      "y": 650,
+      "width": 340,
+      "height": 56,
+      "color": "3"
+    },
+    {
+      "id": "h_99-reference",
+      "type": "text",
+      "text": "## 📚 99 · Reference",
+      "x": 4400,
+      "y": 260,
+      "width": 340,
+      "height": 70,
+      "color": "4"
+    },
+    {
+      "id": "n_99-reference_01-tools.md",
+      "type": "file",
+      "file": "99-reference/01-tools.md",
+      "x": 4400,
+      "y": 370,
+      "width": 340,
+      "height": 56,
+      "color": "4"
+    },
+    {
+      "id": "n_99-reference_02-wordlists.md",
+      "type": "file",
+      "file": "99-reference/02-wordlists.md",
+      "x": 4400,
+      "y": 440,
+      "width": 340,
+      "height": 56,
+      "color": "4"
+    },
+    {
+      "id": "n_99-reference_03-methodology.md",
+      "type": "file",
+      "file": "99-reference/03-methodology.md",
+      "x": 4400,
+      "y": 510,
+      "width": 340,
+      "height": 56,
+      "color": "4"
+    },
+    {
+      "id": "n_99-reference_04-writeups-and-links.md",
+      "type": "file",
+      "file": "99-reference/04-writeups-and-links.md",
+      "x": 4400,
+      "y": 580,
+      "width": 340,
+      "height": 56,
+      "color": "4"
+    },
+    {
+      "id": "n_99-reference_05-response-manipulation-and-verification.md",
+      "type": "file",
+      "file": "99-reference/05-response-manipulation-and-verification.md",
+      "x": 4400,
+      "y": 650,
+      "width": 340,
+      "height": 56,
+      "color": "4"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_hub_00-recon",
+      "fromNode": "hub",
+      "toNode": "h_00-recon",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "5"
+    },
+    {
+      "id": "e_00-recon_01-scope-and-assets.md",
+      "fromNode": "h_00-recon",
+      "toNode": "n_00-recon_01-scope-and-assets.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "5"
+    },
+    {
+      "id": "e_00-recon_02-subdomain-enum.md",
+      "fromNode": "h_00-recon",
+      "toNode": "n_00-recon_02-subdomain-enum.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "5"
+    },
+    {
+      "id": "e_00-recon_03-content-discovery.md",
+      "fromNode": "h_00-recon",
+      "toNode": "n_00-recon_03-content-discovery.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "5"
+    },
+    {
+      "id": "e_00-recon_04-fingerprinting.md",
+      "fromNode": "h_00-recon",
+      "toNode": "n_00-recon_04-fingerprinting.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "5"
+    },
+    {
+      "id": "e_00-recon_05-js-analysis.md",
+      "fromNode": "h_00-recon",
+      "toNode": "n_00-recon_05-js-analysis.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "5"
+    },
+    {
+      "id": "e_hub_01-access-control",
+      "fromNode": "hub",
+      "toNode": "h_01-access-control",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "1"
+    },
+    {
+      "id": "e_01-access-control_01-idor-bola.md",
+      "fromNode": "h_01-access-control",
+      "toNode": "n_01-access-control_01-idor-bola.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "1"
+    },
+    {
+      "id": "e_01-access-control_02-id-tamper-methods.md",
+      "fromNode": "h_01-access-control",
+      "toNode": "n_01-access-control_02-id-tamper-methods.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "1"
+    },
+    {
+      "id": "e_01-access-control_03-privilege-escalation.md",
+      "fromNode": "h_01-access-control",
+      "toNode": "n_01-access-control_03-privilege-escalation.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "1"
+    },
+    {
+      "id": "e_01-access-control_04-forced-browsing.md",
+      "fromNode": "h_01-access-control",
+      "toNode": "n_01-access-control_04-forced-browsing.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "1"
+    },
+    {
+      "id": "e_hub_02-business-logic",
+      "fromNode": "hub",
+      "toNode": "h_02-business-logic",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "2"
+    },
+    {
+      "id": "e_02-business-logic_01-price-manipulation.md",
+      "fromNode": "h_02-business-logic",
+      "toNode": "n_02-business-logic_01-price-manipulation.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "2"
+    },
+    {
+      "id": "e_02-business-logic_02-cart-and-checkout.md",
+      "fromNode": "h_02-business-logic",
+      "toNode": "n_02-business-logic_02-cart-and-checkout.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "2"
+    },
+    {
+      "id": "e_02-business-logic_03-coupons-and-discounts.md",
+      "fromNode": "h_02-business-logic",
+      "toNode": "n_02-business-logic_03-coupons-and-discounts.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "2"
+    },
+    {
+      "id": "e_02-business-logic_04-refund-and-currency.md",
+      "fromNode": "h_02-business-logic",
+      "toNode": "n_02-business-logic_04-refund-and-currency.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "2"
+    },
+    {
+      "id": "e_02-business-logic_05-premium-feature-abuse.md",
+      "fromNode": "h_02-business-logic",
+      "toNode": "n_02-business-logic_05-premium-feature-abuse.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "2"
+    },
+    {
+      "id": "e_02-business-logic_06-reviews-comments-ratings.md",
+      "fromNode": "h_02-business-logic",
+      "toNode": "n_02-business-logic_06-reviews-comments-ratings.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "2"
+    },
+    {
+      "id": "e_02-business-logic_07-race-conditions.md",
+      "fromNode": "h_02-business-logic",
+      "toNode": "n_02-business-logic_07-race-conditions.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "2"
+    },
+    {
+      "id": "e_02-business-logic_08-workflow-and-result-tampering.md",
+      "fromNode": "h_02-business-logic",
+      "toNode": "n_02-business-logic_08-workflow-and-result-tampering.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "2"
+    },
+    {
+      "id": "e_hub_03-injection",
+      "fromNode": "hub",
+      "toNode": "h_03-injection",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "1"
+    },
+    {
+      "id": "e_03-injection_01-sqli.md",
+      "fromNode": "h_03-injection",
+      "toNode": "n_03-injection_01-sqli.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "1"
+    },
+    {
+      "id": "e_03-injection_02-xss.md",
+      "fromNode": "h_03-injection",
+      "toNode": "n_03-injection_02-xss.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "1"
+    },
+    {
+      "id": "e_03-injection_03-ssti.md",
+      "fromNode": "h_03-injection",
+      "toNode": "n_03-injection_03-ssti.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "1"
+    },
+    {
+      "id": "e_03-injection_04-command-injection.md",
+      "fromNode": "h_03-injection",
+      "toNode": "n_03-injection_04-command-injection.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "1"
+    },
+    {
+      "id": "e_03-injection_05-xxe.md",
+      "fromNode": "h_03-injection",
+      "toNode": "n_03-injection_05-xxe.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "1"
+    },
+    {
+      "id": "e_03-injection_06-ssrf.md",
+      "fromNode": "h_03-injection",
+      "toNode": "n_03-injection_06-ssrf.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "1"
+    },
+    {
+      "id": "e_03-injection_07-nosql-and-misc.md",
+      "fromNode": "h_03-injection",
+      "toNode": "n_03-injection_07-nosql-and-misc.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "1"
+    },
+    {
+      "id": "e_hub_04-auth-session",
+      "fromNode": "hub",
+      "toNode": "h_04-auth-session",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "6"
+    },
+    {
+      "id": "e_04-auth-session_01-login-and-registration.md",
+      "fromNode": "h_04-auth-session",
+      "toNode": "n_04-auth-session_01-login-and-registration.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "6"
+    },
+    {
+      "id": "e_04-auth-session_02-2fa-otp.md",
+      "fromNode": "h_04-auth-session",
+      "toNode": "n_04-auth-session_02-2fa-otp.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "6"
+    },
+    {
+      "id": "e_04-auth-session_03-jwt.md",
+      "fromNode": "h_04-auth-session",
+      "toNode": "n_04-auth-session_03-jwt.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "6"
+    },
+    {
+      "id": "e_04-auth-session_04-oauth-sso.md",
+      "fromNode": "h_04-auth-session",
+      "toNode": "n_04-auth-session_04-oauth-sso.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "6"
+    },
+    {
+      "id": "e_04-auth-session_05-password-reset.md",
+      "fromNode": "h_04-auth-session",
+      "toNode": "n_04-auth-session_05-password-reset.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "6"
+    },
+    {
+      "id": "e_04-auth-session_06-session-management.md",
+      "fromNode": "h_04-auth-session",
+      "toNode": "n_04-auth-session_06-session-management.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "6"
+    },
+    {
+      "id": "e_04-auth-session_07-session-hijacking.md",
+      "fromNode": "h_04-auth-session",
+      "toNode": "n_04-auth-session_07-session-hijacking.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "6"
+    },
+    {
+      "id": "e_hub_05-client-side",
+      "fromNode": "hub",
+      "toNode": "h_05-client-side",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "4"
+    },
+    {
+      "id": "e_05-client-side_01-csrf.md",
+      "fromNode": "h_05-client-side",
+      "toNode": "n_05-client-side_01-csrf.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "4"
+    },
+    {
+      "id": "e_05-client-side_02-cors.md",
+      "fromNode": "h_05-client-side",
+      "toNode": "n_05-client-side_02-cors.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "4"
+    },
+    {
+      "id": "e_05-client-side_03-clickjacking.md",
+      "fromNode": "h_05-client-side",
+      "toNode": "n_05-client-side_03-clickjacking.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "4"
+    },
+    {
+      "id": "e_05-client-side_04-postmessage-dom.md",
+      "fromNode": "h_05-client-side",
+      "toNode": "n_05-client-side_04-postmessage-dom.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "4"
+    },
+    {
+      "id": "e_05-client-side_05-open-redirect.md",
+      "fromNode": "h_05-client-side",
+      "toNode": "n_05-client-side_05-open-redirect.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "4"
+    },
+    {
+      "id": "e_05-client-side_06-security-headers-bypass.md",
+      "fromNode": "h_05-client-side",
+      "toNode": "n_05-client-side_06-security-headers-bypass.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "4"
+    },
+    {
+      "id": "e_hub_06-file-upload",
+      "fromNode": "hub",
+      "toNode": "h_06-file-upload",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "2"
+    },
+    {
+      "id": "e_06-file-upload_01-upload-attacks.md",
+      "fromNode": "h_06-file-upload",
+      "toNode": "n_06-file-upload_01-upload-attacks.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "2"
+    },
+    {
+      "id": "e_06-file-upload_02-xss-via-image-upload.md",
+      "fromNode": "h_06-file-upload",
+      "toNode": "n_06-file-upload_02-xss-via-image-upload.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "2"
+    },
+    {
+      "id": "e_hub_07-api",
+      "fromNode": "hub",
+      "toNode": "h_07-api",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "5"
+    },
+    {
+      "id": "e_07-api_01-rest-api.md",
+      "fromNode": "h_07-api",
+      "toNode": "n_07-api_01-rest-api.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "5"
+    },
+    {
+      "id": "e_07-api_02-graphql.md",
+      "fromNode": "h_07-api",
+      "toNode": "n_07-api_02-graphql.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "5"
+    },
+    {
+      "id": "e_07-api_03-mass-assignment.md",
+      "fromNode": "h_07-api",
+      "toNode": "n_07-api_03-mass-assignment.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "5"
+    },
+    {
+      "id": "e_07-api_04-rate-limiting.md",
+      "fromNode": "h_07-api",
+      "toNode": "n_07-api_04-rate-limiting.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "5"
+    },
+    {
+      "id": "e_hub_08-infra",
+      "fromNode": "hub",
+      "toNode": "h_08-infra",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "3"
+    },
+    {
+      "id": "e_08-infra_01-subdomain-takeover.md",
+      "fromNode": "h_08-infra",
+      "toNode": "n_08-infra_01-subdomain-takeover.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "3"
+    },
+    {
+      "id": "e_08-infra_02-request-smuggling.md",
+      "fromNode": "h_08-infra",
+      "toNode": "n_08-infra_02-request-smuggling.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "3"
+    },
+    {
+      "id": "e_08-infra_03-cache-poisoning-and-deception.md",
+      "fromNode": "h_08-infra",
+      "toNode": "n_08-infra_03-cache-poisoning-and-deception.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "3"
+    },
+    {
+      "id": "e_08-infra_04-secrets-and-exposure.md",
+      "fromNode": "h_08-infra",
+      "toNode": "n_08-infra_04-secrets-and-exposure.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "3"
+    },
+    {
+      "id": "e_hub_09-advanced",
+      "fromNode": "hub",
+      "toNode": "h_09-advanced",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "6"
+    },
+    {
+      "id": "e_09-advanced_01-second-order.md",
+      "fromNode": "h_09-advanced",
+      "toNode": "n_09-advanced_01-second-order.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "6"
+    },
+    {
+      "id": "e_09-advanced_02-prototype-pollution.md",
+      "fromNode": "h_09-advanced",
+      "toNode": "n_09-advanced_02-prototype-pollution.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "6"
+    },
+    {
+      "id": "e_09-advanced_03-dependency-confusion.md",
+      "fromNode": "h_09-advanced",
+      "toNode": "n_09-advanced_03-dependency-confusion.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "6"
+    },
+    {
+      "id": "e_09-advanced_04-parser-differentials.md",
+      "fromNode": "h_09-advanced",
+      "toNode": "n_09-advanced_04-parser-differentials.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "6"
+    },
+    {
+      "id": "e_09-advanced_05-dangling-markup-and-css-injection.md",
+      "fromNode": "h_09-advanced",
+      "toNode": "n_09-advanced_05-dangling-markup-and-css-injection.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "6"
+    },
+    {
+      "id": "e_09-advanced_06-dns-rebinding-and-ssrf-chains.md",
+      "fromNode": "h_09-advanced",
+      "toNode": "n_09-advanced_06-dns-rebinding-and-ssrf-chains.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "6"
+    },
+    {
+      "id": "e_09-advanced_07-account-takeover-chains.md",
+      "fromNode": "h_09-advanced",
+      "toNode": "n_09-advanced_07-account-takeover-chains.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "6"
+    },
+    {
+      "id": "e_09-advanced_08-obscure-and-overlooked.md",
+      "fromNode": "h_09-advanced",
+      "toNode": "n_09-advanced_08-obscure-and-overlooked.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "6"
+    },
+    {
+      "id": "e_hub_10-server-edge",
+      "fromNode": "hub",
+      "toNode": "h_10-server-edge",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "3"
+    },
+    {
+      "id": "e_10-server-edge_01-nginx-misconfig.md",
+      "fromNode": "h_10-server-edge",
+      "toNode": "n_10-server-edge_01-nginx-misconfig.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "3"
+    },
+    {
+      "id": "e_10-server-edge_02-load-balancer-proxy-desync.md",
+      "fromNode": "h_10-server-edge",
+      "toNode": "n_10-server-edge_02-load-balancer-proxy-desync.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "3"
+    },
+    {
+      "id": "e_10-server-edge_03-cdn-cache-poisoning-deep.md",
+      "fromNode": "h_10-server-edge",
+      "toNode": "n_10-server-edge_03-cdn-cache-poisoning-deep.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "3"
+    },
+    {
+      "id": "e_10-server-edge_04-waf-and-origin-bypass.md",
+      "fromNode": "h_10-server-edge",
+      "toNode": "n_10-server-edge_04-waf-and-origin-bypass.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "3"
+    },
+    {
+      "id": "e_10-server-edge_05-http-quirks-and-headers.md",
+      "fromNode": "h_10-server-edge",
+      "toNode": "n_10-server-edge_05-http-quirks-and-headers.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "3"
+    },
+    {
+      "id": "e_hub_99-reference",
+      "fromNode": "hub",
+      "toNode": "h_99-reference",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "4"
+    },
+    {
+      "id": "e_99-reference_01-tools.md",
+      "fromNode": "h_99-reference",
+      "toNode": "n_99-reference_01-tools.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "4"
+    },
+    {
+      "id": "e_99-reference_02-wordlists.md",
+      "fromNode": "h_99-reference",
+      "toNode": "n_99-reference_02-wordlists.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "4"
+    },
+    {
+      "id": "e_99-reference_03-methodology.md",
+      "fromNode": "h_99-reference",
+      "toNode": "n_99-reference_03-methodology.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "4"
+    },
+    {
+      "id": "e_99-reference_04-writeups-and-links.md",
+      "fromNode": "h_99-reference",
+      "toNode": "n_99-reference_04-writeups-and-links.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "4"
+    },
+    {
+      "id": "e_99-reference_05-response-manipulation-and-verification.md",
+      "fromNode": "h_99-reference",
+      "toNode": "n_99-reference_05-response-manipulation-and-verification.md",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "color": "4"
+    }
+  ]
+}

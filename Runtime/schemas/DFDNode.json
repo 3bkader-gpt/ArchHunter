@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DFDNode",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string" },
+    "layer": { "enum": ["physical", "identity", "mechanism"] },
+    "labels": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "properties": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "confidence_score": { "type": "number", "minimum": 0, "maximum": 1 }
+  },
+  "required": ["id", "layer"]
+}

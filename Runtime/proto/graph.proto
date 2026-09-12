@@ -1,0 +1,97 @@
+syntax = "proto3";
+
+package runtime.graph;
+option go_package = "github.com/hacker/runtime/proto/graph";
+
+import "google/protobuf/timestamp.proto";
+
+enum NodeType {
+  UNKNOWN_NODE = 0;
+  GATEWAY = 1;
+  PARSER_BOUNDARY = 2;
+  IDENTITY_BOUNDARY = 3;
+  ASYNC_WORKFLOW = 4;
+  DISTRIBUTED_STATE = 5;
+  WORKLOAD_IDENTITY = 6;
+  TRUST_BOUNDARY = 7;
+  INTERNAL_SERVICE = 8;
+}
+
+message Node {
+  string id = 1;
+  NodeType type = 2;
+  string layer = 3; // physical, identity, mechanism
+  repeated string labels = 4;
+  map<string, string> properties = 5;
+  float confidence_score = 6;
+  google.protobuf.Timestamp first_seen = 7;
+  google.protobuf.Timestamp last_seen = 8;
+  repeated string evidence_ids = 9;
+}
+
+enum EdgeType {
+  UNKNOWN_EDGE = 0;
+  PROTOCOL_TRANSLATION = 1;
+  IDENTITY_PROPAGATION = 2;
+  ASYNC_EXECUTION = 3;
+  STATE_REPLICATION = 4;
+  PARSER_TRANSITION = 5;
+  DELEGATED_TRUST = 6;
+  NETWORK_FLOW = 7;
+}
+
+message Edge {
+  string id = 1;
+  string source_id = 2;
+  string target_id = 3;
+  EdgeType type = 4;
+  map<string, string> properties = 5;
+  float confidence_score = 6;
+  repeated string evidence_ids = 7;
+}
+
+message GraphSnapshot {
+  string id = 1;
+  string session_id = 2;
+  google.protobuf.Timestamp timestamp = 3;
+  repeated Node nodes = 4;
+  repeated Edge edges = 5;
+}
+
+message GraphDelta {
+  string id = 1;
+  string parent_snapshot_id = 2;
+  repeated Node added_nodes = 3;
+  repeated Node updated_nodes = 4;
+  repeated string removed_node_ids = 5;
+  repeated Edge added_edges = 6;
+  repeated Edge updated_edges = 7;
+  repeated string removed_edge_ids = 8;
+}
+
+service GraphEngine {
+  rpc GetSnapshot(SnapshotRequest) returns (GraphSnapshot);
+  rpc ApplyDelta(GraphDelta) returns (UpdateResponse);
+  rpc QueryGraph(GraphQuery) returns (GraphResponse);
+}
+
+message SnapshotRequest {
+  string session_id = 1;
+  google.protobuf.Timestamp as_of = 2;
+}
+
+message GraphQuery {
+  string query_string = 1;
+  map<string, string> parameters = 2;
+}
+
+message GraphResponse {
+  repeated Node nodes = 1;
+  repeated Edge edges = 2;
+}
+
+message UpdateResponse {
+  bool success = 1;
+  string error_message = 2;
+  string new_snapshot_id = 3;
+}

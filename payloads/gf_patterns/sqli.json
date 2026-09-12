@@ -1,0 +1,4 @@
+{
+  "flags": "-HnriE",
+  "pattern": "(select=|insert=|update=|delete=|drop=|union=|where=|order=|group=|by=|sort=|limit=|offset=|column=|table=|row=|query=|search=|filter=|sql=|db=|database=|id=|num=|page=)"
+}

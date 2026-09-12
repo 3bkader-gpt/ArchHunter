@@ -1,0 +1,4 @@
+{
+  "flags": "-HnriE",
+  "pattern": "(user_id=|userid=|account_id=|accountid=|uid=|uuid=|id=|member_id=|org_id=|company_id=|team_id=|profile_id=|order_id=|cart_id=|invoice_id=|item_id=|doc_id=|file_id=|report_id=|ticket_id=|patient_id=|customer_id=|project_id=)"
+}

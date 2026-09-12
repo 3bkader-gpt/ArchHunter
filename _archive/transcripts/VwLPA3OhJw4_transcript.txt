@@ -1,0 +1,267 @@
+AVAILABLE:
+- en | English (auto-generated) | generated ,translatable
+FETCHED_LANGUAGE: en
+LEN= 270722
+[0.9] All right, welcome everyone. If you're
+[3.1] watching this video, it means that
+[4.5] you've signed up to be a member on my
+[6.3] channel here. You're helping support the
+[8.9] community that I build. I really, really
+[11.4] appreciate it. And hopefully, I mean, I
+[13.6] think this video is going to be my first
+[16.8] big way of saying thank you. You know,
+[19.0] especially if you're somebody who's
+[20.2] watching this initially when the video
+[21.5] comes out, it means that you've signed
+[22.9] up to be a member very early in my
+[25.4] journey. You you've been supporting me
+[27.2] really from the beginning. I've got uh
+[29.4] you know some videos out there, but this
+[30.7] is the first big membersonly video. I've
+[33.8] actually been planning this video out
+[35.1] for uh for about a month. Um a lot of
+[37.8] work went into the the material, the
+[39.8] methodology, the slide deck, everything
+[41.7] that we're going to show. You you've
+[42.9] seen this in uh in my recent live
+[45.6] streams. I've been showing some of the
+[47.3] uh the process here, but now we're going
+[49.0] to do a deep dive into the process. So,
+[51.0] I'm going to make sure that you have all
+[52.4] the tools you need to go and start
+[54.6] building this muscle using this process
+[56.9] as part of your buck bounty uh
+[58.4] methodology. So, let's go ahead and
+[60.2] bring the slides in here. Uh don't want
+[62.2] to waste a lot of time talking up front
+[63.9] and go ahead and get into it. Today,
+[65.1] we're going to be talking about threat
+[66.9] modeling. Specifically, we're going to
+[68.5] do stride threat modeling. So,
+[72.8] the reason that I wanted to focus on
+[74.6] this is
+[78.0] by far the most common question that
+[80.9] I've got from people all over the world
+[82.6] and really at a lot of different levels
+[85.2] of of bug bounty hunting. I've been
+[87.0] getting this question from, you know,
+[88.8] people that have that have found some
+[90.5] level of success that have several valid
+[92.6] bugs and and everything, but um
+[96.0] they want to know how do you move from
+[102.1] finishing up your recon process? So,
+[104.3] you've got, you know, a lot of
+[105.4] information about what targets are out
+[107.0] there. How do you move to doing manual
+[110.6] testing and have that be fruitful?
+[115.3] Right? Right. I mean, it's obviously you
+[116.4] can go out and just start kind of
+[117.4] throwing things out there, but how do
+[118.8] you uh avoid just running active scan on
+[124.0] everything or just drifting around and
+[126.0] kind of kind of poking around and and
+[127.7] seeing just testing random uh uh
+[130.8] vulnerabilities, which look you I mean,
+[132.2] you can find bugs that way, but you're
+[136.6] not going to get a huge return on
+[138.3] investment for the amount of time that
+[139.8] you're spending. So, how do you look at
+[141.5] an application? How do you look at the
+[143.0] results of your recon process and map
+[145.8] that to a list of manual tests that you
+[150.2] can conduct that you are confident
+[154.3] if something goes wrong in their
+[156.2] security controls, this is going to be a
+[158.1] valid attack. Whereas, if you're just
+[160.3] drifting around and testing random
+[161.8] things, right, you may, okay, does this
+[163.3] cores implementation work? Does this
+[164.8] work? Is this input reflected? Nothing's
+[166.8] actually mapping back to a specific
+[168.5] attack. So, you may go through and find
+[170.0] that. You may find things where you're
+[171.4] you're popping an alert or you find a
+[173.1] misconfigured cores endpoint or a seurf
+[175.4] mechanism that doesn't work and all
+[176.7] these different things, but by the time
+[179.0] you go and actually start mapping out a
+[181.0] real attack,
+[183.1] there's no way to to actually weaponize
+[185.4] it. There's no way to show impact. And
+[186.8] that's where you end up getting these
+[187.9] not applicable findings or or things
+[189.9] where you get in debates with uh with
+[192.3] with the people who are triaging it and
+[194.4] everything. So, this methodology using
+[197.6] threat modeling as part of your process
+[200.1] is going to help make sure that you
+[203.3] you know that all the tests that you're
+[205.5] conducting and everything that you're
+[207.8] working towards, the time that you're
+[209.3] investing in going through and and
+[212.2] testing these different attacks, you've
+[214.2] already identified that each of these
+[216.2] attacks is possible and you have a very
+[219.5] clear attack strategy. And now you're
+[221.3] just going through and you're spending
+[222.6] your time testing to see whether or not
+[224.6] the the developers and the company
+[226.9] itself have implemented the security
+[229.9] controls in the correct way. And then
+[232.1] once you find a failure in those
+[233.4] security controls going say oh that
+[235.0] access control check is not working or
+[237.2] that you know they're accepting this
+[239.1] ooth you know token where they shouldn't
+[241.0] be using it or the scope is not right or
+[242.8] this curve token doesn't work or this
+[244.3] course right it it all leads back to
+[246.2] this initial attack plan that you have
+[247.6] and you can see okay this specific
+[249.2] security control failed now I know that
+[251.5] this attack path is possible and you can
+[253.4] start building that out and that will
+[254.7] eventually become your uh your your
+[257.3] report right the the bug that you
+[258.8] submit. Um, so yeah, so you've got the
+[260.7] uh the title screen here, right? We're
+[262.0] looking at threat modeling for bug
+[263.4] bounty hunting. This is a process uh
+[265.5] methodology for moving from recon to
+[268.2] manual testing. And it says threat
+[270.2] modeling is a disciplined way to stop
+[273.2] drifting between random tests and
+[275.4] instead you're going to focus your time
+[277.0] on attacks that have a real chance of
+[279.4] succeeding based on how the system
+[282.1] actually works. Right? So let's go ahead
+[284.7] and move on. It would help if I clicked
+[287.0] on the thing there. That always happens.
+[288.9] [snorts] Um, all right. So, let's talk
+[290.8] about what threat modeling is to begin.
+[293.7] And again, it's a it's a very
+[295.0] wellestablished process. Threat modeling
+[297.3] is something that if you ever worked on
+[298.8] a blue team or worked on an application
+[301.1] security team, this is a core part of
+[303.8] our process, you know, and again, that's
+[305.5] where I really come from from the blue
+[306.9] team side. Um when a company and when
+[311.5] the developers and the product team
+[312.8] within that company start to build a new
+[315.8] mechanism within an application or a new
+[317.9] component of an application or a whole
+[319.5] new application itself and they go
+[321.3] through and they have the architecture
+[322.8] and there's a general idea of what the
+[324.4] application is going to do, how it's
+[325.7] going to work etc. Then the developers
+[330.1] and the product team and and everybody
+[332.2] involved on that engineering side are
+[333.8] going to sit down with the application
+[336.5] security team and probably the
+[338.1] operations, right? Anybody who's uh in
+[340.0] charge of the the cloud infrastructure,
+[342.3] all that and they're going to go through
+[344.7] this threat modeling process. And what
+[347.1] we are doing here is we're recreating
+[349.2] that process, but as an attacker, we're
+[351.8] going to we're going to do the same
+[352.7] thing where we go through our recon. We
+[355.0] identify the information that we need
+[356.6] just like the blue team would have it
+[357.8] would be provided by the engineers and
+[359.7] then we're going to sit there and go
+[361.1] through a systematic way to say how
+[363.0] would an attacker approach this. What
+[365.1] can attacker actually do and what can
+[368.1] they not do? And then all of that is
+[370.3] going to be mapped to an actual testing
+[372.2] plan, right? a threat profile which will
+[373.8] map to a testing plan that we can use to
+[376.2] go through and say okay because of this
+[379.2] technology and we know that this is
+[381.4] possible because this mechanism does
+[382.9] this and it's accessing this object and
+[384.6] we have these security controls we know
+[386.4] that if these things fail then we're
+[388.6] going to have a viable attack path. So
+[390.9] that's the process of threat modeling
+[392.5] here. So threat model is the bridge
+[394.6] between passive recon and intentional
+[397.0] manual testing. It helps you stop
+[399.4] guessing and start testing with a
+[401.6] purpose. Right? It's a disciplined way
+[403.2] to stop drifting between random tests
+[404.8] and instead focus your time on attacks
+[407.2] that have a real chance of succeeding
+[409.8] based on how the system actually works,
+[412.6] right? And it's um you know, I have a
+[415.4] couple different bullet points here just
+[416.5] to identify it, right? You want to
+[417.8] eliminate that random testing and and I
+[419.8] see this all the time, right? And again,
+[421.0] I see it at different levels, right? You
+[422.4] get through the recon and then people
+[423.7] just start throwing active scans at
+[425.4] different places. they have techniques
+[427.7] and things that they found that have
+[429.0] worked before and so they'll just take
+[430.4] that and move it over and throw it at a
+[432.0] different application. That's not what
+[433.5] we're going to do. We're going to take a
+[434.8] step back. We're going to understand the
+[436.6] application, understand what's really
+[438.1] possible and then we're going to use
+[439.8] that information to build an attack plan
+[441.5] out of all the possible attacks that
+[443.8] that would be possible. You know, and
+[445.7] this is something where I always talk
+[446.9] about, you know, learning each one of
+[448.6] the attacks is like putting a tool in
+[450.1] your tool belt. So at this point, the
+[452.2] more tools that you have in your tool
+[453.4] belt, the more opportunities you're
+[455.7] going to be able to identify, the more
+[457.0] real world attacks that you're going to
+[458.3] be able to map to this threat profile.
+[460.6] And as I go through this uh this slide
+[462.8] deck and the methodology,
+[465.4] I'm going to be identifying where AI can
+[468.7] come into play as well because and
+[470.7] remember, it's AI is more about it's
+[473.0] almost like a rubber duck, right? Don't
+[474.3] don't rely on everything that it says.
+[476.0] take everything with a grain of salt,
+[477.1] but it can be a great way to help you,
+[479.0] especially in the beginning, start to to
+[481.8] map the information that you're
+[483.1] gathering to specific threats and then
+[485.4] mapping those threats to specific
+[487.4] attacks. Um, because this is a muscle
+[490.2] that you're going to develop over time.
+[492.2] It's not something that you can just sit
+[493.8] here and learn and do overnight and
+[495.6] you're going to be an expert. This is
+[496.7] something I've been doing this for close
+[497.9] to 15 years now and it is a it's
+[501.0] something that becomes a a core part of
+[504.3] the the value that a company gets when
+[506.5] they hire on an experienced uh you know
+[509.0] security engineer and experienced
+[510.6] application security product security uh
+[513.6] practitioner anything like that right
+[515.3] it's they they have gone through this
+[517.4] process so many times with so many
+[519.2] different applications and so many
+[520.5] different use cases they've identified
+[522.9] what vulnerabilities can come from that
+[525.1] can come from the different
+[526.2] functionality and the different
+[527.3] mechanisms and they've also seen where
+[530.9] they've missed things in the past that
+[533.6] have ultimately led to vulnerabilities
+[535.5] later that have gotten into production.
+[537.0] So all of this again going back it's
+[539.0] it's a muscle. It's something that you
+[540.6] have to exercise, something that yo

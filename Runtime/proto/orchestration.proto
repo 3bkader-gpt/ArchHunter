@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package runtime.orchestration;
+option go_package = "github.com/hacker/runtime/proto/orchestration";
+
+import "google/protobuf/timestamp.proto";
+
+enum LifecycleState {
+  INITIALIZING = 0;
+  STREAMING = 1;
+  CONVERGING = 2;
+  HIBERNATING = 3;
+  ERROR = 4;
+}
+
+message ReplaySession {
+  string session_id = 1;
+  int64 start_sequence = 2;
+  int64 end_sequence = 3;
+  float replay_speed = 4;
+}
+
+message IngestionEvent {
+  string signal_id = 1;
+  google.protobuf.Timestamp timestamp = 2;
+  string source = 3;
+}
+
+message GraphUpdateEvent {
+  string delta_id = 1;
+  int32 nodes_affected = 2;
+}
+
+message RuntimeStatus {
+  string session_id = 1;
+  LifecycleState state = 2;
+  int64 event_count = 3;
+  float confidence_average = 4;
+}
+
+service OrchestrationCore {
+  rpc StartSession(SessionConfig) returns (RuntimeStatus);
+  rpc StopSession(SessionRequest) returns (RuntimeStatus);
+  rpc GetStatus(SessionRequest) returns (RuntimeStatus);
+  rpc TriggerReplay(ReplaySession) returns (stream RuntimeStatus);
+}
+
+message SessionRequest {
+  string session_id = 1;
+}
+
+message SessionConfig {
+  string session_id = 1;
+  map<string, string> environment_params = 2;
+}

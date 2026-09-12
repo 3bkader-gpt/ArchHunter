@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package runtime.reasoning;
+option go_package = "github.com/hacker/runtime/proto/reasoning";
+
+import "proto/graph.proto";
+import "proto/hypothesis.proto";
+
+message InferenceTask {
+  string task_id = 1;
+  string session_id = 2;
+  runtime.graph.GraphSnapshot sub_graph = 3;
+  map<string, string> parameters = 4;
+}
+
+message InferenceResult {
+  string task_id = 1;
+  repeated runtime.hypothesis.AttackHypothesis hypotheses = 2;
+  repeated ConfidenceRefinement confidence_updates = 3;
+  string reasoning_trace = 4;
+}
+
+message ConfidenceRefinement {
+  string target_id = 1; // Node or Edge ID
+  float adjustment = 2;
+  string rationale = 3;
+}
+
+service ReasoningWorker {
+  rpc Infer(InferenceTask) returns (InferenceResult);
+  rpc AnalyzeTopology(runtime.graph.GraphSnapshot) returns (InferenceResult);
+}
+
+service ConfidenceEngine {
+  rpc Refine(ConfidenceRefinementRequest) returns (InferenceResult);
+}
+
+message ConfidenceRefinementRequest {
+  string entity_id = 1;
+  repeated string related_evidence_ids = 2;
+}

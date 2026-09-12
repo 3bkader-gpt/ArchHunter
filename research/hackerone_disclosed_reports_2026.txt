@@ -1,0 +1,199 @@
+https://hackerone.com/reports/3804525 | Vulnerability Report: Buffer Overflow in Path Sanitization | 16 Jun 2026
+https://hackerone.com/reports/3611837 | Unauthenticated file deletion via deleteFileMessage DDP method allows permanent destruction of any uploaded file | 16 Jun 2026
+https://hackerone.com/reports/3701692 | Malicious Conflux Endpoint Can Leave Stale Global OOO Queue Accounting After Teardown | 16 Jun 2026
+https://hackerone.com/reports/3687142 | Unauthenticated reading of every file via livechat auth and predicting MongoDB ObjectId() | 15 Jun 2026
+https://hackerone.com/reports/3664261 | Reflected Cross-Site Scripting (XSS) found on IBM.com domain | 15 Jun 2026
+https://hackerone.com/reports/3793495 | Incomplete Suppression of  Transfer-Encoding: chunked Header in HTTP/2 After Redirect From HTTP/1.1 | 15 Jun 2026
+https://hackerone.com/reports/3803415 |  Secure cookies leaked to HTTP origins through HTTPS forwarding proxy | 15 Jun 2026
+https://hackerone.com/reports/3717354 | UI Consent Bypass via Comma Injection in `addAutoApproveTarget`  User-Approval Dialog and Persistence Layer Disagree on Target Scope, Yielding Authen | 15 Jun 2026
+https://hackerone.com/reports/3712279 | Burp Suite Professional: browser-powered crawl can write attacker-controlled files through file input handling | 14 Jun 2026
+https://hackerone.com/reports/3795615 | Duplicate chunked Transfer-Encoding lets a malicious origin smuggle a response across reused HTTP proxy connections | 13 Jun 2026
+https://hackerone.com/reports/3781015 |  Incomplete Fix for CVE-2026-21637: OCSPRequest and resumeSession Events Crash Node.js TLS Server via Unhandled Synchronous Exceptions | 12 Jun 2026
+https://hackerone.com/reports/3558713 | Command Injection via Unsanitized Bundling Options in `aws-cdk-lib/aws-lambda-nodejs` | 11 Jun 2026
+https://hackerone.com/reports/3738654 |  Firecracker Out-of-bounds Read/Write Local Privilege Escalation Vulnerability | 11 Jun 2026
+https://hackerone.com/reports/3741744 | CRLF Injection via Custom HTTP Headers | 11 Jun 2026
+https://hackerone.com/reports/3774279 | heap-use-after-free in state.referer when CURLOPT_REFERER replaced or cleared after perform | 11 Jun 2026
+https://hackerone.com/reports/3619288 | RCE + PAT Exfiltration via pull_request_target in privacy-configuration/auto-respond-pr.yml  Direct Supply Chain to All DDG Browsers | 11 Jun 2026
+https://hackerone.com/reports/3619287 | RCE + Supply Chain Attack via pull_request_target in content-scope-scripts/semver-label.yml  Affects All DuckDuckGo Browsers | 11 Jun 2026
+https://hackerone.com/reports/3383079 | SSRF via Improper Redirect Validation in Rocket.Chat oEmbed Function | 11 Jun 2026
+https://hackerone.com/reports/3393664 | SSRF via improper validation after DNS name resolution in the link-preview feature | 11 Jun 2026
+https://hackerone.com/reports/3791168 | curl-ipv4-percent-normalization-SSRF | 10 Jun 2026
+https://hackerone.com/reports/3791191 | Trailing-Dot Hostname in Redirect Silently Strips Client Certificate and Auth Credentials | 10 Jun 2026
+https://hackerone.com/reports/1826392 | curl/libcurl vulnerable to TLS truncation attacks | 10 Jun 2026
+https://hackerone.com/reports/3788506 | SSH/SFTP connection reuse can bypass SSH key identity after ssh_config_matches removal | 09 Jun 2026
+https://hackerone.com/reports/3786077 | SOCKS5 no-auth accepted despite username/password-only authentication | 09 Jun 2026
+https://hackerone.com/reports/2389431 | Action Text ReDoS (Ruby 3.1  or lower) | 09 Jun 2026
+https://hackerone.com/reports/3785919 | libcurl: HTTP/1.x bare LF byte in response header value enables cookie jar pollution and POST body/credential exfiltration via redirect  RC=0, curl 8 | 08 Jun 2026
+https://hackerone.com/reports/3780733 | DNS domain search list followed for extant domain missing A or AAAA records | 08 Jun 2026
+https://hackerone.com/reports/3781305 | OpenSSL TLS 1.2 session resumption accepts expired server certificates in libcurl | 07 Jun 2026
+https://hackerone.com/reports/3749428 | curl cross-origin HTTPS redirect reuses TLS client certificate for unintended second-origin mTLS authentication | 07 Jun 2026
+https://hackerone.com/reports/3766392 | curl External-Controlled Filename in `--url @file` Leads to Arbitrary File Overwrite | 07 Jun 2026
+https://hackerone.com/reports/3483708 | Valid share tokens allow to access tempory upload files of share owner | 07 Jun 2026
+https://hackerone.com/reports/3489490 | Authentication Bypass in ID4me handling via Missing JWT Signature Verification in User OIDC | 07 Jun 2026
+https://hackerone.com/reports/3625210 | PIN bypass in PassCodeActivity via back button | 07 Jun 2026
+https://hackerone.com/reports/3784125 | GnuTLS OCSP stapling accepts unrelated SingleResponse (no cert-ID binding) | 05 Jun 2026
+https://hackerone.com/reports/3717552 | CURLOPT_PROXY_CRLFILE / CURLOPT_PROXY_ISSUERCERT / CURLOPT_PROXY_ISSUERCERT_BLOB silently ignored on backends that don't support them | 05 Jun 2026
+https://hackerone.com/reports/3718265 | Shared HSTS cache accessed without lock | 05 Jun 2026
+https://hackerone.com/reports/3776535 | RTSP Digest auth state leaks across origins on reused libcurl easy handle | 05 Jun 2026
+https://hackerone.com/reports/3776433 | TFTP upload ignores --continue-at / CURLOPT_RESUME_FROM and leaks skipped local file prefix | 05 Jun 2026
+https://hackerone.com/reports/3774977 | libcurl 8.20.0 ignores HTTP Digest domain protection space and preemptively leaks Digest auth outside the declared scope | 05 Jun 2026
+https://hackerone.com/reports/3766065 | CURLOPT_COOKIE leaked to cross-origin redirect target  CURLOPT_UNRESTRICTED_AUTH bypass for the STRING_COOKIE path | 05 Jun 2026
+https://hackerone.com/reports/3650504 | Missing access control when linking banners or campaigns to zones  | 03 Jun 2026
+https://hackerone.com/reports/3650582 | Missing access control when linking trackers to campaigns | 03 Jun 2026
+https://hackerone.com/reports/3653196 | Blind SQL injection via clientid parameter in zoneinclude.php | 03 Jun 2026
+https://hackerone.com/reports/3653316 | Reflected XSS via clientid parameter in zoneinclude.php | 03 Jun 2026
+https://hackerone.com/reports/3656781 | PHP code injection via delivery limitation logical  | 03 Jun 2026
+https://hackerone.com/reports/3669623 | Stored XSS via Full Name field in userlog email entries | 03 Jun 2026
+https://hackerone.com/reports/3672641 | Session ID reuse allowing XMLRPC API authentication bypass | 03 Jun 2026
+https://hackerone.com/reports/3677576 | Missing access control when modifying parent entities via XMLRPC | 03 Jun 2026
+https://hackerone.com/reports/3678828 | Banner status override by advertiserlevel users | 03 Jun 2026
+https://hackerone.com/reports/3680090 | Stored XSS via malicious usernames in audit log details + Username validation bypass in XMLRPC addUser  | 03 Jun 2026
+https://hackerone.com/reports/3744200 | PHP code injection via unexpected delivery limitation parameter | 03 Jun 2026
+https://hackerone.com/reports/3777381 | PRE_PROXY change leaks stale Proxy Digest state across proxy-chain boundary | 03 Jun 2026
+https://hackerone.com/reports/3773293 | curl/libcurl 8.20.0 NOPROXY bypass via uppercase-hex IPv4 aliases leaks off-proxy Basic credentials to the configured proxy | 03 Jun 2026
+https://hackerone.com/reports/3770979 | SMTP connection reuse ignores --ssl-reqd / CURLOPT_USE_SSL and reuses a clear-text STARTTLS session on current master | 03 Jun 2026
+https://hackerone.com/reports/3767963 | Proxy CONNECT response poisoning via authentication retry in cf-h1-proxy.c (libcurl) | 03 Jun 2026
+https://hackerone.com/reports/3775183 | Incomplete fix for CVE-2022-35406: meta-redirect content-type check bypassable via parameter injection | 02 Jun 2026
+https://hackerone.com/reports/3423013 | page.line.me Open Redirect Leading to OAuth Authorization Code Exposure and Access Token Compromise | 02 Jun 2026
+https://hackerone.com/reports/3697491 | Missing HMAC validation on /uninstall webhook in Shopify/sample-django-app reference template | 01 Jun 2026
+https://hackerone.com/reports/3761789 | Mentioned unites are at the same time .Then we have to increase the bounty. | 01 Jun 2026
+https://hackerone.com/reports/3761647 | TLS conn reuse and session cache ignore fsslctx callback and ssl_config_data flags ( incomplete fix variant of 7541ae569 ) | 01 Jun 2026
+https://hackerone.com/reports/3756699 | lib/ldap.c follows attacker-controlled LDAP referrals and binds to a second server; WinLDAP builds leak current logon credentials (confirmed on Window | 01 Jun 2026
+https://hackerone.com/reports/3751701 | Use-after-free in `curl_easy_duphandle()` with HTTP/2 stream-dependency tree | 01 Jun 2026
+https://hackerone.com/reports/3769293 | Low priority HSTS bypass in curl_easy_duphandle() | 01 Jun 2026
+https://hackerone.com/reports/3608558 | Blind POST SSRF via Web Push Notification Endpoint | 30 May 2026
+https://hackerone.com/reports/3620748 | V1Plugin.Decrypt panics on empty ciphertext (Remote DoS) | 28 May 2026
+https://hackerone.com/reports/3620753 | V2Plugin.Decrypt panics on empty ciphertext (Remote DoS) | 28 May 2026
+https://hackerone.com/reports/3693295 | iOS Brave Playlist "Open in Private Tab" bypasses FaceID requirement for Private Tabs | 28 May 2026
+https://hackerone.com/reports/3751715 | Heap-OOB read in urlapi `redirect_url()` via `CURLU_GUESS_SCHEME` + `CURLU_NO_GUESS_SCHEME` flow | 25 May 2026
+https://hackerone.com/reports/3752567 | curl GnuTLS backend accepts a clientAuth-only certificate for HTTPS server authentication | 25 May 2026
+https://hackerone.com/reports/3734326 | Autotranslate DDP Method Exposes Private Messages Without Authentication or Room Access Check | 25 May 2026
+https://hackerone.com/reports/3736889 | NULL pointer dereference in node:sqlite DatabaseSync#applyChangeset() via malformed SQLite changeset | 23 May 2026
+https://hackerone.com/reports/3752489 | Memory Corruption via TOCTOU Race in SharedArrayBuffer UTF-8 Decode (`StringBytes::Encode`) | 23 May 2026
+https://hackerone.com/reports/3572848 | Group restriction bypass via bearer token in user_oidc (SETTING_RESTRICT_LOGIN_TO_GROUPS not enforced in Backend::getCurrentUserId) | 21 May 2026
+https://hackerone.com/reports/3747959 | curl --skip-existing has a TOCTOU race that lets a post-check symlink redirect the later download write | 20 May 2026
+https://hackerone.com/reports/3733946 | Credentials forwarded to HTTP after HTTPSHTTP same-port redirect  url_set_data_creds uses scheme-blind comparator | 20 May 2026
+https://hackerone.com/reports/3676308 | POST /api/bitcoinWithdrawalFees returns financial data without authentication despite being documented as a USER OPERATION (private endpoint) | 20 May 2026
+https://hackerone.com/reports/3670955 | HMAC signature verification omits endpoint and payload allowing request forgery on CoinMate API | 20 May 2026
+https://hackerone.com/reports/3734947 | HTTP/3 paused transfer buffers incoming data without bound up to ~1 GiB | 19 May 2026
+https://hackerone.com/reports/3734992 | Schannel custom-CA path skips Extended Key Usage enforcement | 19 May 2026
+https://hackerone.com/reports/3741135 | Connection reuse ignores haproxyprotocol and HAPROXY_CLIENT_IP settings, allowing PROXY context to persist across transfers | 19 May 2026
+https://hackerone.com/reports/3739561 | SSL session-cache peer key omits signature_algorithms: strict-sigalg handle silently resumes a permissive sibling's session | 19 May 2026
+https://hackerone.com/reports/3735179 | CURLOPT_PROXY_CAINFO_BLOB silently activates native CA store on Apple builds | 19 May 2026
+https://hackerone.com/reports/3735276 | TLS peer-verification bypass via mid-transfer ssl_config mutation | 19 May 2026
+https://hackerone.com/reports/3734095 | TLS verifyhost bypass in rustls, mbedTLS, and wolfSSL when verifypeer=0 | 19 May 2026
+https://hackerone.com/reports/3734020 | HTTP/2 proxy CONNECT tunnel unbounded 1xx chain (missing Curl_bump_headersize cap in cf-h2-proxy.c) | 19 May 2026
+https://hackerone.com/reports/3560256 | Cross-repository IDOR in `/settings/security_analysis/bypass_reviewers` allows unauthorized delegated bypass reviewer modification | 19 May 2026
+https://hackerone.com/reports/3733934 | CURLOPT_HSTS_CTRL disables shared HSTS without share guard  use-after-free and double-free | 18 May 2026
+https://hackerone.com/reports/3735238 | cookie: case-insensitive path comparison in replace_existing() allows cookie eviction across distinct paths | 18 May 2026
+https://hackerone.com/reports/3735080 | libssh SFTP initialization ignores CURLOPT_TIMEOUT, hangs indefinitely | 18 May 2026
+https://hackerone.com/reports/3734935 | rustls backend silently ignores CURLOPT_CRLFILE when native CA store is active | 18 May 2026
+https://hackerone.com/reports/3733984 | HSTS multi-trailing-dot bypass-ish: possible incomplete fix for CVE-2022-30115 | 18 May 2026
+https://hackerone.com/reports/3589247 | Unauthenticated File Upload to CDN | 18 May 2026
+https://hackerone.com/reports/3713682 | IDOR: autotranslate.translateMessage Full Message Content Leak | 18 May 2026
+https://hackerone.com/reports/3734921 | Trailing-dot IPv4 URL bypasses IP-address guard, allows wildcard DNS SAN match | 17 May 2026
+https://hackerone.com/reports/3736234 | NULL pointer dereference in libcurl URL API redirect_url() with CURLU_DEFAULT_SCHEME | 17 May 2026
+https://hackerone.com/reports/3462991 | SQL Injection in Column Type Parameter Allows Arbitrary SQL Execution | 15 May 2026
+https://hackerone.com/reports/1821085 | Origin IP Exposed waf bypass | 14 May 2026
+https://hackerone.com/reports/3725659 | Kerberos/SPNEGO Connection Reuse Vulnerability | 14 May 2026
+https://hackerone.com/reports/3577145 | QuickSight Authorization Bypass: Chat Agents Accessible Despite Custom Permissions Denial | 12 May 2026
+https://hackerone.com/reports/3723002 | another liberapay member team twitter account broken Link Hijacking via Expired Twitter Account Link | 09 May 2026
+https://hackerone.com/reports/3721519 | Liberapay member team twitter account broken Link Hijacking via Expired Twitter Account Link | 09 May 2026
+https://hackerone.com/reports/3511998 | Private circle can be added to another circle via API despite visibility restriction | 08 May 2026
+https://hackerone.com/reports/3304830 | Files drop share links for end-to-end encrypted folders allowed to drop files into other folders of the share owner  | 08 May 2026
+https://hackerone.com/reports/3521434 | View-only guests could see deleted Collectives pages in the trashbin | 08 May 2026
+https://hackerone.com/reports/3717365 | mbedTLS private-key blob null-termination asymmetry in lib/vtls/mbedtls.c (mbed_load_privkey) | 07 May 2026
+https://hackerone.com/reports/3580511 | ActiveStorage Disk Service Path Traversal via Custom Blob Key Injection | 07 May 2026
+https://hackerone.com/reports/3307874 | Critical Deadlock Vulnerability in Monero RPC Leading to Complete Node Paralysis | 06 May 2026
+https://hackerone.com/reports/3185083 | Connection Count Bug in Monero Node Enables Outbound Peer Reset Attack | 06 May 2026
+https://hackerone.com/reports/3708482 | wcurl treats some URL operands after -- as curl options | 06 May 2026
+https://hackerone.com/reports/3625600 | Out of scope: Improper Input Validation Order on /api-internal/login via password field leads to unnecessary resource consumption | 05 May 2026
+https://hackerone.com/reports/3710209 | Potential Resource Leak in tool_parsecfg.c at line 279 during fileerror | 05 May 2026
+https://hackerone.com/reports/3707747 | libcurl 8.20.0 incomplete fix for CVE-2026-7168: changing only CURLOPT_PROXYPORT leaks stale Proxy Digest auth to a different proxy | 05 May 2026
+https://hackerone.com/reports/3712343 | MQTT CONNACK Packet Type Bypass leads to RCE via Malicious Broker | 05 May 2026
+https://hackerone.com/reports/3399016 | Improper input validation On Exported deep-link handler crashes `FileDisplayActivity` on crafted external URL  Denial-of-Service | 01 May 2026
+https://hackerone.com/reports/3320669 | Double fdrop on a socket through sys_netcontrol | 01 May 2026
+https://hackerone.com/reports/3702718 | MQTT state machine confusion: PINGRESP/DISCONNECT with non-zero remaining_length dispatches to stale nextstate | 29 Apr 2026
+https://hackerone.com/reports/3591956 | Use-After-Free in SMB connection reuse (req->path dangling pointer after needle destruction) | 29 Apr 2026
+https://hackerone.com/reports/3646072 | Negotiate connection reuse with wrong credentials when using CURLAUTH_ANY                                         | 29 Apr 2026
+https://hackerone.com/reports/3666576 | Negotiate Authentication Premature on Connection Reuse | 29 Apr 2026
+https://hackerone.com/reports/3697719 | CVE-2026-7168: cross-proxy Digest auth state leak | 29 Apr 2026
+https://hackerone.com/reports/3694390 | CVE-2026-7009: OCSP stapling bypass with Apple SecTrust | 29 Apr 2026
+https://hackerone.com/reports/3669637 | CVE-2026-6253: proxy credentials leak over redirect-to proxy | 29 Apr 2026
+https://hackerone.com/reports/3642555 | CVE-2026-5545: wrong reuse of HTTP Negotiate connection | 29 Apr 2026
+https://hackerone.com/reports/3671818 | CVE-2026-6276: stale custom cookie host causes cookie leak | 29 Apr 2026
+https://hackerone.com/reports/3677759 | CVE-2026-6429: netrc credential leak with reused proxy connection | 29 Apr 2026
+https://hackerone.com/reports/3621851 | CVE-2026-4873: connection reuse ignores TLS requirement | 29 Apr 2026
+https://hackerone.com/reports/3650689 | CVE-2026-5773: wrong reuse of SMB connection | 29 Apr 2026
+https://hackerone.com/reports/3682666 | Use-after-free in `curl_easy_ssls_export()` during callback re-entrancy | 29 Apr 2026
+https://hackerone.com/reports/3684614 | Heap-buffer-overflow in `Curl_ssl_push_certinfo_len()`  sole bounds check is `DEBUGASSERT` | 29 Apr 2026
+https://hackerone.com/reports/3684603 | Stack exhaustion in MIME multipart reading with deeply nested subparts | 29 Apr 2026
+https://hackerone.com/reports/3452696 | PS4 BD-J privilege escalation using nested JAR | 29 Apr 2026
+https://hackerone.com/reports/3340797 | IBM Aspera HTTP Gateway stores sensitive information in clear text in easily obtainable files which can be read by an unauthenticated user. | 27 Apr 2026
+https://hackerone.com/reports/3279441 | Bypass of Restricted Keyword "Mozilla" in Display Name Field via Unicode Homoglyphs on addons.allizom.org | 27 Apr 2026
+https://hackerone.com/reports/3100570 | Bypassing Inbox Privacy Settings and Enabling Spam on Pixiv.net | 27 Apr 2026
+https://hackerone.com/reports/3183520 | Non-premium user can disable Ads in japanese version of dic.pixiv.net | 27 Apr 2026
+https://hackerone.com/reports/3518571 | Argument Injection in /manage/ssh/ via host parameter leads to sensitive file disclosure on Weblate | 26 Apr 2026
+https://hackerone.com/reports/3679660 | mruby-engine: UAF in MRubyEngine#initialize enables local RCE | 24 Apr 2026
+https://hackerone.com/reports/3556769 | Incomplete fix for CVE-2026-21637: loadSNI() in _tls_wrap.js lacks try/catch leading to Remote DoS | 23 Apr 2026
+https://hackerone.com/reports/3589551 | RBAC bypass on App log endpoints via `permissionRequired` typo  any authenticated user reads admin-only Enterprise App logs | 23 Apr 2026
+https://hackerone.com/reports/3564655 | Complete authentication bypass to admin permissions | 22 Apr 2026
+https://hackerone.com/reports/3486747 | SVG filter primitives bypass remote image blocking, enabling email tracking without consent. | 20 Apr 2026
+https://hackerone.com/reports/3590586 | position: fixed !important bypasses CSS sanitizer's fixed-position mitigation, enabling full-viewport phishing overlays. | 20 Apr 2026
+https://hackerone.com/reports/3590583 | Unquoted body background attribute enables CSS injection that bypasses remote image blocking | 20 Apr 2026
+https://hackerone.com/reports/3590576 | SMIL values and by attributes bypass remote image blocking via unvalidated resource-loading animations, enabling email tracking without consent | 20 Apr 2026
+https://hackerone.com/reports/3680680 | libcurl omits IPv6 zoneid from host identity and leaks credentials/cookies across scoped link-local realms | 19 Apr 2026
+https://hackerone.com/reports/3680038 | Digest Auth State Leak on Cross-Origin Redirect via Netrc - Username and Password Hash Sent to Wrong Host | 19 Apr 2026
+https://hackerone.com/reports/3594137 | Stored XSS in attachment-display exploitable through SameSite | 19 Apr 2026
+https://hackerone.com/reports/3680234 | libcurl reuses a learned RTSP Session header across different hosts on the same easy handle, enabling cross-host session leak and replay | 18 Apr 2026
+https://hackerone.com/reports/3601655 | Rails::HTML::Sanitizer.allowed_uri? returns true for entity-encoded control-character-split javascript: URLs | 18 Apr 2026
+https://hackerone.com/reports/3673277 | libcurl stale CURLOPT_AUTOREFERER leaks a previous request URL to a different origin on a reused easy handle | 17 Apr 2026
+https://hackerone.com/reports/3168691 | Residual Malicious Payloads on HackerOne after Vulnerability Fixes | 16 Apr 2026
+https://hackerone.com/reports/3287208 | DOS via Mutation Aliasing in GraphQL Account Recovery Phone Number Verification API | 16 Apr 2026
+https://hackerone.com/reports/3674275 | lib/http2.c: SSL connections accept non-HTTP push schemes (incomplete fix for 2e8c922a) | 16 Apr 2026
+https://hackerone.com/reports/3642600 | Authorization header leak in ssrf_filter via cross-host redirect leads to credential theft and unauthorized access | 15 Apr 2026
+https://hackerone.com/reports/3591725 | SQL Injection Detection Bypass in AWS WAF Managed Rules (AWSManagedRulesSQLiRuleSet) | 15 Apr 2026
+https://hackerone.com/reports/3608199 | DOM XSS in `fizzy.do` import filename preview enables one-click victim account takeover | 14 Apr 2026
+https://hackerone.com/reports/3543475 | Improper Access Control in `fizzy.do` import flow allows cross-tenant ActionText reference resolution and data disclosure | 14 Apr 2026
+https://hackerone.com/reports/3382343 | BOLA/IDOR in Out-of-Office API allows any authenticated user to read other users' absence data | 14 Apr 2026
+https://hackerone.com/reports/3423950 | [Variation of #3321406] YetAnother 1-Click Chaining of Self-XSS, Cookie Tossing and AntiCSRF Token Prediction leads to auto approval in AccessTempAuth | 14 Apr 2026
+https://hackerone.com/reports/3321406 | [Variation of #1554049] 1-Click Chaining of Self-XSS, Cookie Tossing and AntiCSRF Token Prediction leads to auto approval in Access Temp Auth | 14 Apr 2026
+https://hackerone.com/reports/3665151 | Brave Shields Domain Reordering Leads to Origin Confusion | 13 Apr 2026
+https://hackerone.com/reports/3400143 | Credential Disclosure via Unvalidated directDownloadUrl (Missing DontAddCredentialsAttribute) | 13 Apr 2026
+https://hackerone.com/reports/3669305 | Argument Injection via curl Short-Flag Grouping | 13 Apr 2026
+https://hackerone.com/reports/3665363 | Integer Overflow/Signedness Mismatch in Printf Precision for HTTP/2 Trailer Headers | 11 Apr 2026
+https://hackerone.com/reports/3620760 | Encryption context keys and values logged at INFO level | 10 Apr 2026
+https://hackerone.com/reports/3418031 | Open Redirect in Rocket.Chat | 10 Apr 2026
+https://hackerone.com/reports/3020021 | [Vertical Privilege Escalation] User can Unapproved any Approved Translation at [/translations/unapprove/] | 10 Apr 2026
+https://hackerone.com/reports/3325582 | User Can Delete Other Users' Personal Access Tokens at /delete-token/{token_id}/ on Mozilla Pontoon | 10 Apr 2026
+https://hackerone.com/reports/3079931 | Memory leak in gem decode logic can allow attacker to take down Rubygems.org application | 09 Apr 2026
+https://hackerone.com/reports/3658049 | libcurl: Integer truncation in curl_easy_ssls_import() causes TLS sessions to never expire | 09 Apr 2026
+https://hackerone.com/reports/909084 | wasResumeUsed  on /api-internal/api.htm endpoint leaking other user's resume usage status | 08 Apr 2026
+https://hackerone.com/reports/970763 | Account Takeover | 08 Apr 2026
+https://hackerone.com/reports/818094 | Open Redirect  | 08 Apr 2026
+https://hackerone.com/reports/3620761 | Health check errors silently dropped when channel buffer full | 07 Apr 2026
+https://hackerone.com/reports/3518758 | IDOR on  via direct photo URL leads to unauthorized access to deleted and other users' photos | 07 Apr 2026
+https://hackerone.com/reports/3650443 | no_proxy IDN mismatch: Unicode hostnames bypass proxy exclusion list | 07 Apr 2026
+https://hackerone.com/reports/3650473 | FTP entrypath accepts 0xFF (Telnet IAC) through incomplete ISCNTRL filter, sent on wire via CWD on connection reuse | 07 Apr 2026
+https://hackerone.com/reports/3650435 | Improper enforcement of CURLOPT_SOCKS5_AUTH due to missing reuse key validation in libcurl | 07 Apr 2026
+https://hackerone.com/reports/2516237 | Cross-Site Leakage of Review Ownership via Navigation Detection | 06 Apr 2026
+https://hackerone.com/reports/2682538 | eflected  Vulnerability in Glassdoor Blog earch | 06 Apr 2026
+https://hackerone.com/reports/1820146 | Full account takeover without user Interaction  | 06 Apr 2026
+https://hackerone.com/reports/3241102 | Reported Denial of Service | 06 Apr 2026
+https://hackerone.com/reports/3240792 | Reported RPC Overflow | 06 Apr 2026
+https://hackerone.com/reports/881118 | Unauthorized usage of External API Key (Usage of Google Maps API Key ==> $$$ | 06 Apr 2026
+https://hackerone.com/reports/3645415 | # SCURLOPT_SSH_KNOWNHOSTS and host fingerprint pins are silently bypassed when an SSH connection is reused from the connection pool | 06 Apr 2026
+https://hackerone.com/reports/3651975 | SMTP Command Injection via CRLF in libcurl MAIL_FROM / MAIL_RCPT (lib/smtp.c) | 06 Apr 2026
+https://hackerone.com/reports/3646914 | ignoring 'options' when doing connection reuse | 05 Apr 2026
+https://hackerone.com/reports/3645361 | Data race in Curl_dnscache_add_negative() corrupts shared DNS cache  heap corruption and double-free when using CURLOPT_SHARE with CURL_LOCK_DATA_DNS | 04 Apr 2026
+https://hackerone.com/reports/3648199 | Internal application wrapper or script using curl | 03 Apr 2026
+https://hackerone.com/reports/3640932 | Missing server identity policy enforcement in SSH connection reuse allows host key verification bypass via pool poisoning | 03 Apr 2026
+https://hackerone.com/reports/3641893 | Cookie attribute TAB injection regression in Set-Cookie parsing | 03 Apr 2026
+https://hackerone.com/reports/3639277 | Bypassing Strict SSH Server Verification via Connection Pool Reuse in libcurl | 31 Mar 2026
+https://hackerone.com/reports/3638715 | Use-After-Free race condition in url_move_hostname() via shared connection pool | 31 Mar 2026
+https://hackerone.com/reports/3355766 | DLL side-loading vulnerability in Sony Music Center for PC Ver. 2.7.2 (Latest version) | 31 Mar 2026
+https://hackerone.com/reports/3479692 | Unauthenticated SSRF via Public Reference API -Sharing Token Bypass | 31 Mar 2026
+https://hackerone.com/reports/3636244 | HackerOne Vulnerability Report: libcurl SSL/TLS Identity Leakage via Insecure Connection Reuse | 31 Mar 2026
+https://hackerone.com/reports/3636044 | HTTP/2 PUSH_PROMISE header loss on OOM bypasses scheme validation (regression of 2e8c922a89) | 31 Mar 2026
+https://hackerone.com/reports/3632427 | Unbounded GZIP Decompression Leading to Event-Loop Starvation | 31 Mar 2026
+https://hackerone.com/reports/3634400 | SSRF Filter Bypass via Unblocked NAT64 Local-Use IPv6 Prefix (64:ff9b:1::/48) | 31 Mar 2026
