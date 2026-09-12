@@ -1,4 +1,4 @@
-# 🛡️ Elite Bug Bounty Architectural Reasoning Engine
+# 🏛️ ArchHunter: Elite Offensive Architectural Reasoning Engine
 
 An advanced, mechanism-first offensive security reasoning system designed to identify high-impact vulnerabilities in complex distributed systems, cloud-native architectures, and modern web applications.
 
