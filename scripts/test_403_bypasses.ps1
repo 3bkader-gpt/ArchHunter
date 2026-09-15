@@ -40,6 +40,8 @@ Write-Host "==========================================================" -Foregro
 $handler = [System.Net.Http.HttpClientHandler]::new()
 $handler.ServerCertificateCustomValidationCallback = { $true }
 $handler.AllowAutoRedirect = $false
+# Force TLS 1.2 — some targets (e.g. jenkins-prod.mtn.ci) fail the default SChannel negotiation
+$handler.SslProtocols = [System.Security.Authentication.SslProtocols]::Tls12
 $client = [System.Net.Http.HttpClient]::new($handler)
 $client.Timeout = [TimeSpan]::FromSeconds($TimeoutSec)
 $client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
@@ -215,8 +217,8 @@ if ($Extended -and (Test-Path $Wordlist)) {
         if ($parts.Length -eq 2) {
             $hk = $parts[0].Trim()
             $hv = $parts[1].Trim()
-            Write-Host -NoNewline "`r[*] [$extCount/$($extHeaders.Count)] Testing: $hk: $hv"
-            Test-Payload -Category "Extended-Header" -Name "$hk: $hv" -Url $TargetUrl -Headers @{ $hk = $hv }
+            Write-Host -NoNewline "`r[*] [$extCount/$($extHeaders.Count)] Testing: ${hk}: $hv"
+            Test-Payload -Category "Extended-Header" -Name "${hk}: $hv" -Url $TargetUrl -Headers @{ $hk = $hv }
         }
     }
     Write-Host ""
