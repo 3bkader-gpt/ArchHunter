@@ -3,11 +3,26 @@
 > **Target Domain:** `example.com`  
 > **Engagement Date:** `YYYY-MM-DD`  
 > **Platform / Program:** `HackerOne / Intigriti / Bugcrowd`  
-> **Mandatory Header:** `X-HackerOne-Researcher: qalbaz_0x`
+> **Mandatory Header:** `X-HackerOne-Researcher: qalbaz_0x`  
+> **Attack Angle:** `[e.g., Mobile API v1 parity / GraphQL bulk mutations / S3 invoice PDF converter]`
 
 ---
 
-## 1. Scope & Rules of Engagement
+## 1. Scope, Gate & Rules of Engagement
+
+### 12-Point Target Gate Checklist:
+- [ ] 1. Registration verified with zero sales/corporate blockers.
+- [ ] 2. Reached high-value authenticated dashboard.
+- [ ] 3. Program actively resolved reports in the last 30–60 days.
+- [ ] 4. Reviewed public disclosed reports for common patterns.
+- [ ] 5. Specific, non-generic **Attack Angle** defined above.
+- [ ] 6. Mapped Object Movers (`import`, `export`, `clone`, `restore`).
+- [ ] 7. Mapped Money Movers (billing, checkout, credits, refunds).
+- [ ] 8. Mapped backend file/media/untrusted processors.
+- [ ] 9. Focused on Tier 1 mechanism classes (avoided scanner noise).
+- [ ] 10. Account A & B verified in distinct tenants.
+- [ ] 11. Mandatory researcher header active in proxy.
+- [ ] 12. 30–60 min initial triage completed with GO decision.
 
 ### In-Scope Assets
 - `*.example.com`
@@ -64,7 +79,19 @@
 
 ---
 
-## 5. Confirmed Findings (Ready for Report)
+## 5. Ruled-Out Hypotheses & Closed Attack Surfaces (Negatives Tracker)
+
+> **The Standing Discipline Rule:** *Write down negatives, not just findings.*  
+> Documenting validated secure controls prevents duplicate testing, saves 50% of research time, and builds an audit trail.
+
+| # | Endpoint / Feature | Role Tested | Test Performed & Payload | Observed Server Defense | Verdict |
+|---|---|---|---|---|---|
+| 1 | `GET /api/v1/admin/users` | Member (Org A) | Swapped bearer token to Member | Returned strict `403 Forbidden` with verified middleware check | `CLOSED` |
+| 2 | `POST /api/v1/checkout/apply_discount` | Member (Org A) | Replayed 20 concurrent requests (Race) | DB transaction lock held; coupon applied exactly once | `CLOSED` |
+
+---
+
+## 6. Confirmed Findings (Ready for Report)
 
 ### Finding #1: [TITLE]
 - **Vulnerability Class:** `Broken Object Level Authorization (BOLA)`

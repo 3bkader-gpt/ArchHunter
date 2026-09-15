@@ -64,27 +64,86 @@ Modern Single Page Applications (React, Angular, Vue, Next.js) embed backend rou
 cat recon/urls/ALL_URLS.txt | grep -iE '\.js(\?|$)' | anew recon/urls/js_files.txt
 katana -list recon/subs/alive_hosts.txt -jc -kf all -silent | grep -iE '\.js(\?|$)' | anew recon/urls/js_files.txt
 
-# B. Extract Hidden API Endpoints & Parameters (LinkFinder / Katana)
-cat recon/urls/js_files.txt | while read js_url; do
-    echo "[*] Scanning $js_url"
-    curl -s -k "$js_url" | grep -iEo '("https?://[^"]+"|"\/api\/[^"]+"|"\/v[0-9]\/[^"]+")' | tr -d '"' | anew recon/urls/js_extracted_endpoints.txt
+# B. Download Target JS Bundles to Local Disk for Offline Deep Regexing
+mkdir -p recon/js/
+cat recon/urls/js_files.txt | head -n 30 | while read url; do
+    filename=$(echo "$url" | awk -F/ '{print $NF}' | cut -d? -f1)
+    curl -s -L "$url" -o "recon/js/${filename:-bundle.js}"
 done
+```
 
+#### The 13-Pattern Targeted JavaScript Inspection Playbook:
+Run these 13 targeted regex queries against downloaded JS bundles (e.g. `main.js`) or using `./scripts/analyze_js_bundle.ps1`:
+
+| # | Objective | High-Precision Grep Command |
+|---|---|---|
+| 1 | **API Endpoints** | `grep -Eo '/api/[^"'\'' ]+' recon/js/*.js` |
+| 2 | **Full URLs** | `grep -Eo 'https?://[^"'\'' ]+' recon/js/*.js` |
+| 3 | **Route Keywords** | `grep -iE 'api\|endpoint\|route' recon/js/*.js` |
+| 4 | **Admin Controls** | `grep -iE 'admin\|administrator\|management' recon/js/*.js` |
+| 5 | **Auth & Registration** | `grep -iE 'login\|logout\|signin\|signup\|register\|auth' recon/js/*.js` |
+| 6 | **User & Identity** | `grep -iE 'user\|account\|profile\|settings' recon/js/*.js` |
+| 7 | **Object & ID Parameters** | `grep -iE 'id=\|userId\|user_id\|accountId\|redirect\|returnUrl' recon/js/*.js` |
+| 8 | **Legacy & Future API Versions** | `grep -Eo '/api/v[0-9]+[^"'\'' ]*' recon/js/*.js` |
+| 9 | **WebSocket Channels** | `grep -Ei 'ws://\|wss://\|websocket' recon/js/*.js` |
+| 10 | **Config & Sensitive Files** | `grep -Eoi '[/A-Za-z0-9_.-]+(php\|json\|xml\|config\|graphql)[^"'\'' ]*' recon/js/*.js` |
+| 11 | **GraphQL Operations** | `grep -iE 'graphql\|mutation\|query' recon/js/*.js` |
+| 12 | **Source Map Pointers** | `grep -Eo '[^"'\'' ]+\.map' recon/js/*.js` |
+| 13 | **Client HTTP Clients** | `grep -Ei 'fetch\(|axios|XMLHttpRequest' recon/js/*.js` |
+
+```bash
 # C. Secrets, Token & Key Extraction
 cat recon/urls/js_files.txt | while read url; do
     curl -s -k "$url" | grep -E -o "AIzaSy[A-Za-z0-9-_]{33}|amzn\.mws\.[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|AKIA[0-9A-Z]{16}|ey[A-Za-z0-9_-]{10,}\.ey[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}" | anew recon/loot/secrets.txt
 done
 
 # D. JavaScript Deobfuscation & Source Map Restoration (.js.map)
-# Check for accessible Source Maps (.js.map) to reconstruct original unminified TypeScript/React source code:
 cat recon/urls/js_files.txt | sed 's/\.js$/\.js\.map/' | httpx -sc -mc 200 -silent -o recon/urls/live_sourcemaps.txt
-
-# If sourcemaps exist, unpack the full project structure using sourcemapper / restore-source-tree:
+# If live source map is found, unpack using sourcemapper:
 # sourcemapper -url https://target.com/main.js.map -output recon/loot/source_tree/
 ```
 
+### 5. API Surface Mapping & Method Multiplexing (`api-list.txt`)
 
-### 5. Origin IP Discovery & WAF Bypass (Direct Host Probing)
+Transition from isolated URL clues to a comprehensive, weaponized API inventory:
+```
+[Burp Proxy Traffic]  +  [JS 13-Pattern Mining]  +  [Swagger/OpenAPI]  +  [Historical Archives]
+                                      │
+                                      ▼
+                        [recon/api/api-list.txt]
+                                      │
+                                      ▼
+                 [Method Multiplexing: GET, POST, PUT, PATCH, DELETE]
+```
+
+#### A. Constructing `api-list.txt`:
+Combine all discovered paths into a deduplicated list:
+```bash
+cat recon/urls/ALL_URLS.txt recon/urls/js_extracted_endpoints.txt | grep -E '^/api/|^https?://' | sort -u > recon/api/api-list.txt
+```
+
+#### B. HTTP Method Multiplexing:
+Never assume an endpoint only supports `GET`. Often, developers implement authorization middleware solely on `GET` or `POST`, while `PUT`, `PATCH`, or `DELETE` bypass authentication and allow unauthorized object modification:
+```bash
+# Test all 5 HTTP methods on target API endpoints:
+for ep in $(cat recon/api/api-list.txt); do
+    for method in GET POST PUT PATCH DELETE; do
+        curl -s -o /dev/null -w "%{http_code} $method $ep\n" -X "$method" "$ep" \
+             -H "X-HackerOne-Researcher: qalbaz_0x"
+    done
+done | grep -E '200|201|204|403|405' | tee recon/api/method_matrix.txt
+```
+
+#### C. API Priority Ranking:
+Prioritize manual audits on endpoints handling high-leverage business operations:
+1. `Admin & Permissions:` `/api/admin/users`, `/api/roles`, `/api/permissions`
+2. `User & Identity:` `/api/user/settings`, `/api/auth/password-reset`, `/api/tokens`
+3. `Financial & Billing:` `/api/billing`, `/api/checkout`, `/api/coupons`, `/api/refunds`
+4. `Object Movers:` `/api/export`, `/api/import`, `/api/clone`, `/api/restore`
+5. `Multi-Tenant Isolation:` `/api/orgs/{org_id}/members`, `/api/workspaces`
+
+
+### 6. Origin IP Discovery & WAF Bypass (Direct Host Probing)
 Identify backend origin IP addresses behind Cloudflare/Akamai/CloudFront to bypass WAF rules entirely.
 ```bash
 # A. Calculate Favicon MurmurHash3 and search Shodan / Censys
@@ -98,7 +157,7 @@ python3 -c "import mmh3, requests, codecs; r=requests.get('https://target.com/fa
 curl -s -k -H "Host: target.com" "https://<DISCOVERED_IP>" | grep -i "target.com"
 ```
 
-### 6. Domain-Tailored Backup & Sensitive Files Fuzzing
+### 7. Domain-Tailored Backup & Sensitive Files Fuzzing
 Fuzz for developer backups, exposed environment configs, and dangling source repositories generated during deployments.
 ```bash
 # Generate tailored dictionary based on target domain (e.g. target_backup.zip, target.sql, .env)
@@ -111,7 +170,7 @@ ffuf -u "https://target.com/FUZZ" \
 git-dumper https://target.com/.git/ recon/loot/dumped_git/
 ```
 
-### 7. OpenAPI, Swagger & GraphQL Schema Harvesting
+### 8. OpenAPI, Swagger & GraphQL Schema Harvesting
 Locate developer API schemas to discover undocumented internal endpoints and shadow parameters.
 ```bash
 # Fuzz for common API documentation and schema endpoints

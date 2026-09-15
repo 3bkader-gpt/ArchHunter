@@ -92,7 +92,21 @@ cat recon/subs/resolved_subs.txt recon/ips/open_ports.txt | httpx \
 cat recon/signals.jsonl | jq -r '.url' | sort -u > recon/subs/alive_hosts.txt
 ```
 
-### 9. Dangling CNAME & Subdomain Takeover Sweep
+### 9. Header Intelligence & Caching/CDN Fingerprinting
+Beyond basic status codes, inspect reverse-proxy, CDN routing, and caching behavior to identify candidates for Web Cache Poisoning, Cache Deception, or WAF evasion:
+```bash
+# Rapid CDN & Cache Header Probe:
+for h in $(cat recon/subs/alive_hosts.txt); do
+    echo "=== $h ==="
+    curl -sI -k "$h" | grep -Ei 'server|x-powered-by|x-.*-cache|cf-cache-status|x-varnish|via|age|content-security-policy|strict-transport-security'
+done | tee recon/fingerprint/header_intelligence.txt
+
+# Technology & WAF deep identification
+whatweb -i recon/subs/alive_hosts.txt --log-json=recon/fingerprint/whatweb.json
+wafw00f -i recon/subs/alive_hosts.txt -o recon/fingerprint/waf_results.txt
+```
+
+### 10. Dangling CNAME & Subdomain Takeover Sweep
 Audit all resolved subdomains for unclaimed cloud resources (AWS S3, GitHub Pages, Heroku, Azure, Shopify, Fastly):
 ```bash
 ./scripts/check_subdomain_takeover.sh target.com recon/subs/resolved_subs.txt

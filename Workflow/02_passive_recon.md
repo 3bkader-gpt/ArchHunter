@@ -21,6 +21,9 @@ Extract subdomains from historical TLS/SSL certificate logs (SANs) to uncover le
 ```bash
 # Query crt.sh JSON API and clean wildcard records
 curl -s "https://crt.sh/?q=%.target.com&output=json" | jq -r '.[].name_value' | sed 's/\*\.//g' | sort -u | anew recon/subs/passive_subs.txt
+
+# Certspotter CLI (CT stream events)
+certspotter-domain target.com | anew recon/subs/passive_subs.txt
 ```
 
 ### 3. Developer Repositories & Source Leaks
@@ -30,10 +33,25 @@ Scrape version control commits, pull requests, and public repositories for inter
 github-subdomains -d target.com -t $GITHUB_TOKEN | anew recon/subs/passive_subs.txt
 ```
 
-### 4. ASN & IP Range to Subdomain Discovery (Reverse DNS)
+### 4. Corporate Acquisitions & Investor Relations OSINT
+Newly acquired companies and subsidiaries frequently harbor obsolete, unpatched web infrastructure with shared corporate authentication:
+```bash
+# Google Dorks for Acquisitions & Subsidiary Mapping:
+"Target Company" acquisitions
+"Target Company" acquired companies
+"Target Company" investor relations
+"Target Company" acquisition history
+
+# GitHub Org Search for Acquired Products:
+"Target Company" acquisitions org:target
+```
+
+### 5. ASN & IP Range to Subdomain Discovery (Reverse DNS)
 Identify network boundaries and perform reverse DNS lookups on the target's Autonomous System (ASN) and CIDRs.
 ```bash
-# 1. Discover target ASNs and CIDRs
+# 1. Discover target ASNs and CIDRs via Amass Intel or ASNmap
+amass intel -org "Target Organization" | anew recon/ips/org_assets.txt
+amass intel -asn AS12345 | anew recon/ips/asn_assets.txt
 asnmap -d target.com -silent | tee recon/ips/asn_cidrs.txt
 
 # 2. Reverse DNS lookup across identified IP ranges
@@ -42,7 +60,7 @@ cat recon/ips/asn_cidrs.txt | hakrevdns -d | grep -i "target.com" | awk '{print 
 dnsx -ptr -resp-only -l recon/ips/asn_cidrs.txt | grep -i "target.com" | anew recon/subs/passive_subs.txt
 ```
 
-### 5. Client-Side Passive Mining (Burp JS Miner)
+### 6. Client-Side Passive Mining (Burp JS Miner)
 While proxying traffic through Burp Suite during normal application exploration:
 - Use **JS Miner** (Burp BApp) to automatically parse `.js` scripts, inline scripts, and source maps for hardcoded subdomains, hidden cloud buckets, and API endpoints.
 

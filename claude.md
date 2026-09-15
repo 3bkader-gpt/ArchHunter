@@ -83,6 +83,13 @@ X-HackerOne-Researcher: qalbaz_0x
    - Banned phrases: *"An attacker could..."*, *"This might allow..."*. Impact must be demonstrated in the PoC.
 4. **The "Scanner Noise" Filter:**
    - Missing headers without clickjacking on sensitive actions, missing SPF/DMARC without spoofing proof = Rejected.
+5. **The "Negative Control" Rule (Scientific Validation):**
+   - An uncaught exception or `500 Internal Server Error` is **NOT** proof of injection or vulnerability.
+   - Every claim requires a control test: Original baseline $\rightarrow$ Condition TRUE $\rightarrow$ Condition FALSE.
+   - If the FALSE condition does not consistently and logically differ from the TRUE condition, the lead is immediately rejected.
+6. **The "Same Root Cause" Rule (Duplicate Shield):**
+   - Same underlying root cause = Same vulnerability.
+   - Discovering multiple endpoints or parameters failing due to the same missing authorization check or flawed middleware must be combined into a single chained impact report, never submitted as fragmented duplicate reports.
 
 ### 🛡️ The 10-Point Validation Gate
 Before declaring any vulnerability candidate as a finding, answer:
@@ -95,7 +102,7 @@ Before declaring any vulnerability candidate as a finding, answer:
 7. **Business Damage:** Did money, sensitive PII, or access control get breached?
 8. **Scope Verification:** Is the affected endpoint explicitly in-scope?
 9. **Feature Check:** Could this behavior be an intentional architectural feature?
-10. **Duplicate / Overlap Check:** Is this already covered by an existing finding?
+10. **Duplicate & Root Cause Check:** Is this already covered by an existing finding or sharing the same underlying flawed middleware?
 
 ### Evaluation Verdict:
 - **NO-GO:** If impact is theoretical, missing, or intended.
@@ -109,9 +116,10 @@ Before declaring any vulnerability candidate as a finding, answer:
 bug_bounty/
 ├── README.md               # Quick-start and directory overview
 ├── claude.md               # Single source of truth (this briefing)
-├── OPERATIONAL_MAP.md      # Rapid mechanism pivot index (linking all 44 skills)
-├── templates/              # Engagement templates (TARGET_SESSION_TEMPLATE.md)
-│   └── TARGET_SESSION_TEMPLATE.md
+├── OPERATIONAL_MAP.md      # Rapid mechanism pivot index (linking all 47 skills)
+├── templates/              # Engagement & Report templates
+│   ├── TARGET_SESSION_TEMPLATE.md
+│   └── VULNERABILITY_REPORT_TEMPLATE.md
 ├── Methodology/            # Tactical framework & DFD/STRIDE modeling
 │   ├── OPERATIONAL_PLAYBOOK.md         # 4-Phase execution playbook
 │   ├── BUG_BOUNTY_TOOLKIT_PLAYBOOK.md  # Chained recon & parameter fuzzing pipelines
@@ -131,8 +139,8 @@ bug_bounty/
 │   ├── 08_impact_modeling.md
 │   └── 09_reporting.md
 ├── Architecture_Inference/ # 8 architectural inference heuristics
-├── skills/                 # Offensive knowledge base (44 skills across 4 pillars)
-│   ├── _INDEX.md           # STRIDE Threat-to-Skill index (44 skills mapped)
+├── skills/                 # Offensive knowledge base (47 skills across 4 pillars)
+│   ├── _INDEX.md           # STRIDE Threat-to-Skill index (47 skills mapped)
 │   ├── _TAXONOMY.md        # 4-pillar architectural taxonomy
 │   ├── auth_logic/         # IDOR, OAuth/SSO, IAM boundaries, Auth bypass
 │   ├── state_management/   # Async, Consistency, Race, WebSockets, Sagas

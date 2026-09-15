@@ -18,6 +18,7 @@ This directory contains the production-ready tactical automation scripts for the
 | [`test_ssrf_bypasses.ps1`](test_ssrf_bypasses.ps1) | PWSH | Phase 3 (Auditing) | [`backend_ssrf_rce.md`](../skills/infrastructure/backend_ssrf_rce.md) | PowerShell 7+, Burp Collaborator / Interactsh |
 | [`audit_graphql_endpoints.ps1`](audit_graphql_endpoints.ps1) | PWSH | Phase 3 (Auditing) | [`graphql_attacks.md`](../skills/infrastructure/graphql_attacks.md) | PowerShell 7+ |
 | [`extract_js_secrets.ps1`](extract_js_secrets.ps1) | PWSH | Phase 2 & 3 | Hardcoded Credentials & Hidden API Discovery | PowerShell 7+, `curl` |
+| [`analyze_js_bundle.ps1`](analyze_js_bundle.ps1) | PWSH | Phase 1 & 2 (Recon & Mapping) | 13-Pattern JS Bundle Deep Regex Inspection | PowerShell 7+ |
 | [`find_broken_links.ps1`](find_broken_links.ps1) | PWSH | Phase 3 (Auditing) | [`broken_link_hijacking.md`](../skills/infrastructure/broken_link_hijacking.md) | PowerShell 7+ |
 | [`param_reflection_pipeline.ps1`](param_reflection_pipeline.ps1) | PWSH | Phase 3 (Auditing) | [`xss_variations.md`](../skills/infrastructure/xss_variations.md) | `katana`, `uro`, `kxss`, `dalfox` |
 | [`quick_hunt_setup.sh`](quick_hunt_setup.sh) / [`.ps1`](quick_hunt_setup.ps1) | Bash / PWSH | Setup | Session Initialization & Scaffolding | Standard shell utilities |

@@ -10,6 +10,7 @@ Focuses on the breakdown of identity, authorization boundaries, and business rul
 *   **`oauth_sso_integrity.md`**: Flaws in OAuth implementation, Audience Confusion, tenant hopping, and validation gaps.
 *   **`iam_trust_boundaries.md`**: Exploiting identity delegation (AssumeRole), permission handing (PassRole), and trust-policy confusion in cloud environments.
 *   **`auth_bypass_ato.md`**: Account Takeover via password resets, email verification bypass, OTP validation, and profile modification.
+*   **`mfa_logic_bypasses.md`**: MFA/2FA state machine logic bypasses, response manipulation, mobile legacy API parity flaws, and OTP race conditions.
 
 ## 2. State Management (`skills/state_management/`)
 Focuses on the async nature of the web, connection states, and boundary conditions.
@@ -53,6 +54,8 @@ Focuses on core architectural flaws, routing, and backend systems.
 *   **`infrastructure_misconfigurations.md`**: Path traversal filter bypasses and secrets leakage.
 *   **`xss_variations.md`**: Cross-Site Scripting variations and modern bypasses.
 *   **`cryptographic_failures.md`**: Exploiting length extensions, downgrade attacks, and padding oracles.
+*   **`grpc_soap_rpc_attacks.md`**: gRPC Server Reflection, protobuf tampering, SOAPaction header spoofing, and XML-RPC/JSON-RPC multicall exploitation.
+*   **`nosql_ldap_injection.md`**: MongoDB query operator injection (`$ne`, `$gt`, `$regex`), BSON type confusion, and LDAP filter wildcard authorization bypasses.
 
 ## 4. Emerging (`skills/emerging/`)
 Focuses on new paradigms, AI integrations, and non-traditional attack surfaces.

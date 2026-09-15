@@ -23,6 +23,27 @@
    - عمليات التصدير والتقارير المجمعة (`/export/csv`, `/bulk_delete`).
    - استعادة الحساب وتغيير البريد (`/account/security`, `/oauth/link`).
 
+### قواعد الانضباط الميداني الصارم (The Standing Discipline)
+قبل وأثناء تنفيذ الفحوصات الميدانية، يلتزم الباحث بالقواعد المنهجية الخمس التالية:
+1. **فرضية واحدة في المرة (One Hypothesis at a Time):** تجنب الاختبار العشوائي والحقن الأعمى. صغ فرضية صريحة: *"أعتقد أن السيرفر لا يتحقق من ملكية الفاتورة للمنظمة الحالية"* ثم صمم أصغر تجربة تثبت أو تنفي ذلك.
+2. **مبدأ التجربة الضابطة (Negative Control Baseline):** كل ادعاء بوجود ثغرة يحتاج إلى تجربة تحكم ضابطة كان يمكن أن تفشل:
+   ```
+   الطلب الأصلي السليم  ──► استجابة طبيعية (Baseline A)
+   الطلب المعدل بشرط TRUE ──► استجابة متطابقة / نجاح (Condition TRUE)
+   الطلب المعدل بشرط FALSE ─► استجابة مختلفة / رفض (Condition FALSE)
+   ```
+   *تنبيه:* ظهور خطأ `500 Internal Server Error` ليس دليلاً على ثغرة، بل هو مجرد استثناء برمجي (Exception)؛ الدليل الحقيقي هو الفارق المستمر والمنطقي بين حالتي الـ Control والـ Exploit.
+3. **فصل توليد الأفكار عن فلترتها (Two-Pass Lead Generation):** أثناء تصفح التطبيق ورسم المعمارية، دوّن كل سلوك غريب فوراً في قائمة الملاحظات دون التوقف للحكم النهائي. بعد اكتمال الجولة، خصص وقتاً مستقلاً لتقييم الشبهات واختبارها (هذا يمنع قتل الأفكار الواعدة مبكراً).
+4. **قاعدة التدوير عند انعدام الإشارة (Rotate When Signal Fades):** إذا استمرت النتائج نظيفة بعد فحص منهجي كامل للميزة، **لا تواصل الحفر في نقطة مسدودة لساعات**. دوّر الاختبار فوراً عبر تغيير: الميزة، أو رتبة المستخدم، أو الـ Endpoint، أو زاوية الهجوم.
+5. **توثيق المستبعدات وليس المكتشفات فقط (Write Down Negatives):**
+   توثيق ما ثبتت سلامته وحمايته يوفر 50% من الجهد ويمنع إعادة فحص نفس النطاق:
+   ```
+   [NEGATIVE / CLOSED] /api/v1/admin/users
+   - Tested by: Member (Org A)
+   - Result: 403 Forbidden with strict server validation.
+   - Status: Ruled Out / Closed.
+   ```
+
 ---
 
 ## 1. مرحلة الاستطلاع المركّز (Reconnaissance)
@@ -110,7 +131,8 @@
 5. **Single vs Bulk Endpoint:** هل نقاط النهاية المجمعة (`/api/v1/users/bulk_delete` أو `/export`) تتجاهل التحقق المطبق على الطلب الفردي؟
 6. **Current vs Legacy API:** هل الإصدار القديم (`/api/v1/` مقابل `/api/v2/`) يفتقر للـ Authorization middleware؟
 7. **UI Restrictions vs API Reality:** هل الأزرار المخفية أو المعطلة في الـ Frontend مسموح بتنفيذها برمجياً عبر الـ API؟
-8. **Object-Property Mass Assignment:** هل إرسال حقول إضافية (`is_admin: true`, `role: "owner"`) يعدل الحساب؟
+8. **Object-Property & Hidden Data Flow Tampering:** فحص الحقول غير المعلنة في واجهة المستخدم ولكنها مدعومة في معمارية السيرفر (Mass Assignment / Parameter Binding). جرّب حقن معاملات سرية مثل:
+   `{"role": "admin", "is_admin": true, "discount": 100, "price": 0.01, "internal_note": "debug", "debug": true, "verified": true, "tier_id": 999}`.
 
 ### ج. استنتاج المعمارية والتصنيف التكيفي (Adaptive Classification)
 تصنيف التارجت حسب طبيعته لتركيز الفحص:
@@ -145,8 +167,13 @@
         *   *Skill Pivot:* **[skills/auth_logic/logic_idor_auth.md](../skills/auth_logic/logic_idor_auth.md)**
     *   *SAML XSW & Enterprise SSO:* استغلال التفاف التوقيع الرقمي وحقن التعليقات في أنظمة تسجيل الدخول الموحد.
         *   *Skill Pivot:* **[skills/auth_logic/saml_xsw_sso.md](../skills/auth_logic/saml_xsw_sso.md)**
-    *   *Pre-Account Takeover:* فحص ربط حسابات الـ OAuth والتسجيل المسبق وتخطي تأكيد البريد.
-        *   *Skill Pivot:* **[skills/auth_logic/pre_account_takeover.md](../skills/auth_logic/pre_account_takeover.md)** & **[skills/auth_logic/auth_bypass_ato.md](../skills/auth_logic/auth_bypass_ato.md)** & **[skills/auth_logic/oauth_sso_integrity.md](../skills/auth_logic/oauth_sso_integrity.md)**
+    *   *Pre-Account Takeover & MFA Logic Bypasses:* فحص ربط حسابات الـ OAuth والتسجيل المسبق وتخطي التحقق الثنائي (MFA/2FA) عبر التلاعب باستجابة السيرفر ومسارات الـ Mobile القديمة.
+        *   *Skill Pivot:* **[skills/auth_logic/mfa_logic_bypasses.md](../skills/auth_logic/mfa_logic_bypasses.md)** & **[skills/auth_logic/pre_account_takeover.md](../skills/auth_logic/pre_account_takeover.md)** & **[skills/auth_logic/auth_bypass_ato.md](../skills/auth_logic/auth_bypass_ato.md)** & **[skills/auth_logic/oauth_sso_integrity.md](../skills/auth_logic/oauth_sso_integrity.md)**
+*   **Protocols, Structured APIs & Injections:**
+    *   *gRPC, SOAP & RPC Attacks:* استغلال Server Reflection و Protobuf manipulation وتزوير SOAPaction headers في واجهات الميكروسيرفيسز.
+        *   *Skill Pivot:* **[skills/infrastructure/grpc_soap_rpc_attacks.md](../skills/infrastructure/grpc_soap_rpc_attacks.md)** & **[skills/infrastructure/graphql_attacks.md](../skills/infrastructure/graphql_attacks.md)**
+    *   *NoSQL & LDAP Injection:* حقن معاملات MongoDB (`$ne`, `$gt`, `$regex`) في تطبيقات Node.js وتجاوز مصادقة خوادم الدليل عبر LDAP wildcards.
+        *   *Skill Pivot:* **[skills/infrastructure/nosql_ldap_injection.md](../skills/infrastructure/nosql_ldap_injection.md)** & **[skills/infrastructure/sql_injection.md](../skills/infrastructure/sql_injection.md)**
 *   **Perimeter & Server-Side Vulnerabilities:**
     *   *Origin IP & WAF Bypass:* كشف السيرفر الحقيقي وتخطي حماية Cloudflare عبر Favicon Hash و TLS logs.
         *   *Skill Pivot:* **[skills/infrastructure/origin_ip_discovery_waf_bypass.md](../skills/infrastructure/origin_ip_discovery_waf_bypass.md)**

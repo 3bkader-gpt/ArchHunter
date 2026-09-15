@@ -106,11 +106,11 @@ This map is the central tactical routing engine for offensive operations. It lin
 
 ### **Structured Data, APIs & Background Parsers**
 *   **Trust Boundary:** Raw bytes -> Structured Objects -> Execution context.
-*   **Pivots:** [GraphQL Attacks](skills/infrastructure/graphql_attacks.md) | [Parser Implementation Integrity](skills/infrastructure/parser_implementation_integrity.md) | [Serialization Boundary Failures](skills/infrastructure/serialization_boundary_failures.md) | *Tools: [scripts/audit_graphql_endpoints.ps1](scripts/README.md#8-audit_graphql_endpointsps1)*
+*   **Pivots:** [GraphQL Attacks](skills/infrastructure/graphql_attacks.md) | [gRPC, SOAP & RPC Attacks](skills/infrastructure/grpc_soap_rpc_attacks.md) | [Parser Implementation Integrity](skills/infrastructure/parser_implementation_integrity.md) | [Serialization Boundary Failures](skills/infrastructure/serialization_boundary_failures.md) | *Tools: [scripts/audit_graphql_endpoints.ps1](scripts/README.md#8-audit_graphql_endpointsps1)*
 
 ### **Databases, Templates & Code Execution**
 *   **Trust Boundary:** User input string -> Interpreter / Compiler / Execution engine.
-*   **Pivots:** [SQL Injection & ORM Abstraction](skills/infrastructure/sql_injection.md) | [Server-Side Template Injection (SSTI)](skills/infrastructure/server_side_template_injection.md) | [File Upload & Web Shell RCE](skills/infrastructure/file_upload_rce.md) | [Advanced Injection & RCE](skills/infrastructure/advanced_injection_rce.md)
+*   **Pivots:** [SQL Injection & ORM Abstraction](skills/infrastructure/sql_injection.md) | [NoSQL & LDAP Injection](skills/infrastructure/nosql_ldap_injection.md) | [Server-Side Template Injection (SSTI)](skills/infrastructure/server_side_template_injection.md) | [File Upload & Web Shell RCE](skills/infrastructure/file_upload_rce.md) | [Advanced Injection & RCE](skills/infrastructure/advanced_injection_rce.md)
 
 ---
 

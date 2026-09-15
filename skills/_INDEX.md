@@ -1,6 +1,6 @@
 # Bug Bounty STRIDE Index
 
-This index maps the STRIDE threat modeling categories directly to the 44 curated mechanism manuals within the knowledge base.
+This index maps the STRIDE threat modeling categories directly to the 47 curated mechanism manuals within the knowledge base.
 
 ## Spoofing (Authenticity)
 *   [`auth_logic/saml_xsw_sso.md`](auth_logic/saml_xsw_sso.md) - Forging identity via SAML XML Signature Wrapping (XSW 1-8) and comment injection.
@@ -79,4 +79,7 @@ This index maps the STRIDE threat modeling categories directly to the 44 curated
 *   [`infrastructure/advanced_injection_rce.md`](infrastructure/advanced_injection_rce.md) - Achieving operating system host compromise, container breakout, and remote root shell execution.
 *   [`infrastructure/complex_chains_privesc.md`](infrastructure/complex_chains_privesc.md) - Vertical and horizontal privilege escalation through chained flaws.
 *   [`infrastructure/serialization_boundary_failures.md`](infrastructure/serialization_boundary_failures.md) - Achieving RCE via object injection and gadget chains.
+*   [`auth_logic/mfa_logic_bypasses.md`](auth_logic/mfa_logic_bypasses.md) - Escalating from State 1 partial auth to fully authenticated sessions via response tampering, mobile legacy routes, and race conditions.
+*   [`infrastructure/grpc_soap_rpc_attacks.md`](infrastructure/grpc_soap_rpc_attacks.md) - Bypassing API gateways and authorization barriers via gRPC Server Reflection, protobuf tampering, and SOAPaction spoofing.
+*   [`infrastructure/nosql_ldap_injection.md`](infrastructure/nosql_ldap_injection.md) - Bypassing authentication gates and extracting sensitive directory records via MongoDB operator injection and LDAP wildcards.
 
