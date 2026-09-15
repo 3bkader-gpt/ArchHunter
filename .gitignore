@@ -1,6 +1,7 @@
 # Exclude temporary ingestion sessions and raw downloads per instruction
 tele_session/
 tele_docs/
+The_Bug_Bounty_Guide*.md
 
 # Python cache & virtual environments
 __pycache__/
