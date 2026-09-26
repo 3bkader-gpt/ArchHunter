@@ -46,7 +46,7 @@ $$\mathbf{[Bug\ Class]\ in\ [Endpoint/Feature]\ allows\ [Attacker]\ to\ [Impact]
 ---
 
 ## 4. Standard Report Anatomy
-Always use the standardized [VULNERABILITY_REPORT_TEMPLATE.md](file:///d:/Hack/bug_bounty/templates/VULNERABILITY_REPORT_TEMPLATE.md):
+Always use the standardized [VULNERABILITY_REPORT_TEMPLATE.md](../templates/VULNERABILITY_REPORT_TEMPLATE.md):
 1. **Strategic Summary:** 2-3 sentences: What is broken, where, who can exploit it, and what exact business damage results.
 2. **Vulnerability Type & CVSS:** Accurate CWE, OWASP category, and honest CVSS v3.1/4.0 vector string.
 3. **Affected Asset & Endpoint:** Full URI, HTTP method, and affected parameter.

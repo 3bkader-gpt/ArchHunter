@@ -105,7 +105,7 @@ if ($filteredUrls.Count -eq 0) {
 }
 
 # 2. Canary Seeding & Reflection Probing
-$canary = "${CanaryPrefix}73<\"'>``"
+$canary = $CanaryPrefix + '73<"''`>'
 $probeResults = [System.Collections.Generic.List[PSCustomObject]]::new()
 
 Write-Host "[*] Probing for reflections using canary: $canary" -ForegroundColor Cyan

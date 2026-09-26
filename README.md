@@ -90,7 +90,7 @@ go run cmd/runtime/main.go -input testdata/sample_signals.jsonl -format markdown
 ArchHunter/
 ├── README.md               # Framework overview and architecture (this file)
 ├── claude.md               # Master AI Agent briefing & execution doctrine
-├── OPERATIONAL_MAP.md      # Rapid mechanism pivot index (linking all 44 skills)
+├── OPERATIONAL_MAP.md      # Rapid mechanism pivot index (linking all 47 skills)
 ├── templates/              # Engagement templates (TARGET_SESSION_TEMPLATE.md)
 │
 ├── Methodology/            # Strategic threat modeling & tactical playbooks
@@ -129,11 +129,13 @@ ArchHunter/
 │   ├── workers/            # Distributed Python micro-workers (scoring, parser, identity)
 │   └── testdata/           # Reusable telemetry datasets
 │
-└── skills/                 # 44 specialized offensive mechanism modules
-    ├── 01_auth_deep/       # JWT, OAuth, SAML, SSO, MFA bypasses
-    ├── 02_access_control/  # IDOR, horizontal/vertical privilege escalation
-    ├── 03_injection/       # SQLi, SSTI, Command Injection, Prototype Pollution
-    └── ...                 # WebSockets, SSRF, Deserialization, Race Conditions
+└── skills/                 # 47 curated mechanism manuals (4 pillars)
+    ├── _INDEX.md           # STRIDE Threat Matrix (all 47 skills indexed)
+    ├── _TAXONOMY.md        # Full 4-pillar architectural taxonomy
+    ├── auth_logic/         # SAML XSW, IDOR, Pre-ATO, OAuth/SSO, IAM boundaries, Auth bypass
+    ├── state_management/   # Financial logic, Rate limiting, Async, Consistency, Race, WebSockets
+    ├── infrastructure/     # 403 bypass, NGINX, Webhooks, SSRF, SSTI, File Upload, SQLi, Prototype Pollution
+    └── emerging/           # LLM / RAG privilege escalation & AI quota bypasses
 ```
 
 ---

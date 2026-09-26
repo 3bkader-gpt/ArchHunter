@@ -113,7 +113,7 @@ Before declaring any vulnerability candidate as a finding, answer:
 ## 5. PROJECT ARCHITECTURE & DIRECTORY MAP
 
 ```
-bug_bounty/
+ArchHunter/
 ├── README.md               # Quick-start and directory overview
 ├── claude.md               # Single source of truth (this briefing)
 ├── OPERATIONAL_MAP.md      # Rapid mechanism pivot index (linking all 47 skills)
@@ -179,7 +179,7 @@ bug_bounty/
 To resume or start a session in a new chat, paste:
 
 ```markdown
-I am resuming a Bug Bounty project. My project files are located in `d:\Hack\bug_bounty`.
+I am resuming an ArchHunter security engagement. My project files are located in the current repository root.
 
 **Mandatory Instructions:**
 1. Read `claude.md` to understand your identity, the 4-phase playbook, and ruthless triage.

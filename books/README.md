@@ -9,7 +9,7 @@ This directory stores the seminal engineering and security textbooks that underp
 ### 1. Designing Data-Intensive Applications (DDIA)
 *   **Author:** Martin Kleppmann
 *   **Formats Available:**
-    - [`DDIA_Book.md`](DDIA_Book.md) (Clean AI-ready Markdown, 28 MB)
+    - [`DDIA_Book.md`](DDIA_Book.md) (Clean AI-ready Markdown, 1.76 MB)
     - `Designing Data Intensive Applications by Martin Kleppmann.pdf`
     - `dokumen.pub_designing-data-intensive-applications-the-big-ideas-behind-reliable-scalable-and-maintainable-systems-9781491903100-9781449373320-1491903104.azw3` (Raw Kindle eBook source)
 *   **Relevance to Bug Bounty:**

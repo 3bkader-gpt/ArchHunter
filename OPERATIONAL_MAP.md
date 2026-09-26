@@ -1,6 +1,6 @@
 # OPERATIONAL MAP (Rapid Pivot Index)
 
-This map is the central tactical routing engine for offensive operations. It links the 4 operational phases, master playbooks, automation scripts, ready payloads, and all 44 atomic mechanism skills into a unified graph.
+This map is the central tactical routing engine for offensive operations. It links the 4 operational phases, master playbooks, automation scripts, ready payloads, and all 47 atomic mechanism skills into a unified graph.
 
 ---
 

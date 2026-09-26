@@ -15,8 +15,22 @@ venv/
 *.session
 *.session-journal
 *.log
+TARGET_SESSION.md
 
 # OS generated files
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Go build binaries & test artifacts
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+Runtime/cmd/runtime/runtime
+Runtime/cmd/runtime/runtime.exe
+
+# Recon outputs and active scan dumps
+recon/
+*.tmp
