@@ -29,6 +29,7 @@ This directory contains the production-ready tactical automation scripts for the
 | [`cloud_asset_hunter.sh`](cloud_asset_hunter.sh) | Bash | Phase 1 (Recon — passive) | [`Workflow/12`](../Workflow/12_next_level_recon.md) Forgotten cloud assets + orphaned-asset rule | `curl`, `jq`, `dig` |
 | [`origin_ip_uncloak.sh`](origin_ip_uncloak.sh) | Bash | Phase 1 (Perimeter) | [`origin_ip_discovery_waf_bypass.md`](../skills/infrastructure/origin_ip_discovery_waf_bypass.md) SPF/DMARC + exclusion classes | `dig`, `curl`, `jq` |
 | [`dev_pivot_osint.sh`](dev_pivot_osint.sh) | Bash | Phase 1 (OSINT) | [`Workflow/12`](../Workflow/12_next_level_recon.md) Developer-pivot phase | `curl`, `jq` (+ `GITHUB_TOKEN`) |
+| [`js_bundle_changelog.sh`](js_bundle_changelog.sh) | Bash | Phase 2 (Mapping — passive) | [`Workflow/12`](../Workflow/12_next_level_recon.md) JS→infra graph: Wayback bundle diffing = internal API changelog | `curl`, `jq` |
 | [`intel/fetch_h1_reports.py`](intel/fetch_h1_reports.py) | Python 3 | Intelligence | Disclosed H1 Report Ingestion (auth / ai / state presets) | Python 3, `requests` |
 | [`intel/fetch_telegram_intel.py`](intel/fetch_telegram_intel.py) | Python 3 | Intelligence | Telegram Channel Writeup Crawler → `research/case_studies/` | Python 3, `telethon`, `beautifulsoup4`, `requests` |
 | [`intel/tg_login.py`](intel/tg_login.py) | Python 3 | Intelligence | One-time Telegram Session Provisioning (interactive) | Python 3, `telethon` |
@@ -201,7 +202,14 @@ This directory contains the production-ready tactical automation scripts for the
     GITHUB_TOKEN=ghp_xxx ./scripts/dev_pivot_osint.sh acme.com acme-corp
     ```
 
-### 12d. `time_travel_recon.sh`
+### 12d. `js_bundle_changelog.sh`
+*   **Purpose:** Historical JS bundle diffing per [`Workflow/12`](../Workflow/12_next_level_recon.md) Phase 4: Wayback snapshots of the same bundle paths, endpoint-string extraction, old-vs-new diff = changelog of added/retired internal endpoints.
+*   **Usage:**
+    ```bash
+    ./scripts/js_bundle_changelog.sh target.com
+    ```
+
+### 12d-bis. `time_travel_recon.sh`
 *   **Purpose:** Passive time-travel recon per [`Workflow/12`](../Workflow/12_next_level_recon.md) Phase 2: CT history vs current DNS (forgotten hosts), Wayback legacy-API-version mining, and robots.txt drift baseline.
 *   **Usage:**
     ```bash

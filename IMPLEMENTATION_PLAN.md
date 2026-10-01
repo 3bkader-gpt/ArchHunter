@@ -120,3 +120,19 @@
 | **P19 ✅** | Docs sweep (scripts/README, plan checkboxes) + commit | repo-wide |
 
 **Execution order:** P15 → P16 → P17 → P18 → P19.
+
+---
+
+# Sprint 4 — Key-Pivot & Cross-Asset Correlation Tier (2026-10-01)
+
+> **Input:** Elite correlation corpus (AppSync/Firebase key pivoting, 403-bucket intelligence, JS→infra graph correlation, structural/organizational timing techniques).
+> **Review verdict:** Overlaps are minimal (persisted queries already covered in Sprint 3; favicon pivoting already scripted). Genuinely new: (1) exposed cloud keys as *pivot seeds* — directly challenges the current `claude.md` STEP C doctrine that marks Firebase keys as pure NON-ISSUE, (2) bucket response-intelligence (region headers, IAM error differentials, cross-cloud naming correlation), (3) time-diffed JS bundles as an internal-API changelog, (4) CT-timing/passive-DNS/tooling-fingerprint correlation, (5) an explicit scope caution on key-based active testing.
+
+| Phase | Deliverable | Destination |
+|---|---|---|
+| **P20 ✅** | New skill: cloud key pivoting (AppSync/Firebase) with scope doctrine | `skills/infrastructure/cloud_key_pivoting.md` |
+| **P21 ✅** | W12 extensions: bucket response-intel (Phase 1), JS→infra graph (Phase 4), correlation tier (Phase 7), scope caution | `Workflow/12_next_level_recon.md` |
+| **P22 ✅** | `cloud_asset_hunter.sh` v2 (region fingerprint, IAM differential, cross-cloud correlation, convention feedback) + new `js_bundle_changelog.sh` | `scripts/` |
+| **P23 ✅** | claude.md STEP C doctrine nuance, skill registration (53→54), scripts/README, commit | repo-wide |
+
+**Execution order:** P20 → P21 → P22 → P23.

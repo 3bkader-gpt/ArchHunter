@@ -118,7 +118,7 @@ This map is the central tactical routing engine for offensive operations. It lin
 
 ### **AI / LLM Agents & RAG Pipelines**
 *   **Trust Boundary:** User prompt -> LLM context -> Backend agent execution permissions; Quota / Rate-limit validation.
-*   **Pivots:** [LLM RAG Privilege Escalation](skills/emerging/llm_rag_privesc.md) | [MCP Agent Tool Poisoning](skills/emerging/mcp_agent_tool_poisoning.md) | [Indirect Prompt Injection & Exfiltration](skills/emerging/indirect_prompt_injection_exfiltration.md) | [Shadow API Exploitation](skills/auth_logic/shadow_api_exploitation.md)
+*   **Pivots:** [LLM RAG Privilege Escalation](skills/emerging/llm_rag_privesc.md) | [MCP Agent Tool Poisoning](skills/emerging/mcp_agent_tool_poisoning.md) | [Indirect Prompt Injection & Exfiltration](skills/emerging/indirect_prompt_injection_exfiltration.md) | [Shadow API Exploitation](skills/auth_logic/shadow_api_exploitation.md) | [Cloud Key Pivoting](skills/infrastructure/cloud_key_pivoting.md)
 
 ### **Native Mobile Clients (Depth-First Track)**
 *   **Trust Boundary:** Attacker-controlled URI/intent -> client-side routing -> WebView/bridge; client-computed business values -> server.

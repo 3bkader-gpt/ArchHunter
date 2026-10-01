@@ -35,8 +35,10 @@ CORE="${TARGET_DOMAIN%%.*}"
 CORE_NODASH=$(echo "$CORE" | tr -d '-')
 ENV_WORDS=("" "dev" "stg" "staging" "uat" "preprod" "test" "qa" "prod" "backup" "old" "legacy" "assets" "static" "media" "uploads" "logs" "archive" "internal" "tmp")
 # Optional extra product/brand keywords (one per line) from recon/job postings:
+# this file PERSISTS across runs — confirmed bucket names get appended by the
+# pattern-feedback loop below, so each re-run seeds smarter.
 SEEDS_FILE="$OUTPUT_DIR/seed_keywords.txt"
-: > "$SEEDS_FILE"
+[ -f "$SEEDS_FILE" ] || : > "$SEEDS_FILE"
 
 SEEDS=("$CORE" "$CORE_NODASH" "$ORG_NAME" "$(echo "$ORG_NAME" | tr -d '-')")
 [ -f "$SEEDS_FILE" ] && while IFS= read -r kw; do
@@ -56,25 +58,35 @@ PERM_COUNT=$(wc -l < "$PERMS_FILE" | tr -d ' ')
 echo -e "${GREEN}[+] Generated $PERM_COUNT permutations -> $PERMS_FILE${NC}"
 echo -e "${GRAY}[*] Tip: append product/brand keywords (JS, job postings) to $SEEDS_FILE and re-run for smarter seeds.${NC}"
 
-# --- 2. Bucket existence probing ---
-# S3: 404 NoSuchBucket vs 403 AccessDenied (exists, private) vs 200/ ListBucketResult
+# --- 2. Bucket existence & response intelligence ---
+# S3: 404 NoSuchBucket vs 403 AccessDenied (exists, private) — 403 body/headers
+# leak region (x-amz-bucket-region) and policy type (bucket vs object ACL).
 # Azure: 404 ContainerNotFound vs 400/409 (exists)   |  GCS: 404 NoSuchBucket vs 403
+FOUND_NAMES=""
 probe() { # provider url_pattern name
     local provider="$1" pattern="$2" name="$3" url
     url=$(printf "$pattern" "$name")
     local out
-    out=$(curl -sk --max-time 8 -o - -w "\n%{http_code}" "$url" 2>/dev/null) || return
-    local status="${out##*$'\n'}" body="${out%$'\n'*}"
+    out=$(curl -sk --max-time 8 -D - -o - -w "\n%{http_code}" "$url" 2>/dev/null) || return
+    local status="${out##*$'\n'}"
+    local meta_body="${out%$'\n'*}"
+    local body="${meta_body##*$'\r\n\r\n'}"
+    local headers="${meta_body%$'\r\n\r\n'*}"
     case "$provider:$status" in
         s3:200|s3:403)
-            echo -e "${RED}[EXISTS] $url ($status)${NC}"
-            echo "$url" >> "$HITS_FILE" ;;
+            local region errtype
+            region=$(echo "$headers" | grep -ai "x-amz-bucket-region" | head -1 | sed 's/.*: *//' | tr -d '\r')
+            errtype=$(echo "$body" | grep -aoE "<Code>[^<]+</Code>" | head -1 | sed 's/<[^>]*>//g')
+            echo -e "${RED}[EXISTS] $url ($status${region:+, region: $region}${errtype:+, $errtype})${NC}"
+            echo "$url${region:+	region=$region}${errtype:+	err=$errtype}" >> "$HITS_FILE"
+            FOUND_NAMES="$FOUND_NAMES $name"
+            # IAM policy differential: AccessDenied = bucket policy blocks listing;
+            # other codes may mean object-level ACLs differ from bucket-level (readable objects inside).
+            [ "$errtype" = "AccessDenied" ] && echo -e "${GRAY}    -> bucket-policy denial; test object paths directly (objects may be readable even when listing is denied)${NC}" ;;
         azure:200|azure:409|azure:400)
-            echo -e "${RED}[EXISTS] $url ($status)${NC}"
-            echo "$url" >> "$HITS_FILE" ;;
+            echo -e "${RED}[EXISTS] $url ($status)${NC}"; echo "$url" >> "$HITS_FILE"; FOUND_NAMES="$FOUND_NAMES $name" ;;
         gcs:200|gcs:403)
-            echo -e "${RED}[EXISTS] $url ($status)${NC}"
-            echo "$url" >> "$HITS_FILE" ;;
+            echo -e "${RED}[EXISTS] $url ($status)${NC}"; echo "$url" >> "$HITS_FILE"; FOUND_NAMES="$FOUND_NAMES $name" ;;
         *) : ;;
     esac
 }
@@ -87,6 +99,20 @@ while IFS= read -r name; do
 done < "$PERMS_FILE"
 HITS=$(wc -l < "$HITS_FILE" | tr -d ' ')
 [ "$HITS" = "0" ] && echo -e "${GRAY}[+] No confirmed bucket hits.${NC}"
+
+# --- 2b. Cross-cloud naming correlation + pattern feedback loop ---
+# Naming conventions survive migrations: retest every S3 hit's name against
+# Azure/GCS, and feed confirmed names back as new permutation seeds.
+if [ -n "$(echo "$FOUND_NAMES" | tr -d ' ')" ]; then
+    echo -e "\n${YELLOW}[*] Cross-cloud correlation of confirmed names...${NC}"
+    for name in $(echo "$FOUND_NAMES" | tr ' ' '\n' | sort -u); do
+        [ -z "$name" ] && continue
+        probe azure "https://%s.blob.core.windows.net/assets/" "$name"
+        probe gcs  "https://storage.googleapis.com/%s/"        "$name"
+    done
+    echo -e "${GRAY}[*] Seed feedback: confirmed names appended to $SEEDS_FILE (re-run for env/region/function expansion).${NC}"
+    echo "$FOUND_NAMES" | tr ' ' '\n' | grep -v '^$' | sort -u >> "$SEEDS_FILE"
+fi
 
 # --- 3. DNS-based cloud discovery from existing recon output ---
 if [ -n "$SUBS_FILE" ] && [ -f "$SUBS_FILE" ]; then

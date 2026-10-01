@@ -1,6 +1,6 @@
 # Bug Bounty STRIDE Index
 
-This index maps the STRIDE threat modeling categories directly to the 53 curated mechanism manuals within the knowledge base.
+This index maps the STRIDE threat modeling categories directly to the 54 curated mechanism manuals within the knowledge base.
 
 ## Spoofing (Authenticity)
 *   [`auth_logic/saml_xsw_sso.md`](auth_logic/saml_xsw_sso.md) - Forging identity via SAML XML Signature Wrapping (XSW 1-8) and comment injection.
@@ -56,6 +56,7 @@ This index maps the STRIDE threat modeling categories directly to the 53 curated
 *   [`state_management/cache_attacks.md`](state_management/cache_attacks.md) - Disclosing sensitive PII via Web Cache Deception and static extension confusion (`.svg`).
 *   [`infrastructure/xss_variations.md`](infrastructure/xss_variations.md) - Exfiltrating session cookies, localStorage tokens, DOM data, and CSRF nonces via injected JavaScript.
 *   [`mobile/exported_component_abuse.md`](mobile/exported_component_abuse.md) - Disclosing PII, tokens, and databases via exported providers, backups, and intent leaks.
+*   [`infrastructure/cloud_key_pivoting.md`](infrastructure/cloud_key_pivoting.md) - Correlating exposed cloud SDK keys (AppSync/Firebase) into schema reconstruction, auth-flow fingerprinting, and sibling-project discovery.
 
 ## Denial of Service (Availability)
 *   [`state_management/rate_limiting_evasion.md`](state_management/rate_limiting_evasion.md) - Exhausting server resources and brute-forcing passwords/OTPs without rate limits.

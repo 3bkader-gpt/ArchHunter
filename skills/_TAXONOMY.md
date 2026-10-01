@@ -56,6 +56,7 @@ Focuses on core architectural flaws, routing, and backend systems.
 *   **`cryptographic_failures.md`**: Exploiting length extensions, downgrade attacks, and padding oracles.
 *   **`grpc_soap_rpc_attacks.md`**: gRPC Server Reflection, protobuf tampering, SOAPaction header spoofing, and XML-RPC/JSON-RPC multicall exploitation.
 *   **`nosql_ldap_injection.md`**: MongoDB query operator injection (`$ne`, `$gt`, `$regex`), BSON type confusion, and LDAP filter wildcard authorization bypasses.
+*   **`cloud_key_pivoting.md`**: Exposed AppSync/Firebase keys as mapping oracles — schema reconstruction, auth-provider fingerprinting, and project-ID sibling discovery.
 
 ## 4. Emerging (`skills/emerging/`)
 Focuses on new paradigms, AI integrations, and non-traditional attack surfaces.

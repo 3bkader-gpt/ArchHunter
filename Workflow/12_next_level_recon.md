@@ -16,6 +16,9 @@ Top-tier hunters do not start *on* `target.com` — they start *around* it and l
    - **DNS-based discovery:** grep `dnsx`/`subfinder` resolution for CNAMEs to `*.s3.amazonaws.com`, `*.blob.core.windows.net`, `*.storage.googleapis.com`, `*.azurewebsites.net` — often undocumented and forgotten.
    - **CT for cloud-native domains:** grep crt.sh dumps for `*.cloudfront.net`, `*.elb.amazonaws.com`, `*.appspot.com` under the target's SANs.
    - **Favicon hash pivoting:** Shodan/Censys `http.favicon.hash` on the target's favicon → sibling dev/staging infra reusing it. → [`find_origin_ip.sh`](../scripts/find_origin_ip.sh)
+   - **Bucket response intelligence:** a 403 (vs 404) confirms existence — pull `x-amz-bucket-region` from the response to narrow all further permutations to the *correct* AWS region; compare `AccessDenied` vs other XML error bodies (bucket-policy vs object-ACL differentials); retest the confirmed naming convention cross-cloud (`{name}.blob.core.windows.net`, `storage.googleapis.com/{name}`) — naming conventions survive migrations; check whether the same buckets are CloudFront-fronted (`*.cloudfront.net` aliases with looser behaviors).
+   - **Pattern extrapolation loop:** 2-3 real bucket names (`company-backup-prod`, `company-telemetry-eu`) become the wordlist seed — regenerate across env × region × function (`logs/backup/telemetry/exports`) suffixes. → [`cloud_asset_hunter.sh`](../scripts/cloud_asset_hunter.sh)
+   - **Exposed cloud keys as pivot seeds:** AppSync/Firebase keys found in bundles/repos unlock schema introspection, auth-provider fingerprinting, and project-ID cross-referencing. → [`cloud_key_pivoting`](../skills/infrastructure/cloud_key_pivoting.md) ⚠️ *active key-testing needs explicit program authorization*
 
 ## Phase 2 — Time-Travel Recon (Historical DNS, Routing, Wayback)
 
@@ -42,6 +45,9 @@ Automate 1-3 with [`time_travel_recon.sh`](../scripts/time_travel_recon.sh).
 ## Phase 4 — Client-Side & Shadow API Mining
 
 1. **JS deep dive:** `katana -jc` → LinkFinder/SecretFinder/`mantra -js`; webpack chunks leak `/internal-api/debug/purge` routes with comments. → [`analyze_js_bundle.sh`](../scripts/analyze_js_bundle.sh)
+2. **JS → infrastructure graph correlation:** don't treat bundles as independent — diff bundle hashes/chunk names across deployments via Wayback snapshots of the same JS paths (`js_bundle_changelog.sh`): endpoints added/removed between releases = a **changelog of the internal API surface**. → [`js_bundle_changelog.sh`](../scripts/js_bundle_changelog.sh)
+3. **Sourcemap resurrection:** `.js.map` files often survive on staging/CDN-cached builds — they fully de-minify and reveal commented-out internal endpoints, feature flags, and debug routes stripped from prod logic. Check live *and* archived copies. → [`extract_js_secrets.sh`](../scripts/extract_js_secrets.sh)
+4. **Webpack internal module IDs:** `require()`/chunk-loading paths sometimes contain literal internal folder structures (`/internal-tools/`, `/admin-service/`) mapping to internal service names even when URLs are abstracted.
 2. **Mobile beats web:** the APK ships staging/UAT keys and endpoints web never uses (see [Workflow 11](11_depth_first_mobile.md) Phase 1).
 3. **Spec brute-force, not directory brute-force:** `/openapi.json`, `/swagger.json`, `/v2/api-docs`, `/.well-known/openid-configuration`, `/schema.graphql` → [`shadow_api_probe.sh`](../scripts/shadow_api_probe.sh). → [`shadow_api_exploitation`](../skills/auth_logic/shadow_api_exploitation.md)
 4. **Kiterunner** on JS-derived routes — finds `GET /api/internal/users/export` with no auth.
@@ -83,6 +89,10 @@ Automate the passive slice with [`dev_pivot_osint.sh`](../scripts/dev_pivot_osin
 4. **GraphQL persisted-query replay:** with introspection disabled, batch-query operation names harvested from JS bundles; persisted-query hashes (Apollo APQ) leaked in JS replay against production to reveal schema shape. → [`graphql_attacks`](../skills/infrastructure/graphql_attacks.md)
 5. **Second-order SaaS takeover:** beyond classic dangling CNAMEs, check orphaned custom-domain entries on SaaS platforms — Zendesk, Shopify, Statuspage, Help Scout, Fastly allow claiming an unclaimed custom domain even when the DNS record still exists but the tenant is gone. → [`subdomain_takeover`](../skills/infrastructure/subdomain_takeover.md) § Second-Order SaaS
 6. **Error-based origin leaks:** malformed `Host` headers and oversized requests on edge-hosted routes — some origins reveal their real IP or internal hostname in error pages/headers.
+7. **CT timing correlation:** cross-reference CT issuance *timestamps* for discovered subdomains against the org's GitHub commit timeline and job postings — infrastructure spikes right before a product launch reveal unlinked staging environments spun up for that launch.
+8. **Passive DNS replay over ASN:** pull full passive-DNS history (SecurityTrails/Farsight) for *every IP in the org's ASN ranges*, not just resolved names — catches infra that was DNS-mapped briefly then unmapped, invisible to every current enumeration tool.
+9. **Employee tooling fingerprinting:** build a favicon/JARM/banner fingerprint library for internal tools (Grafana, Kibana, Jenkins, Gitea, Harbor, Vault UI) and sweep the org's IP ranges — the highest-severity misconfigs live here (unauthenticated Grafana, exposed Vault UI). Pairs with [`origin_ip_uncloak.sh`](../scripts/origin_ip_uncloak.sh) candidate IPs.
+10. **Bucket metadata timing side-channel:** `Last-Modified` headers on 403 bucket responses cluster buckets by deployment pipeline — identical cron-like update intervals across buckets signal shared automation, i.e. a shared IAM role misconfig worth hunting.
 
 ## Transition
 Feed discovered live hosts/APIs back into the Runtime (`signals.jsonl`) for architectural inference, then into **[10 — Depth-First Web & API](10_depth_first_web_api.md)** for the depth pass.

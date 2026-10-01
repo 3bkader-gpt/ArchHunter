@@ -36,7 +36,7 @@ Review the generated `MachineReadableDFD.json` and `HypothesisReport.json` to pr
 
 ### STEP C: JAVASCRIPT & SECRETS TRIAGE DOCTRINE
 Treat JavaScript as a primary source of architectural intelligence. Categorize every credential match:
-- **Public Identifier:** (e.g. Firebase API key, Google Maps key without billing limits, Sentry DSN) $\rightarrow$ **NON-ISSUE**.
+- **Public Identifier:** (e.g. Firebase API key, Google Maps key without billing limits, Sentry DSN) $\rightarrow$ **NON-ISSUE as a *finding* — but never dismiss as intel:** cloud SDK keys (Firebase/AppSync/Amplify) map auth flows, schemas, and sibling projects. Route to `skills/infrastructure/cloud_key_pivoting.md` before closing (active key-testing requires explicit program authorization).
 - **Client Configuration:** Public OAuth Client IDs, Algolia search-only keys $\rightarrow$ **INTENDED**.
 - **Test / Demo Value:** Hardcoded mockup tokens $\rightarrow$ Validate against live API before claiming.
 - **High-Privilege Secret:** AWS secret keys, database credentials, internal service JWTs, webhook signing secrets $\rightarrow$ **HIGH/CRITICAL**. Validate minimal scope safely.
@@ -120,7 +120,7 @@ Before declaring any vulnerability candidate as a finding, answer:
 ArchHunter/
 ├── README.md               # Quick-start and directory overview
 ├── claude.md               # Single source of truth (this briefing)
-├── OPERATIONAL_MAP.md      # Rapid mechanism pivot index (linking all 53 skills)
+├── OPERATIONAL_MAP.md      # Rapid mechanism pivot index (linking all 54 skills)
 ├── templates/              # Engagement & Report templates
 │   ├── TARGET_SESSION_TEMPLATE.md
 │   └── VULNERABILITY_REPORT_TEMPLATE.md
@@ -143,8 +143,8 @@ ArchHunter/
 │   ├── 08_impact_modeling.md
 │   └── 09_reporting.md
 ├── Architecture_Inference/ # 8 architectural inference heuristics
-├── skills/                 # Offensive knowledge base (53 skills across 5 pillars)
-│   ├── _INDEX.md           # STRIDE Threat-to-Skill index (53 skills mapped)
+├── skills/                 # Offensive knowledge base (54 skills across 5 pillars)
+│   ├── _INDEX.md           # STRIDE Threat-to-Skill index (54 skills mapped)
 │   ├── _TAXONOMY.md        # 4-pillar architectural taxonomy
 │   ├── auth_logic/         # IDOR, OAuth/SSO, IAM boundaries, Auth bypass
 │   ├── state_management/   # Async, Consistency, Race, WebSockets, Sagas
