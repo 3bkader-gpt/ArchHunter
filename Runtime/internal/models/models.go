@@ -67,6 +67,7 @@ const (
 	MechanismEnvParityDrift   MechanismClass = "ENV_PARITY_DRIFT"
 	MechanismAPIVersionSkew   MechanismClass = "API_VERSION_SKEW"
 	MechanismShadowAPISurface MechanismClass = "SHADOW_API_SURFACE"
+	MechanismOrphanedCloudAsset MechanismClass = "ORPHANED_CLOUD_ASSET"
 )
 
 // --- Core Entities ---

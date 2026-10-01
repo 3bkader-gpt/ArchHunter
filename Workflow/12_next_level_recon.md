@@ -7,10 +7,15 @@ Top-tier hunters do not start *on* `target.com` — they start *around* it and l
 
 ## Phase 1 — Organization → Infrastructure Map (Not Just Subdomains)
 
-1. **ASN & org expansion:** `amass intel -org "Target Inc"`, `asnmap -org Target`, `shodan org:"Target Inc"`, `bgp.he.net`, `whois -h whois.radb.net -- '-i origin ASXXXXX'`.
-2. **Reverse WHOIS:** `viewdns.info/reverseWhois`, SecurityTrails, Whoxy — domains registered with the same org email that the main site never links.
+1. **ASN & org expansion:** `amass intel -org "Target Inc"`, `asnmap -org Target`, `shodan org:"Target Inc"`, `bgp.he.net`, `whois -h whois.radb.net -- '-i origin ASXXXXX'`. Reverse-enumerate every IP in owned ranges — catches infra with **no DNS record at all**.
+2. **Reverse WHOIS:** `viewdns.info/reverseWhois`, SecurityTrails, Whoxy — domains registered with the same org email that the main site never links. Historical (pre-GDPR) WHOIS registrant pivots reveal shadow-IT and acquired-brand domains.
 3. **Cloud shadow:** `cloud_enum` / S3Scanner permutations on `target`, `target-corp`, `targetinc` across AWS/GCP/Azure; `site:s3.amazonaws.com "target"`.
 4. **Acquisitions:** Crunchbase/LinkedIn/press — acquired infra is almost always less hardened; `target-acquired.com` often leaks `*.target.com` keys in old repos.
+5. **Forgotten cloud assets (systematic):** → [`cloud_asset_hunter.sh`](../scripts/cloud_asset_hunter.sh)
+   - **Permutation seeding:** don't guess `company-name` — generate `{company}-{env}-{region}`, `{product}-backup`, `{old-brand}-assets`, acquired-company names. Seed keywords from JS bundles and **job postings** (below).
+   - **DNS-based discovery:** grep `dnsx`/`subfinder` resolution for CNAMEs to `*.s3.amazonaws.com`, `*.blob.core.windows.net`, `*.storage.googleapis.com`, `*.azurewebsites.net` — often undocumented and forgotten.
+   - **CT for cloud-native domains:** grep crt.sh dumps for `*.cloudfront.net`, `*.elb.amazonaws.com`, `*.appspot.com` under the target's SANs.
+   - **Favicon hash pivoting:** Shodan/Censys `http.favicon.hash` on the target's favicon → sibling dev/staging infra reusing it. → [`find_origin_ip.sh`](../scripts/find_origin_ip.sh)
 
 ## Phase 2 — Time-Travel Recon (Historical DNS, Routing, Wayback)
 
@@ -22,11 +27,17 @@ Automate 1-3 with [`time_travel_recon.sh`](../scripts/time_travel_recon.sh).
 
 ## Phase 3 — Source Code & CI/CD Leak Intelligence (Highest ROI)
 
-1. **GitHub org intelligence:** `org:target "api.target.com"`, `org:target filename:.env`, `org:target "aws_access_key"`; employee personal repos via `"target.com" language:javascript pushed:>2023-01-01`.
+1. **GitHub org intelligence:** `org:target "api.target.com"`, `org:target filename:.env`, `org:target "aws_access_key"`; employee personal repos via `"target.com" language:javascript pushed:>2023-01-01`. Also search hardcoded bucket/container names: `"amazonaws.com" target`, `"blob.core.windows.net"` in repos and gists — devs leak staging bucket names in commit history constantly.
 2. **History, not just HEAD:** deleted secrets live in git history — `trufflehog git https://github.com/target/repo --only-verified`.
-3. **CI/CD artifacts:** `Jenkinsfile`, `.github/workflows`, `terraform` leak internal hostnames, S3 buckets, shadow API URLs.
+3. **CI/CD artifacts:** `Jenkinsfile`, `.github/workflows`, `.gitlab-ci.yml`, `.circleci/config.yml`, `azure-pipelines.yml`, `terraform` leak internal hostnames, S3 buckets, shadow API URLs, deployment endpoints.
 4. **Package registries:** `docker pull target/internal-api` (env vars + source), `npm view @target/api`; Postman public workspaces with live Bearer tokens.
 5. **Exposed `.git`:** `httpx -path /.git/HEAD` — full source beats any payload guessing. → [`infrastructure_misconfigurations`](../skills/infrastructure/infrastructure_misconfigurations.md)
+6. **Build artifacts & registries:**
+   - Public Jenkins: `/job/*/lastBuild/api/json` — build logs leak internal hostnames and secrets.
+   - Docker registries: `GET /v2/_catalog` on open registries; `docker history` + layer inspection on org-named Hub images reveals secrets baked into layers.
+   - npm/PyPI internal-name sweep: `{company}-core`, `{company}-utils` — internal packages accidentally published with secrets or API docs.
+   - **Terraform state:** `inurl:terraform.tfstate` / S3 enum — plaintext secrets + full infra topology.
+7. **Postman/Swagger public workspaces:** `site:postman.com "target"`, SwaggerHub — collections often contain full API routes with untouched `Authorization: Bearer` headers.
 
 ## Phase 4 — Client-Side & Shadow API Mining
 
@@ -50,6 +61,28 @@ ffuf -u https://target.com/FUZZ -w shadow_api_routes.txt -mc 200,401,403 -fs 0
 2. Does the response leak `X-Env: development`? → try `../`, `debug=true`.
 3. Does `/.git/config` leak? → you have the source; stop guessing payloads.
 4. Does the historical IP bypass Cloudflare? → rate-limit/WAF evasion is free.
+
+## Phase 6 — Developer & Organizational OSINT (The Human Attack Surface)
+
+Once technical enumeration is exhausted, the next tier is people: developers leak internal reality through public activity.
+
+1. **Commit-email pivoting:** `git log` every public repo the org owns (forks and archived repos included) → extract all committer emails → feed into breach databases / Hunter.io for address-pattern discovery → check those emails as usernames on GitHub, Docker Hub, Trello, Jira.
+2. **Current & former employees:** pivot from commit authors to personal GitHub accounts — personal repos hold old API keys, internal tooling, deployment scripts referencing internal infra. Former-employee repos are the least monitored.
+3. **LinkedIn → platform correlation:** identify DevOps/SRE staff, cross-reference their usernames across GitHub / GitLab / Docker Hub / npm — starred and forked repos often contain the internal tooling they use at work.
+4. **Public boards:** `site:trello.com "target"`, `site:atlassian.net "target"`, `site:notion.site "target"` — public sprint boards leak internal URLs, hostnames, and occasionally credentials in task descriptions.
+5. **Job postings as tech-stack recon:** scrape DevOps/SRE/backend listings — named cloud providers, Kubernetes/CI tooling, internal product names narrow the permutation seeds for Phase 1 cloud hunting intelligently.
+6. **Archived API docs:** Wayback on `/docs`, `/api/docs`, `/swagger`, `/developers` — deprecated documentation stays archived while its endpoints often stay live and unmonitored (pair with Phase 2 diffs).
+
+Automate the passive slice with [`dev_pivot_osint.sh`](../scripts/dev_pivot_osint.sh) (dork generation + commit-email mining; requires `GITHUB_TOKEN` for API use).
+
+## Phase 7 — Esoteric Angles
+
+1. **TLS JARM/JA3S sibling hunting:** fingerprint the target's TLS stack (`jarm scan`) and search Censys/Shodan for identical JARM hashes — finds sibling load balancers/origins sharing the same server config, DNS-independent.
+2. **Wildcard-cert CT mining:** if the target uses a wildcard certificate, mine crt.sh for *any* SAN ever issued under it — including subdomains never linked anywhere (pair with Phase 2 DNS diff).
+3. **CSP mining:** `Content-Security-Policy` headers often whitelist internal subdomains/API hosts discoverable nowhere else — diff the CSP **across every page**, not just the homepage, and feed new hosts back into the Runtime graph.
+4. **GraphQL persisted-query replay:** with introspection disabled, batch-query operation names harvested from JS bundles; persisted-query hashes (Apollo APQ) leaked in JS replay against production to reveal schema shape. → [`graphql_attacks`](../skills/infrastructure/graphql_attacks.md)
+5. **Second-order SaaS takeover:** beyond classic dangling CNAMEs, check orphaned custom-domain entries on SaaS platforms — Zendesk, Shopify, Statuspage, Help Scout, Fastly allow claiming an unclaimed custom domain even when the DNS record still exists but the tenant is gone. → [`subdomain_takeover`](../skills/infrastructure/subdomain_takeover.md) § Second-Order SaaS
+6. **Error-based origin leaks:** malformed `Host` headers and oversized requests on edge-hosted routes — some origins reveal their real IP or internal hostname in error pages/headers.
 
 ## Transition
 Feed discovered live hosts/APIs back into the Runtime (`signals.jsonl`) for architectural inference, then into **[10 — Depth-First Web & API](10_depth_first_web_api.md)** for the depth pass.

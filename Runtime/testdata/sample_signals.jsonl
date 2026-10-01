@@ -31,3 +31,5 @@
 {"input":"https://staging.target.com/actuator/env","source":"katana","method":"GET","endpoint":"https://staging.target.com/actuator/env"}
 {"input":"https://api.target.com/openapi.json","source":"katana","method":"GET","endpoint":"https://api.target.com/openapi.json"}
 {"input":"https://api.target.com/v2/users","source":"httpx","method":"GET","endpoint":"https://api.target.com/v2/users"}
+{"input":"https://acme-backup.s3.amazonaws.com/","source":"httpx","method":"GET","endpoint":"https://acme-backup.s3.amazonaws.com/"}
+{"input":"https://acmeassets.blob.core.windows.net/assets/","source":"katana","method":"GET","endpoint":"https://acmeassets.blob.core.windows.net/assets/"}

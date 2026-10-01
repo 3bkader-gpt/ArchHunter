@@ -26,6 +26,9 @@ This directory contains the production-ready tactical automation scripts for the
 | [`download_medium_writeup.py`](download_medium_writeup.py) | Python 3 | Intelligence | Real-World Research Ingestion | Python 3, `beautifulsoup4`, `requests` |
 | [`time_travel_recon.sh`](time_travel_recon.sh) | Bash | Phase 1 (Recon — passive) | [`Workflow/12`](../Workflow/12_next_level_recon.md) Time-Travel: CT/DNS/Wayback diff | `curl`, `jq`, `dig` |
 | [`shadow_api_probe.sh`](shadow_api_probe.sh) | Bash | Phase 2 & 3 (Surface) | [`shadow_api_exploitation.md`](../skills/auth_logic/shadow_api_exploitation.md) | `curl`, `jq` |
+| [`cloud_asset_hunter.sh`](cloud_asset_hunter.sh) | Bash | Phase 1 (Recon — passive) | [`Workflow/12`](../Workflow/12_next_level_recon.md) Forgotten cloud assets + orphaned-asset rule | `curl`, `jq`, `dig` |
+| [`origin_ip_uncloak.sh`](origin_ip_uncloak.sh) | Bash | Phase 1 (Perimeter) | [`origin_ip_discovery_waf_bypass.md`](../skills/infrastructure/origin_ip_discovery_waf_bypass.md) SPF/DMARC + exclusion classes | `dig`, `curl`, `jq` |
+| [`dev_pivot_osint.sh`](dev_pivot_osint.sh) | Bash | Phase 1 (OSINT) | [`Workflow/12`](../Workflow/12_next_level_recon.md) Developer-pivot phase | `curl`, `jq` (+ `GITHUB_TOKEN`) |
 | [`intel/fetch_h1_reports.py`](intel/fetch_h1_reports.py) | Python 3 | Intelligence | Disclosed H1 Report Ingestion (auth / ai / state presets) | Python 3, `requests` |
 | [`intel/fetch_telegram_intel.py`](intel/fetch_telegram_intel.py) | Python 3 | Intelligence | Telegram Channel Writeup Crawler → `research/case_studies/` | Python 3, `telethon`, `beautifulsoup4`, `requests` |
 | [`intel/tg_login.py`](intel/tg_login.py) | Python 3 | Intelligence | One-time Telegram Session Provisioning (interactive) | Python 3, `telethon` |
@@ -175,6 +178,27 @@ This directory contains the production-ready tactical automation scripts for the
 *   **Usage (Bash/WSL):**
     ```bash
     BASE_DIR=/mnt/z/bug_bounty ./scripts/setup_target.sh acme acme.com
+    ```
+
+### 12c-bis. `cloud_asset_hunter.sh`
+*   **Purpose:** Forgotten-cloud-asset hunting per [`Workflow/12`](../Workflow/12_next_level_recon.md) Phase 1: permutation generation (org/env/product seeds), S3/Azure/GCS existence probing, CNAME cloud mining from recon output, CT cloud-domain grep.
+*   **Usage:**
+    ```bash
+    ./scripts/cloud_asset_hunter.sh acme.com acme recon/timetravel/ct_hosts.txt
+    ```
+
+### 12c-quater. `origin_ip_uncloak.sh`
+*   **Purpose:** Origin uncloaking per [`origin_ip_discovery_waf_bypass`](../skills/infrastructure/origin_ip_discovery_waf_bypass.md): SPF/DMARC infrastructure mining, non-proxied subdomain classes (mail./direct./origin.), CT cert-history dump, error-based Host-header leak probes. Complements `find_origin_ip.sh` (favicon hash).
+*   **Usage:**
+    ```bash
+    ./scripts/origin_ip_uncloak.sh target.com
+    ```
+
+### 12c-quin. `dev_pivot_osint.sh`
+*   **Purpose:** Developer/organizational OSINT per [`Workflow/12`](../Workflow/12_next_level_recon.md) Phase 6: commit-email mining via GitHub API (`GITHUB_TOKEN` recommended), dork-list generation (boards/tfstate/Postman/npm), Wayback doc waypoints. Passive lead generation only.
+*   **Usage:**
+    ```bash
+    GITHUB_TOKEN=ghp_xxx ./scripts/dev_pivot_osint.sh acme.com acme-corp
     ```
 
 ### 12d. `time_travel_recon.sh`

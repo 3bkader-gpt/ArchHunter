@@ -104,6 +104,14 @@ sequenceDiagram
     ```
 *   **Impact:** Immediate memory and thread exhaustion crashing node / python gateway processes.
 
+### Vector E: Persisted-Query Replay (Introspection-Disabled Bypass)
+*   **Mechanism:** With introspection off, teams often ship **Apollo Automatic Persisted Queries (APQ)** — the client sends `{ "extensions": { "persistedQuery": { "version": 1, "sha256Hash": "<hash>" } } }`. Hashes for *every* operation the frontend uses are visible in the JS bundle.
+*   **Validation:**
+    1.  Harvest hashes + operation names from bundles: `grep -E "persistedQuery|sha256Hash|operationName" -r dist/`.
+    2.  Replay each hash directly to the endpoint — a valid response reveals the query's shape without introspection.
+    3.  **Hash confusion:** some servers accept a hash *with a supplied `query` string* (hash becomes a cache key only) — supply your own query under a known-good hash to smuggle arbitrary operations past introspection-disabled gates.
+*   **Impact:** Full schema surface reconstruction and execution of operations the security team believed were locked to allow-listed queries.
+
 ---
 
 ## 4. Common GraphQL Path Discovery List

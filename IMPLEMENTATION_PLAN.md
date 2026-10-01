@@ -103,3 +103,20 @@
 | **P14 ✅** | Scripts: `time_travel_recon.sh`, `shadow_api_probe.sh`; README updates; commit | `scripts/` |
 
 **Execution order:** P9 → P10 → P11 → P12 → P13 → P14.
+
+---
+
+# Sprint 3 — Advanced & Organizational Recon Integration (2026-10-01)
+
+> **Input:** Advanced recon corpus (forgotten cloud assets, origin uncloaking, CI/CD/container/npm leaks, developer-pivot OSINT, esoteric angles).
+> **Review verdict:** Favicon/cert/peripheral origin discovery already covered by `skills/infrastructure/origin_ip_discovery_waf_bypass.md` + `scripts/find_origin_ip.sh`; classic SaaS takeover fingerprints already in `subdomain_takeover.md`. Genuinely new: systematic cloud-asset hunting, SPF/DMARC + error-based uncloaking, container registry/npm/PyPI/tfstate/Postman leaks, an entire developer/organizational OSINT phase, and esoteric vectors (JARM, wildcard-cert CT mining, CSP mining, persisted-query replay, second-order SaaS takeover).
+
+| Phase | Deliverable | Destination |
+|---|---|---|
+| **P15 ✅** | W12 deepened: Phase 1 cloud assets, Phase 3 container/npm/tfstate/Postman, new Phase 6 (Developer & Org OSINT), Phase 7 (Esoteric Angles) | `Workflow/12_next_level_recon.md` |
+| **P16 ✅** | Skill extensions: SPF/DMARC + error-based uncloaking; second-order SaaS takeover; persisted-query replay | `skills/infrastructure/` |
+| **P17 ✅** | Scripts: `cloud_asset_hunter.sh`, `origin_ip_uncloak.sh`, `dev_pivot_osint.sh` | `scripts/` |
+| **P18 ✅** | Engine: `cloud-native-endpoint` trait + `ORPHANED_CLOUD_ASSET` mechanism/rule with filtered nodes; fixture + verification | `Runtime/internal/inference/` |
+| **P19 ✅** | Docs sweep (scripts/README, plan checkboxes) + commit | repo-wide |
+
+**Execution order:** P15 → P16 → P17 → P18 → P19.

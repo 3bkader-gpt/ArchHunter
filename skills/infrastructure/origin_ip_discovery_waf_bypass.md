@@ -60,6 +60,24 @@
     *   PDF generators (`POST /api/invoice/generate`)
 *   Supply your Burp Collaborator or VPS address (`http://attacker.com/listen`). The incoming HTTP/DNS request reveals the **true outbound Origin IP**.
 
+### 5. Email & DNS Infrastructure Leaks (SPF/DMARC)
+*   `TXT` / SPF records leak outbound infrastructure ranges that the web CDN never touches:
+    ```bash
+    dig +short TXT target.com | grep -i "v=spf"        # include:_spf..., ip4:/ip6: ranges
+    dig +short TXT _dmarc.target.com                   # rua/ruf reporting hosts
+    dig +short MX target.com                           # mail cluster IPs via A lookups
+    ```
+*   Every `include:` domain and `ip4:`/`ip6:` range is a candidate origin pool — resolve and test with `Host` header injection.
+*   **Subdomain exclusion classes:** mail (`mail.`, `smtp.`, `mx.`), direct/origin (`direct.`, `origin.`, `backend.`, `api-internal.`) are typically *not proxied* even when the main site is — enumerate them explicitly.
+
+### 6. Content Fingerprint Full-Text Search
+*   Shodan/Censys full-text on strings unique to the app — a distinctive error string, custom header value, specific cookie name — finds the origin serving identical content **without** the CDN in front:
+    ```
+    http.html:"Fatal error: Uncaught Exception in /var/www/target-prod/"
+    http.headers:"X-Target-Build: 2024.11"
+    ```
+*   Combine with JARM: identical TLS JARM hashes on other IPs = sibling infrastructure sharing the same server config.
+
 ---
 
 ## 3. Origin Verification & Exploitation

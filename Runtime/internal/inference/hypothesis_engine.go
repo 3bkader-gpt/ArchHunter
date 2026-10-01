@@ -170,6 +170,9 @@ func (h *HypothesisEngine) extractTraits(snapshot models.GraphSnapshot) map[stri
 		if hasAnySubstring(path, []string{"/debug", "/actuator", "/console", "/internal-api"}) {
 			traits["debug-endpoints"] = true
 		}
+		if isCloudNode(node) {
+			traits["cloud-native-endpoint"] = true
+		}
 	}
 
 	// API version skew: any host serving two or more /api/vN versions.
@@ -311,6 +314,10 @@ func (h *HypothesisEngine) findRelevantNodes(snapshot models.GraphSnapshot, rule
 			}
 		case models.MechanismShadowAPISurface:
 			if isSpecNode(node) || isDebugNode(node) {
+				nodeIDs = append(nodeIDs, node.ID)
+			}
+		case models.MechanismOrphanedCloudAsset:
+			if isCloudNode(node) {
 				nodeIDs = append(nodeIDs, node.ID)
 			}
 		default:
@@ -456,6 +463,19 @@ func isDebugNode(n models.Node) bool {
 
 func isStagingNode(n models.Node) bool {
 	return isStagingHost(nodeURL(n))
+}
+
+var cloudHostMarkers = []string{
+	"s3.amazonaws.com", "amazonaws.com", "blob.core.windows.net",
+	"storage.googleapis.com", "azurewebsites.net", "cloudfront.net",
+	"elb.amazonaws.com", "appspot.com", "herokuapp.com", "azureedge.net",
+	"firebaseio.com", "r2.cloudflarestorage.com", "digitaloceanspaces.com",
+}
+
+// isCloudNode reports whether the node lives on cloud-native hosting
+// (buckets, blob stores, CDN/ELB origins, app services).
+func isCloudNode(n models.Node) bool {
+	return hasAnySubstring(nodeURL(n), cloudHostMarkers)
 }
 
 func isEdgeServerStr(s string) bool {
@@ -614,6 +634,16 @@ func defaultHypothesisRules() []HypothesisRule {
 		BaseRisk:       0.65,
 		SkillRef:       "skills/auth_logic/shadow_api_exploitation.md",
 		Description:    "Readable OpenAPI/Swagger/schema artifact or debug route detected — enumerates undocumented (shadow) API surface invisible to the public spec",
+	},
+	{
+		ID:             "orphaned_cloud_asset",
+		RequiredTraits: []string{"cloud-native-endpoint"},
+		OptionalTraits: []string{"internal-service", "aws", "spec-exposure"},
+		Mechanism:      models.MechanismOrphanedCloudAsset,
+		Label:          "Cloud-Native Endpoints → Orphaned Asset Exposure",
+		BaseRisk:       0.7,
+		SkillRef:       "skills/infrastructure/infrastructure_misconfigurations.md",
+		Description:    "Cloud-native hosting endpoints (S3/Blob/GCS/App Service/CDN) present in recon — verify ownership, permissions, and dangling status for forgotten-asset takeover; pair with scripts/cloud_asset_hunter.sh",
 	},
 	}
 }
