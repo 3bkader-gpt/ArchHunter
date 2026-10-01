@@ -32,6 +32,8 @@ func main() {
 	minConf := flag.Float64("min-confidence", 0.0, "Filter hypotheses below this confidence threshold (0.0-1.0)")
 	verbose := flag.Bool("verbose", false, "Print detailed graph state to stdout")
 	legacy := flag.Bool("legacy", false, "Run legacy MVP pipeline (backward compatible)")
+	workersAddr := flag.String("workers-addr", os.Getenv("ARCHHUNTER_WORKERS_ADDR"),
+		"gRPC reasoning worker endpoint (e.g. localhost:50051). Overrides the mock client when reachable")
 
 	flag.Parse()
 
@@ -58,10 +60,17 @@ func main() {
 	norm := normalization.NewNormalizer()
 	engine := graph.NewEngine()
 	pipe := ingestion.NewPipeline(norm, engine)
-	mockClient := inference.NewMockClient()
+
+	var inferenceClient orchestration.InferenceClient
+	if *workersAddr != "" {
+		fmt.Printf("🔌 Using gRPC reasoning worker at %s\n", *workersAddr)
+		inferenceClient = inference.NewGrpcClient(map[string]string{"python-worker": *workersAddr})
+	} else {
+		inferenceClient = inference.NewMockClient()
+	}
 	hypoEngine := inference.NewHypothesisEngine()
 
-	runtime := orchestration.NewRuntime(pipe, engine, mockClient, hypoEngine)
+	runtime := orchestration.NewRuntime(pipe, engine, inferenceClient, hypoEngine)
 
 	ctx := context.Background()
 	fmt.Print(banner)

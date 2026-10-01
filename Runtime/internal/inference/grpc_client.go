@@ -38,10 +38,12 @@ func (c *GrpcClient) RunInference(ctx context.Context, nodes []models.Node) ([]m
 	for _, n := range nodes {
 		pbNodes = append(pbNodes, &graph_pb.Node{
 			Id:              n.ID,
+			Type:            graph_pb.NodeType(graph_pb.NodeType_value[string(n.Type)]),
 			Layer:           n.Layer,
 			Labels:          n.Labels,
 			Properties:      n.Properties,
 			ConfidenceScore: float32(n.ConfidenceScore),
+			EvidenceIds:     n.EvidenceIDs,
 		})
 	}
 
@@ -57,11 +59,12 @@ func (c *GrpcClient) RunInference(ctx context.Context, nodes []models.Node) ([]m
 
 	// Dispatch to configured worker endpoints
 	for workerName, endpoint := range c.endpoints {
-		conn, err := grpc.DialContext(ctx, endpoint,
+		dialCtx, dialCancel := context.WithTimeout(ctx, 500*time.Millisecond)
+		conn, err := grpc.DialContext(dialCtx, endpoint,
 			grpc.WithTransportCredentials(insecure.NewCredentials()),
 			grpc.WithBlock(),
-			grpc.WithTimeout(500*time.Millisecond),
 		)
+		dialCancel()
 		if err != nil {
 			// Fallback log for offline workers
 			fmt.Printf("  [gRPC] Worker %s at %s offline (skipping remote call)\n", workerName, endpoint)

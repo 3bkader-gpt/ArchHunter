@@ -1,0 +1,170 @@
+# Case Studies — Curated Intelligence Library
+
+> Sourced from the private `llm` intel repo (auth_bypass_vault + llm_hacking_vault) and live crawls by `scripts/intel/`. Full original disclosures — use as reference while triaging architectural hypotheses.
+
+**Skill cross-references:**
+- Auth / IDOR / OAuth / JWT / SAML cases -> `skills/auth_logic/` (esp. `logic_idor_auth.md`, `oauth_sso_integrity.md`, `saml_xsw_sso.md`, `pre_account_takeover.md`)
+- Rate limit / race / webhook cases -> `skills/state_management/` (esp. `rate_limiting_evasion.md`, `race_conditions.md`)
+- Proxy header / path normalization / 403 cases -> `skills/infrastructure/forbidden_403_bypass.md`, `parser_differential_abuse.md`
+- LLM / MCP / prompt injection cases -> `skills/emerging/llm_rag_privesc.md`, `mcp_agent_tool_poisoning.md`, `indirect_prompt_injection_exfiltration.md`
+
+---
+
+## auth_bypass — HackerOne Disclosed Reports (27)
+
+| [110293_Insufficient_OAuth_callback_validation_which_leads_to_Periscope_a](auth_bypass/h1_disclosed_reports/110293_Insufficient_OAuth_callback_validation_which_leads_to_Periscope_account_takeover.md) |
+| [1103582_HackerOne_Jira_integration_plugin_Leaked_JWT_to_unauthorized_jir](auth_bypass/h1_disclosed_reports/1103582_HackerOne_Jira_integration_plugin_Leaked_JWT_to_unauthorized_jira_users.md) |
+| [129873_Bypassing_Digits_origin_validation_which_leads_to_account_takeove](auth_bypass/h1_disclosed_reports/129873_Bypassing_Digits_origin_validation_which_leads_to_account_takeover.md) |
+| [1342088_Flickr_Account_Takeover_using_AWS_Cognito_API](auth_bypass/h1_disclosed_reports/1342088_Flickr_Account_Takeover_using_AWS_Cognito_API.md) |
+| [143717_Change_any_Uber_user's_password_through__rt_users_passwordless-si](auth_bypass/h1_disclosed_reports/143717_Change_any_Uber_user's_password_through__rt_users_passwordless-signup_-_Account_Takeover_(.md) |
+| [1661113_IDOR_allows_an_attacker_to_modify_the_links_of_any_user](auth_bypass/h1_disclosed_reports/1661113_IDOR_allows_an_attacker_to_modify_the_links_of_any_user.md) |
+| [1698316_Cache_Deception_Allows_Account_Takeover](auth_bypass/h1_disclosed_reports/1698316_Cache_Deception_Allows_Account_Takeover.md) |
+| [1861974_Stealing_Users_OAuth_authorization_code_via_redirect_uri](auth_bypass/h1_disclosed_reports/1861974_Stealing_Users_OAuth_authorization_code_via_redirect_uri.md) |
+| [1969141_Insecure_Direct_Object_Reference_(IDOR)_-_Delete_Campaigns](auth_bypass/h1_disclosed_reports/1969141_Insecure_Direct_Object_Reference_(IDOR)_-_Delete_Campaigns.md) |
+| [2122671_IDOR_-_Delete_all_Licenses_and_certifications_from_users_account](auth_bypass/h1_disclosed_reports/2122671_IDOR_-_Delete_all_Licenses_and_certifications_from_users_account_using_CreateOrUpdateHacke.md) |
+| [219205_Authentication_bypass_on_auth.uber.com_via_subdomain_takeover_of_](auth_bypass/h1_disclosed_reports/219205_Authentication_bypass_on_auth.uber.com_via_subdomain_takeover_of_saostatic.uber.com.md) |
+| [226659_Password_Reset_link_hijacking_via_Host_Header_Poisoning](auth_bypass/h1_disclosed_reports/226659_Password_Reset_link_hijacking_via_Host_Header_Poisoning.md) |
+| [2487889_Insecure_Direct_Object_Reference_(IDOR)_Allows_Viewing_Private_R](auth_bypass/h1_disclosed_reports/2487889_Insecure_Direct_Object_Reference_(IDOR)_Allows_Viewing_Private_Report_Details_via__bugs.js.md) |
+| [2831902_[CRITICAL]_0-Click_Account_Takeover_via_Password_Reset_[AUTH-324](auth_bypass/h1_disclosed_reports/2831902_[CRITICAL]_0-Click_Account_Takeover_via_Password_Reset_[AUTH-3243]__orchestrator_v1_passwo.md) |
+| [2885636_2FA_Bypass_leads_to_impersonation_of_legimate_users](auth_bypass/h1_disclosed_reports/2885636_2FA_Bypass_leads_to_impersonation_of_legimate_users.md) |
+| [314808_Full_account_takeover](auth_bypass/h1_disclosed_reports/314808_Full_account_takeover.md) |
+| [3154983_IDOR__Account_Deletion_via_Session_Misbinding_–_Attacker_Can_Del](auth_bypass/h1_disclosed_reports/3154983_IDOR__Account_Deletion_via_Session_Misbinding_–_Attacker_Can_Delete_Victim_Account.md) |
+| [335330_Subdomain_Takeover_to_Authentication_bypass](auth_bypass/h1_disclosed_reports/335330_Subdomain_Takeover_to_Authentication_bypass.md) |
+| [489146_Confidential_data_of_users_and_limited_metadata_of_programs_and_r](auth_bypass/h1_disclosed_reports/489146_Confidential_data_of_users_and_limited_metadata_of_programs_and_reports_accessible_via_Gra.md) |
+| [534450_Account_takeover_through_the_combination_of_cookie_manipulation_a](auth_bypass/h1_disclosed_reports/534450_Account_takeover_through_the_combination_of_cookie_manipulation_and_XSS.md) |
+| [745324_Account_takeover_via_leaked_session_cookie](auth_bypass/h1_disclosed_reports/745324_Account_takeover_via_leaked_session_cookie.md) |
+| [791775_Email_Confirmation_Bypass_in_myshop.myshopify.com_that_Leads_to_F](auth_bypass/h1_disclosed_reports/791775_Email_Confirmation_Bypass_in_myshop.myshopify.com_that_Leads_to_Full_Privilege_Escalation_.md) |
+| [796956_Able_to_Takeover_Merchants_Accounts_Even_They_Have_Already_Setup_](auth_bypass/h1_disclosed_reports/796956_Able_to_Takeover_Merchants_Accounts_Even_They_Have_Already_Setup_SSO,_After_Bypassing_the_.md) |
+| [861940_OAuth_`redirect_uri`_bypass_using_IDN_homograph_attack_resulting_](auth_bypass/h1_disclosed_reports/861940_OAuth_`redirect_uri`_bypass_using_IDN_homograph_attack_resulting_in_user's_access_token_le.md) |
+| [905607_[cs.money]_Open_Redirect_Leads_to_Account_Takeover](auth_bypass/h1_disclosed_reports/905607_[cs.money]_Open_Redirect_Leads_to_Account_Takeover.md) |
+| [915114_IDOR_when_editing_users_leads_to_Account_Takeover_without_User_In](auth_bypass/h1_disclosed_reports/915114_IDOR_when_editing_users_leads_to_Account_Takeover_without_User_Interaction_at_CrowdSignal.md) |
+| [922456_Ability_to_bypass_email_verification_for_OAuth_grants_results_in_](auth_bypass/h1_disclosed_reports/922456_Ability_to_bypass_email_verification_for_OAuth_grants_results_in_accounts_takeovers_on_3rd.md) |
+
+## auth_bypass — Telegram Writeups (34)
+
+| [2025-05-31_How_Interesting_2FA_Bypass_Through_Browser_Feature_Lead_Me_To](auth_bypass/telegram_writeups/2fa_and_mfa_bypass/2025-05-31_How_Interesting_2FA_Bypass_Through_Browser_Feature_Lead_Me_To_Critical_Vulnerabi.md) |
+| [2026-05-01_CVE-2026-41940__A_Critical_Authentication_Bypass_in_cPanel](auth_bypass/telegram_writeups/2fa_and_mfa_bypass/2026-05-01_CVE-2026-41940__A_Critical_Authentication_Bypass_in_cPanel.md) |
+| [2026-05-13_How_I_Found_Critical_Zero-Click_Account_Takeover_via_Archived](auth_bypass/telegram_writeups/2fa_and_mfa_bypass/2026-05-13_How_I_Found_Critical_Zero-Click_Account_Takeover_via_Archived___Cached_Password_.md) |
+| [2026-08-25_The_art_of_Race_Condition_how_a_simple_race_condition_can_lea](auth_bypass/telegram_writeups/2fa_and_mfa_bypass/2026-08-25_The_art_of_Race_Condition_how_a_simple_race_condition_can_leads_to_ATO!.md) |
+| [2026-09-11_BigBear_2.0__The_Phishing_Kit_That_Beats_MFA_Without_a_Passwo](auth_bypass/telegram_writeups/2fa_and_mfa_bypass/2026-09-11_BigBear_2.0__The_Phishing_Kit_That_Beats_MFA_Without_a_Password.md) |
+| [2026-03-26_CONCURRENCY_TEST_—_RACE_CONDITION](auth_bypass/telegram_writeups/idor_and_bac/2026-03-26_CONCURRENCY_TEST_—_RACE_CONDITION.md) |
+| [2026-04-29_web_cache_deception_-_quick_view](auth_bypass/telegram_writeups/idor_and_bac/2026-04-29_web_cache_deception_-_quick_view.md) |
+| [2026-05-26_ATO-Via-Password-Reset-Test](auth_bypass/telegram_writeups/idor_and_bac/2026-05-26_ATO-Via-Password-Reset-Test.md) |
+| [2026-06-26_$1,100_Privilege_Escalation__Group_Leader_Can_Promote_Anyone_](auth_bypass/telegram_writeups/idor_and_bac/2026-06-26_$1,100_Privilege_Escalation__Group_Leader_Can_Promote_Anyone_via_Hidden_Paramete.md) |
+| [2026-07-26_Frontend_Security_Is_Not_Enough__A_Practical_Demonstration_of](auth_bypass/telegram_writeups/idor_and_bac/2026-07-26_Frontend_Security_Is_Not_Enough__A_Practical_Demonstration_of_Broken_Access_Cont.md) |
+| [2026-09-09_My_First_Paid_Bug_Bounty__A_Broken_Access_Control_Vulnerabili](auth_bypass/telegram_writeups/idor_and_bac/2026-09-09_My_First_Paid_Bug_Bounty__A_Broken_Access_Control_Vulnerability.md) |
+| [2024-12-30_Discovered_30_BOLA_+_IDOR_vulnerabilities_in_a_single_subdoma](auth_bypass/telegram_writeups/jwt_and_session_attacks/2024-12-30_Discovered_30_BOLA_+_IDOR_vulnerabilities_in_a_single_subdomain_(BBP).md) |
+| [2026-06-14_Client-side_Authentication_Bypass](auth_bypass/telegram_writeups/jwt_and_session_attacks/2026-06-14_Client-side_Authentication_Bypass.md) |
+| [2026-06-25_Privilege_Escalation_Through_Named-Pipe_Flaw](auth_bypass/telegram_writeups/jwt_and_session_attacks/2026-06-25_Privilege_Escalation_Through_Named-Pipe_Flaw.md) |
+| [2026-06-28_Authentication_Bypass_Bugs__The_Beginner_Friendly_Money_Maker](auth_bypass/telegram_writeups/jwt_and_session_attacks/2026-06-28_Authentication_Bypass_Bugs__The_Beginner_Friendly_Money_Maker.md) |
+| [2026-07-28_How_I_Found_a_Broken_Access_Control_Vulnerability_During_a_Pe](auth_bypass/telegram_writeups/jwt_and_session_attacks/2026-07-28_How_I_Found_a_Broken_Access_Control_Vulnerability_During_a_Penetration_Test.md) |
+| [2026-09-09_CVE-2026–64857_—_Session_Fixation_in_Tirreno_Authentication](auth_bypass/telegram_writeups/jwt_and_session_attacks/2026-09-09_CVE-2026–64857_—_Session_Fixation_in_Tirreno_Authentication.md) |
+| [2026-09-09_I_Forged_My_Own_Admin_Token_by_Exploiting_JWT_Algorithm_Confu](auth_bypass/telegram_writeups/jwt_and_session_attacks/2026-09-09_I_Forged_My_Own_Admin_Token_by_Exploiting_JWT_Algorithm_Confusion_($8,500_Bounty.md) |
+| [2026-09-11_How_I_Found_an_Account_Takeover_Hiding_in_a_‘Scan_to_Upload’_](auth_bypass/telegram_writeups/jwt_and_session_attacks/2026-09-11_How_I_Found_an_Account_Takeover_Hiding_in_a_‘Scan_to_Upload’_Button.md) |
+| [2026-09-11_JWT_Exploits__Three_Ways_Trust_Gets_Misconfigured](auth_bypass/telegram_writeups/jwt_and_session_attacks/2026-09-11_JWT_Exploits__Three_Ways_Trust_Gets_Misconfigured.md) |
+| [2026-02-14_Password_reset_poisoning](auth_bypass/telegram_writeups/oauth_and_sso/2026-02-14_Password_reset_poisoning.md) |
+| [2026-06-27_I_Found_a_High-Severity_OAuth_Account_Takeover_Vulnerability_](auth_bypass/telegram_writeups/oauth_and_sso/2026-06-27_I_Found_a_High-Severity_OAuth_Account_Takeover_Vulnerability_on_IIT_Madras’s_Stu.md) |
+| [2026-07-06_Breaking_Trust,_Not_Cryptography__A_Critical_JWT_Authenticati](auth_bypass/telegram_writeups/oauth_and_sso/2026-07-06_Breaking_Trust,_Not_Cryptography__A_Critical_JWT_Authentication_Design_Flaw_Wort.md) |
+| [2026-07-25_Empty_Page_Leaked_a_JWT_—_Privilege_Escalation_From_the_Lowes](auth_bypass/telegram_writeups/oauth_and_sso/2026-07-25_Empty_Page_Leaked_a_JWT_—_Privilege_Escalation_From_the_Lowest_Role.md) |
+| [2026-07-26_I_Modified_Collections_I_Did_Not_Own__IDOR](auth_bypass/telegram_writeups/oauth_and_sso/2026-07-26_I_Modified_Collections_I_Did_Not_Own__IDOR.md) |
+| [2026-07-26_JWT_Security_TryHackMe_Room_Walkthrough](auth_bypass/telegram_writeups/oauth_and_sso/2026-07-26_JWT_Security_TryHackMe_Room_Walkthrough.md) |
+| [2026-07-26_The_Header_That_Signed_Itself__Full_Account_Takeover_in_a_Goo](auth_bypass/telegram_writeups/oauth_and_sso/2026-07-26_The_Header_That_Signed_Itself__Full_Account_Takeover_in_a_Google_SSO_Flow.md) |
+| [2026-07-27_Two_Simple_but_Amazing_Pre-Account_Takeover_(ATO)_Ideas](auth_bypass/telegram_writeups/oauth_and_sso/2026-07-27_Two_Simple_but_Amazing_Pre-Account_Takeover_(ATO)_Ideas.md) |
+| [2026-08-23_How_Broken_OAuth_Flows_Turn_Into_One-Click_Account_Takeovers](auth_bypass/telegram_writeups/oauth_and_sso/2026-08-23_How_Broken_OAuth_Flows_Turn_Into_One-Click_Account_Takeovers.md) |
+| [2026-09-09_The_$0_Exploit__Account_Takeover_via_a_Single_HTTP_Redirect](auth_bypass/telegram_writeups/oauth_and_sso/2026-09-09_The_$0_Exploit__Account_Takeover_via_a_Single_HTTP_Redirect.md) |
+| [2026-09-10_From_File_Upload_to_Account_Takeover__Chaining_Stored_XSS_for](auth_bypass/telegram_writeups/oauth_and_sso/2026-09-10_From_File_Upload_to_Account_Takeover__Chaining_Stored_XSS_for_Credential_Exposur.md) |
+| [2026-09-10_I_Wasn’t_Looking_for_PII._I_Just_Cancelled_an_Invite._(IDOR_→](auth_bypass/telegram_writeups/oauth_and_sso/2026-09-10_I_Wasn’t_Looking_for_PII._I_Just_Cancelled_an_Invite._(IDOR_→_PII).md) |
+| [2026-09-11_JWT_Internals__What’s_Actually_Inside_That_Token_You_Trust](auth_bypass/telegram_writeups/oauth_and_sso/2026-09-11_JWT_Internals__What’s_Actually_Inside_That_Token_You_Trust.md) |
+| [2026-09-12_How_We_Found_a_Critical_Bug_in_India’s_Income_Tax_Portal_That](auth_bypass/telegram_writeups/oauth_and_sso/2026-09-12_How_We_Found_a_Critical_Bug_in_India’s_Income_Tax_Portal_That_Put_135M+_Users’_S.md) |
+
+## auth_bypass — Methodologies & Cheatsheets (7)
+
+| [auth_testing_methodology](auth_bypass/methodologies/auth_testing_methodology.md) |
+| [graphql_auth_bypass_patterns](auth_bypass/methodologies/graphql_auth_bypass_patterns.md) |
+| [idor_access_control_patterns](auth_bypass/methodologies/idor_access_control_patterns.md) |
+| [oauth_jwt_session_cheatsheet](auth_bypass/methodologies/oauth_jwt_session_cheatsheet.md) |
+| [reverse_proxy_header_auth_bypass](auth_bypass/methodologies/reverse_proxy_header_auth_bypass.md) |
+| [saml_sso_exploitation_guide](auth_bypass/methodologies/saml_sso_exploitation_guide.md) |
+| [web_cache_deception_and_host_header_ato](auth_bypass/methodologies/web_cache_deception_and_host_header_ato.md) |
+
+## llm_security — HackerOne Disclosed Reports (21)
+
+| [1735622_Reflected_XSS_in_chatbot](llm_security/h1_disclosed_reports/1735622_Reflected_XSS_in_chatbot.md) |
+| [2218334_IDOR_vulnerability_in_unreleased_HackerOne_Copilot_feature](llm_security/h1_disclosed_reports/2218334_IDOR_vulnerability_in_unreleased_HackerOne_Copilot_feature.md) |
+| [2370955_LLM03__Training_Data_Poisoning_via_ASCII_decoding](llm_security/h1_disclosed_reports/2370955_LLM03__Training_Data_Poisoning_via_ASCII_decoding.md) |
+| [2372363_LLM01__Invisible_Prompt_Injection](llm_security/h1_disclosed_reports/2372363_LLM01__Invisible_Prompt_Injection.md) |
+| [2383092_Source_Code_and_data_exfiltration_via_Github_Copilot](llm_security/h1_disclosed_reports/2383092_Source_Code_and_data_exfiltration_via_Github_Copilot.md) |
+| [2800091_Non-Production_API_Endpoints_for_the_bedrock-agent_Service_Fail_](llm_security/h1_disclosed_reports/2800091_Non-Production_API_Endpoints_for_the_bedrock-agent_Service_Fail_to_Log_to_CloudTrail_Resulting_in_Si.md) |
+| [2951803_Non-Production_API_Endpoints_for_the_bedrock_Service_Fail_to_Log](llm_security/h1_disclosed_reports/2951803_Non-Production_API_Endpoints_for_the_bedrock_Service_Fail_to_Log_to_CloudTrail_Resulting_in_Silent_P.md) |
+| [2972435_Non-Production_API_Endpoints_for_the_cloudwatch_Service_Fail_to_](llm_security/h1_disclosed_reports/2972435_Non-Production_API_Endpoints_for_the_cloudwatch_Service_Fail_to_Log_to_CloudTrail_Resulting_in_Silen.md) |
+| [3056937_Bedrock_Guardrails_Evasion_with_Prompt_Formatting](llm_security/h1_disclosed_reports/3056937_Bedrock_Guardrails_Evasion_with_Prompt_Formatting.md) |
+| [3086301_Prompt_Injection_via_GitHub_Patch_in_Brave_AI_Chat_(Leo)](llm_security/h1_disclosed_reports/3086301_Prompt_Injection_via_GitHub_Patch_in_Brave_AI_Chat_(Leo).md) |
+| [3112106_BAC_–_Bypass_chatbot_restrictions_via_unauthorized_mention_injec](llm_security/h1_disclosed_reports/3112106_BAC_–_Bypass_chatbot_restrictions_via_unauthorized_mention_injection.md) |
+| [3176157_DNS_Rebinding_SSRF_in_Burp_Suite_MCP_Server_Enables_Internal_Net](llm_security/h1_disclosed_reports/3176157_DNS_Rebinding_SSRF_in_Burp_Suite_MCP_Server_Enables_Internal_Network_Access_via_send_http1_request_T.md) |
+| [3211031_`use-mcp`'s_oauth2_process_uses_a_window.open_call_with_untruste](llm_security/h1_disclosed_reports/3211031_`use-mcp`'s_oauth2_process_uses_a_window.open_call_with_untrusted_mcp_server_provided_data_allowing_.md) |
+| [3316910_Second-Order_XSS_via_javascript_protocol_in_MCP_Server_Portal_Ap](llm_security/h1_disclosed_reports/3316910_Second-Order_XSS_via_javascript_protocol_in_MCP_Server_Portal_Apps_leads_to_ATO.md) |
+| [3424998_AI_Playground_XSS_to_steal_user-chat_messages_and_access_to_conn](llm_security/h1_disclosed_reports/3424998_AI_Playground_XSS_to_steal_user-chat_messages_and_access_to_connected_MCP_Server.md) |
+| [3427370_Command_Injection_on_Amazon_Q_Developer_CLI_via_malicious_.amazo](llm_security/h1_disclosed_reports/3427370_Command_Injection_on_Amazon_Q_Developer_CLI_via_malicious_.amazonq_mcp.json_leads_to_arbitrary_code_.md) |
+| [3557138_Arbitrary_Code_Execution_via_Scanner_Bypass_in___aws-diagram-mcp](llm_security/h1_disclosed_reports/3557138_Arbitrary_Code_Execution_via_Scanner_Bypass_in___aws-diagram-mcp-server___`exec()`_Namespace.md) |
+| [3577145_QuickSight_Authorization_Bypass__Chat_Agents_Accessible_Despite_](llm_security/h1_disclosed_reports/3577145_QuickSight_Authorization_Bypass__Chat_Agents_Accessible_Despite_Custom_Permissions_Denial.md) |
+| [3632577_Bedrock_AgentCore_Starter_Toolkit_Creates_Gateway_IAM_Roles_With](llm_security/h1_disclosed_reports/3632577_Bedrock_AgentCore_Starter_Toolkit_Creates_Gateway_IAM_Roles_Without_Confused_Deputy_Protections.md) |
+| [3702072_bedrock-mantle.api.aws_accepts_Bedrock_API_keys_outside_the_IAM_](llm_security/h1_disclosed_reports/3702072_bedrock-mantle.api.aws_accepts_Bedrock_API_keys_outside_the_IAM_Deny,_CloudTrail_signal,_and_invocat.md) |
+| [3717354_UI_Consent_Bypass_via_Comma_Injection_in_`addAutoApproveTarget`_](llm_security/h1_disclosed_reports/3717354_UI_Consent_Bypass_via_Comma_Injection_in_`addAutoApproveTarget`_—_User-Approval_Dialog_and_Persisten.md) |
+
+## llm_security — Telegram Writeups (44)
+
+| [2026-06-07_DontFeedTheAI](llm_security/telegram_writeups/agent_and_mcp_security/2026-06-07_DontFeedTheAI.md) |
+| [2026-09-07_Article_7_—_Your_AI_Agent_Was_Approved_to_Do_One_Thing._What_](llm_security/telegram_writeups/agent_and_mcp_security/2026-09-07_Article_7_—_Your_AI_Agent_Was_Approved_to_Do_One_Thing._What_Actually_Gets_Execu.md) |
+| [2026-09-07_Your_AI_Agent_Can_Do_More_Than_You_Approved](llm_security/telegram_writeups/agent_and_mcp_security/2026-09-07_Your_AI_Agent_Can_Do_More_Than_You_Approved.md) |
+| [2026-09-09_An_AI_Agent_Can_Now_Buy_a_Domain_on_Its_Own._Here’s_Every_Way](llm_security/telegram_writeups/agent_and_mcp_security/2026-09-09_An_AI_Agent_Can_Now_Buy_a_Domain_on_Its_Own._Here’s_Every_Way_That_Goes_Wrong_Wi.md) |
+| [2026-09-09_CyberStrike__Turning_Any_LLM_Into_an_Autonomous_Red_Team_Agen](llm_security/telegram_writeups/agent_and_mcp_security/2026-09-09_CyberStrike__Turning_Any_LLM_Into_an_Autonomous_Red_Team_Agent.md) |
+| [2026-09-10_Top_20_AI_Agent_Pen-Testing_Tools_for_2026__The_Ultimate_Guid](llm_security/telegram_writeups/agent_and_mcp_security/2026-09-10_Top_20_AI_Agent_Pen-Testing_Tools_for_2026__The_Ultimate_Guide.md) |
+| [2026-09-11_AI_Agent-to-Agent_Attacks__When_AI_Agents_Start_Attacking_Eac](llm_security/telegram_writeups/agent_and_mcp_security/2026-09-11_AI_Agent-to-Agent_Attacks__When_AI_Agents_Start_Attacking_Each_Other.md) |
+| [2026-09-11_Your_AI_Agent_Just_Called_an_API._Should_Your_SOC_Care](llm_security/telegram_writeups/agent_and_mcp_security/2026-09-11_Your_AI_Agent_Just_Called_an_API._Should_Your_SOC_Care.md) |
+| [2026-05-25_Claude-BugHunter__The_Open-Source_AI_Security_Agent_That_Turn](llm_security/telegram_writeups/prompt_injection/2026-05-25_Claude-BugHunter__The_Open-Source_AI_Security_Agent_That_Turns_Claude_Code_Into_.md) |
+| [2026-05-26_When_“Deleted”_Isn’t_Deleted__Investigating_Context_Persisten](llm_security/telegram_writeups/prompt_injection/2026-05-26_When_“Deleted”_Isn’t_Deleted__Investigating_Context_Persistence_in_ChatGPT_Proje.md) |
+| [2026-06-03_Bug-Bounty-Agents](llm_security/telegram_writeups/prompt_injection/2026-06-03_Bug-Bounty-Agents.md) |
+| [2026-06-19_Automated_Red_Teaming_for_Voice_AI_Agents](llm_security/telegram_writeups/prompt_injection/2026-06-19_Automated_Red_Teaming_for_Voice_AI_Agents.md) |
+| [2026-06-24_How_a_Single_Copied_Function_Gave_Me_Pre-Auth_RCE_in_an_LLM_D](llm_security/telegram_writeups/prompt_injection/2026-06-24_How_a_Single_Copied_Function_Gave_Me_Pre-Auth_RCE_in_an_LLM_DevOps_Platform_—_an.md) |
+| [2026-06-26_The_Hidden_Bugs_in_Your_LLM__Why_AI_Systems_Fail_in_Ways_You_](llm_security/telegram_writeups/prompt_injection/2026-06-26_The_Hidden_Bugs_in_Your_LLM__Why_AI_Systems_Fail_in_Ways_You_Never_Expect.md) |
+| [2026-08-26_🤖_Numasec___The_AI_Agent_for_Cybersecurity_🔐](llm_security/telegram_writeups/prompt_injection/2026-08-26_🤖_Numasec___The_AI_Agent_for_Cybersecurity_🔐.md) |
+| [2026-09-06_An_AI_agent_hacked_a_gym._But_this_isn’t_quite_the_AI_misalig](llm_security/telegram_writeups/prompt_injection/2026-09-06_An_AI_agent_hacked_a_gym._But_this_isn’t_quite_the_AI_misalignment_story_you_thi.md) |
+| [2026-09-06_I_Clicked_a_Fake_HBO_Max_Ad._Then_I_Put_ChatGPT’s_Infrastruct](llm_security/telegram_writeups/prompt_injection/2026-09-06_I_Clicked_a_Fake_HBO_Max_Ad._Then_I_Put_ChatGPT’s_Infrastructure_to_Work.md) |
+| [2026-09-06_SAF-T1003_Malicious_MCP-Server_Distribution](llm_security/telegram_writeups/prompt_injection/2026-09-06_SAF-T1003_Malicious_MCP-Server_Distribution.md) |
+| [2026-09-07_Title__Kali_MCP__Giving_AI_Agents_a_Real_Pentest_Toolkit_—_Wh](llm_security/telegram_writeups/prompt_injection/2026-09-07_Title__Kali_MCP__Giving_AI_Agents_a_Real_Pentest_Toolkit_—_What_Works,_What_Does.md) |
+| [2026-09-07_TryHackMe_AI_Security_Threats_🚨](llm_security/telegram_writeups/prompt_injection/2026-09-07_TryHackMe_AI_Security_Threats_🚨.md) |
+| [2026-09-07_Why_a_Single_LLM_Agent_Can’t_Read_Your_Contracts_(And_What_Ca](llm_security/telegram_writeups/prompt_injection/2026-09-07_Why_a_Single_LLM_Agent_Can’t_Read_Your_Contracts_(And_What_Can).md) |
+| [2026-09-08_AI_Security_Learning_Journal_—_Day_06](llm_security/telegram_writeups/prompt_injection/2026-09-08_AI_Security_Learning_Journal_—_Day_06.md) |
+| [2026-09-08_AI_in_Cybersecurity__A_Beginner’s_Guide_to_Claude_Code,_MCP_&](llm_security/telegram_writeups/prompt_injection/2026-09-08_AI_in_Cybersecurity__A_Beginner’s_Guide_to_Claude_Code,_MCP_&_AI_Agents-2.md) |
+| [2026-09-08_How_MCP_Servers_Extend_Claude’s_Capabilities](llm_security/telegram_writeups/prompt_injection/2026-09-08_How_MCP_Servers_Extend_Claude’s_Capabilities.md) |
+| [2026-09-08_Patch_Diffing_CVE-2026–55157_—_Token_Optimizer_MCP__OS_comman](llm_security/telegram_writeups/prompt_injection/2026-09-08_Patch_Diffing_CVE-2026–55157_—_Token_Optimizer_MCP__OS_command_injection.md) |
+| [2026-09-08_Securing_AI-Powered_Web_Applications__Prompt_Injection,_Tool_](llm_security/telegram_writeups/prompt_injection/2026-09-08_Securing_AI-Powered_Web_Applications__Prompt_Injection,_Tool_Abuse,_and_Agentic_.md) |
+| [2026-09-08_When_an_AI_Agent_Gets_Compromised,_Will_Your_Detection_System](llm_security/telegram_writeups/prompt_injection/2026-09-08_When_an_AI_Agent_Gets_Compromised,_Will_Your_Detection_System_Notice.md) |
+| [2026-09-09_AI_Security_Assessments_Need_to_Go_Beyond_the_Model](llm_security/telegram_writeups/prompt_injection/2026-09-09_AI_Security_Assessments_Need_to_Go_Beyond_the_Model.md) |
+| [2026-09-09_Agentic_AI_Security_Risks__The_Hidden_Challenges_of_Autonomou](llm_security/telegram_writeups/prompt_injection/2026-09-09_Agentic_AI_Security_Risks__The_Hidden_Challenges_of_Autonomous_Intelligence.md) |
+| [2026-09-09_CPG_Compilation_vs._LLM_AI_Generation__Empirical_Analysis_of_](llm_security/telegram_writeups/prompt_injection/2026-09-09_CPG_Compilation_vs._LLM_AI_Generation__Empirical_Analysis_of_CVE-2025–62593_Rule.md) |
+| [2026-09-09_Context_Injection__Evaluating_LLM_Attack_Surfaces_Across_Trus](llm_security/telegram_writeups/prompt_injection/2026-09-09_Context_Injection__Evaluating_LLM_Attack_Surfaces_Across_Trust_Boundaries.md) |
+| [2026-09-09_Security_for_AI_Agents__Prompt_Injection_Is_Only_the_Beginnin](llm_security/telegram_writeups/prompt_injection/2026-09-09_Security_for_AI_Agents__Prompt_Injection_Is_Only_the_Beginning.md) |
+| [2026-09-09_The_AI_Agent_That_Hacked_Hugging_Face__How_I_Investigated_17,](llm_security/telegram_writeups/prompt_injection/2026-09-09_The_AI_Agent_That_Hacked_Hugging_Face__How_I_Investigated_17,600_Autonomous_Acti.md) |
+| [2026-09-09_Why_Blindly_Trusting_ChatGPT,_Gemini,_and_Copilot_Is_Costing_](llm_security/telegram_writeups/prompt_injection/2026-09-09_Why_Blindly_Trusting_ChatGPT,_Gemini,_and_Copilot_Is_Costing_You_Smart_Decisions.md) |
+| [2026-09-10_AI_Security_Learning_Journal_—_Day_08](llm_security/telegram_writeups/prompt_injection/2026-09-10_AI_Security_Learning_Journal_—_Day_08.md) |
+| [2026-09-10_I_Asked_a_Frontier_LLM_to_Recover_Secrets_from_My_Decompiled_](llm_security/telegram_writeups/prompt_injection/2026-09-10_I_Asked_a_Frontier_LLM_to_Recover_Secrets_from_My_Decompiled_Build.md) |
+| [2026-09-10_Introducing_YoloLLM__Mini_Juice_Ship_for_LLM_Security_Trainin](llm_security/telegram_writeups/prompt_injection/2026-09-10_Introducing_YoloLLM__Mini_Juice_Ship_for_LLM_Security_Training.md) |
+| [2026-09-10_Prompt_Injection_in_LLM_Applications__A_Practical_Security_Te](llm_security/telegram_writeups/prompt_injection/2026-09-10_Prompt_Injection_in_LLM_Applications__A_Practical_Security_Testing_Approach.md) |
+| [2026-09-10_Your_AI_agent_has_approval._Is_it_still_allowed_to_act](llm_security/telegram_writeups/prompt_injection/2026-09-10_Your_AI_agent_has_approval._Is_it_still_allowed_to_act.md) |
+| [2026-09-11_AI_Security_Learning_Journal_—_Day_09](llm_security/telegram_writeups/prompt_injection/2026-09-11_AI_Security_Learning_Journal_—_Day_09.md) |
+| [2026-09-12_Your_AI_Agent_Can_Take_Action._Who_Gave_It_Permission](llm_security/telegram_writeups/prompt_injection/2026-09-12_Your_AI_Agent_Can_Take_Action._Who_Gave_It_Permission.md) |
+| [2026-09-07_Sensitive_Information_Disclosure_in_RAG-Based_Applications](llm_security/telegram_writeups/rag_and_vector_dbs/2026-09-07_Sensitive_Information_Disclosure_in_RAG-Based_Applications.md) |
+| [2026-09-11_Vector_Database_Security__The_New_Attack_Surface_in_RAG_Syste](llm_security/telegram_writeups/rag_and_vector_dbs/2026-09-11_Vector_Database_Security__The_New_Attack_Surface_in_RAG_Systems.md) |
+| [2026-09-07_AI_Security_Learning_Journal_—_Day_05](llm_security/telegram_writeups/tools_and_training/2026-09-07_AI_Security_Learning_Journal_—_Day_05.md) |
+
+## llm_security — Methodologies (3)
+
+| [owasp_llm_top10_guide](llm_security/methodologies/owasp_llm_top10_guide.md) |
+| [poc_reference_patterns](llm_security/methodologies/poc_reference_patterns.md) |
+| [testing_methodology](llm_security/methodologies/testing_methodology.md) |
+
+## Fresh Crawls (`scripts/intel/` output) (2)
+
+| [429026_Race_condition_in_performing_retest_allows_duplicated_payments](_fresh/429026_Race_condition_in_performing_retest_allows_duplicated_payments.md) |
+| [759247_Race_Condition_allows_to_redeem_multiple_times_gift_cards_which_l](_fresh/759247_Race_Condition_allows_to_redeem_multiple_times_gift_cards_which_leads_to_free__money.md) |

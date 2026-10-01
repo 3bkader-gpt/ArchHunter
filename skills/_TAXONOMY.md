@@ -60,6 +60,8 @@ Focuses on core architectural flaws, routing, and backend systems.
 ## 4. Emerging (`skills/emerging/`)
 Focuses on new paradigms, AI integrations, and non-traditional attack surfaces.
 *   **`llm_rag_privesc.md`**: Exploiting the gap between user intent and backend agent permissions, and bypassing AI chat quotas.
+*   **`mcp_agent_tool_poisoning.md`**: Poisoning MCP server registrations, tool descriptions, and approval dialogs to hijack agent tool execution.
+*   **`indirect_prompt_injection_exfiltration.md`**: Seeding stored injection payloads into retrieved content and exfiltrating data through model output channels.
 
 ## 5. Operational Mapping
 *   **`OPERATIONAL_MAP.md`**: The root-level flat index for rapid mechanism-based pivoting during a hunt.

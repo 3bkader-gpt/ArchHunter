@@ -1,0 +1,66 @@
+# Report #3154983: IDOR: Account Deletion via Session Misbinding – Attacker Can Delete Victim Account
+
+- **Platform:** HackerOne
+- **Report URL:** [https://hackerone.com/reports/3154983](https://hackerone.com/reports/3154983)
+- **Program:** Mozilla
+- **Reporter:** @z3phyrus
+- **Status:** RESOLVED
+- **Severity:** high
+- **Weakness:** Insecure Direct Object Reference (IDOR)
+- **Bounty:** Yes (Undisclosed Amount)
+- **Submitted:** 2025-05-20T15:52:48.865Z
+- **Disclosed:** 2025-06-03T08:38:03.802Z
+- **Community Upvotes:** 241
+
+---
+
+## Executive Summaries
+
+### Team by @frida-k
+
+An IDOR vulnerability was identified in the Firefox Accounts API endpoint `https://api.accounts.firefox.com/v1/account/destroy` that allows an authenticated attacker using SSO (i.e Google login) to delete a user's account using their email address if they are also registered using SSO. The server fails to verify that the session making the deletion request belongs to the account being deleted.
+
+---
+
+## Full Vulnerability Description & Technical Reproduction Steps
+
+## Summary:
+A critical vulnerability in the Firefox Accounts API allows an authenticated attacker to permanently delete any user's account by sending a `POST /v1/account/destroy` request using attacker session, but including the victim’s `email` and `authPW` (password hash) in the JSON payload. The server fails to verify that the session making the request belongs to the account being deleted.
+
+## Steps To Reproduce:
+1. Login to the victim's account.
+{F4367852}
+
+2. Use Burp Suite to intercept a request to the endpoint https://api.accounts.firefox.com/v1/account/destroy when deleting the account. Capture the JSON body, for example:
+```
+{
+"email": "victims344@gmail.com",
+"authPW": "42b4c2940fe2efecce851a2d8e9754d0f1cb1d37e3ccaabb060f9ac21900caff"
+}
+```
+███████
+
+3. Then cancel the request (don't let it reach the server).
+
+4. Login to the attacker's account.
+████████
+
+5. Again, use Burp Suite to intercept a request to the same endpoint https://api.accounts.firefox.com/v1/account/destroy when deleting the account. Send it to the Repeater and cancel the request.
+██████
+
+6. In the attacker's request, replace the JSON body with the victim's harvested data:
+```
+{
+"email": "victims344@gmail.com",
+"authPW": "42b4c2940fe2efecce851a2d8e9754d0f1cb1d37e3ccaabb060f9ac21900caff"
+}
+```
+Send the request.
+{F4367860}
+
+7. The server accepts the request and deletes the victim's account, even if it was from the attacker's session.
+{F4367861}
+
+## Impact
+
+**==Allows attackers to delete victim accounts without permission.==**

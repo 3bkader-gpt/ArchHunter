@@ -116,7 +116,7 @@ Before declaring any vulnerability candidate as a finding, answer:
 ArchHunter/
 ├── README.md               # Quick-start and directory overview
 ├── claude.md               # Single source of truth (this briefing)
-├── OPERATIONAL_MAP.md      # Rapid mechanism pivot index (linking all 47 skills)
+├── OPERATIONAL_MAP.md      # Rapid mechanism pivot index (linking all 49 skills)
 ├── templates/              # Engagement & Report templates
 │   ├── TARGET_SESSION_TEMPLATE.md
 │   └── VULNERABILITY_REPORT_TEMPLATE.md
@@ -139,8 +139,8 @@ ArchHunter/
 │   ├── 08_impact_modeling.md
 │   └── 09_reporting.md
 ├── Architecture_Inference/ # 8 architectural inference heuristics
-├── skills/                 # Offensive knowledge base (47 skills across 4 pillars)
-│   ├── _INDEX.md           # STRIDE Threat-to-Skill index (47 skills mapped)
+├── skills/                 # Offensive knowledge base (49 skills across 4 pillars)
+│   ├── _INDEX.md           # STRIDE Threat-to-Skill index (49 skills mapped)
 │   ├── _TAXONOMY.md        # 4-pillar architectural taxonomy
 │   ├── auth_logic/         # IDOR, OAuth/SSO, IAM boundaries, Auth bypass
 │   ├── state_management/   # Async, Consistency, Race, WebSockets, Sagas

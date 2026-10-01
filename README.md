@@ -8,7 +8,7 @@
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB.svg?logo=python&logoColor=white)](https://www.python.org/)
 [![gRPC](https://img.shields.io/badge/Protocol-gRPC%20%26%20Protobuf-244F5D.svg?logo=google&logoColor=white)](https://grpc.io/)
 [![Threat Modeling](https://img.shields.io/badge/Threat%20Model-STRIDE%20%26%20DFD-critical.svg)](Methodology/STRIDE_Threat_Modeling_Workflow.md)
-[![Skills](https://img.shields.io/badge/Tactical%20Vectors-44%20Specialized%20Skills-blue.svg)](OPERATIONAL_MAP.md)
+[![Skills](https://img.shields.io/badge/Tactical%20Vectors-49%20Specialized%20Skills-blue.svg)](OPERATIONAL_MAP.md)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 **Signals Ingestion • DFD Graph Generation • Mechanism Auditing • Exploit Chain Synthesis**
@@ -45,7 +45,7 @@ flowchart TD
     end
     
     subgraph Tactical Execution Tier
-        SkillEngine["⚔️ 44 Mechanism-Auditing Vectors<br/>(IDOR, Race Conditions, Cache Poisoning, SSRF)"]
+        SkillEngine["⚔️ 49 Mechanism-Auditing Vectors<br/>(IDOR, Race Conditions, Cache Poisoning, SSRF)"]
         ChainBuilder["🔗 Exploit Chain Synthesizer"]
         Report["📋 Executive Impact & Vulnerability Disclosure"]
     end
@@ -90,7 +90,7 @@ go run cmd/runtime/main.go -input testdata/sample_signals.jsonl -format markdown
 ArchHunter/
 ├── README.md               # Framework overview and architecture (this file)
 ├── claude.md               # Master AI Agent briefing & execution doctrine
-├── OPERATIONAL_MAP.md      # Rapid mechanism pivot index (linking all 47 skills)
+├── OPERATIONAL_MAP.md      # Rapid mechanism pivot index (linking all 49 skills)
 ├── templates/              # Engagement templates (TARGET_SESSION_TEMPLATE.md)
 │
 ├── Methodology/            # Strategic threat modeling & tactical playbooks
@@ -129,8 +129,8 @@ ArchHunter/
 │   ├── workers/            # Distributed Python micro-workers (scoring, parser, identity)
 │   └── testdata/           # Reusable telemetry datasets
 │
-└── skills/                 # 47 curated mechanism manuals (4 pillars)
-    ├── _INDEX.md           # STRIDE Threat Matrix (all 47 skills indexed)
+└── skills/                 # 49 curated mechanism manuals (4 pillars)
+    ├── _INDEX.md           # STRIDE Threat Matrix (all 49 skills indexed)
     ├── _TAXONOMY.md        # Full 4-pillar architectural taxonomy
     ├── auth_logic/         # SAML XSW, IDOR, Pre-ATO, OAuth/SSO, IAM boundaries, Auth bypass
     ├── state_management/   # Financial logic, Rate limiting, Async, Consistency, Race, WebSockets

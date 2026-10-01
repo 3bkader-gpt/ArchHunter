@@ -14,15 +14,19 @@ This directory contains the production-ready tactical automation scripts for the
 | [`find_origin_ip.sh`](find_origin_ip.sh) / [`.ps1`](find_origin_ip.ps1) | Bash / PWSH | Phase 1 (Perimeter) | [`origin_ip_discovery_waf_bypass.md`](../skills/infrastructure/origin_ip_discovery_waf_bypass.md) | `shodan`, `censys`, `curl`, `openssl` |
 | [`discover_api_endpoints.sh`](discover_api_endpoints.sh) / [`.ps1`](discover_api_endpoints.ps1) | Bash / PWSH | Phase 2 (Architecture) | API Attack Surface & DFD Mapping | `katana`, `ffuf`, `httpx` |
 | [`fuzz_sensitive_backups.sh`](fuzz_sensitive_backups.sh) / [`.ps1`](fuzz_sensitive_backups.ps1) | Bash / PWSH | Phase 2 & 3 | [`infrastructure_misconfigurations.md`](../skills/infrastructure/infrastructure_misconfigurations.md) | `ffuf` / `curl` |
-| [`test_403_bypasses.ps1`](test_403_bypasses.ps1) | PWSH | Phase 3 (Auditing) | [`forbidden_403_bypass.md`](../skills/infrastructure/forbidden_403_bypass.md) | PowerShell 7+, [`payloads/headers/`](../payloads/headers/) |
-| [`test_ssrf_bypasses.ps1`](test_ssrf_bypasses.ps1) | PWSH | Phase 3 (Auditing) | [`backend_ssrf_rce.md`](../skills/infrastructure/backend_ssrf_rce.md) | PowerShell 7+, Burp Collaborator / Interactsh |
-| [`audit_graphql_endpoints.ps1`](audit_graphql_endpoints.ps1) | PWSH | Phase 3 (Auditing) | [`graphql_attacks.md`](../skills/infrastructure/graphql_attacks.md) | PowerShell 7+ |
-| [`extract_js_secrets.ps1`](extract_js_secrets.ps1) | PWSH | Phase 2 & 3 | Hardcoded Credentials & Hidden API Discovery | PowerShell 7+, `curl` |
-| [`analyze_js_bundle.ps1`](analyze_js_bundle.ps1) | PWSH | Phase 1 & 2 (Recon & Mapping) | 13-Pattern JS Bundle Deep Regex Inspection | PowerShell 7+ |
-| [`find_broken_links.ps1`](find_broken_links.ps1) | PWSH | Phase 3 (Auditing) | [`broken_link_hijacking.md`](../skills/infrastructure/broken_link_hijacking.md) | PowerShell 7+ |
-| [`param_reflection_pipeline.ps1`](param_reflection_pipeline.ps1) | PWSH | Phase 3 (Auditing) | [`xss_variations.md`](../skills/infrastructure/xss_variations.md) | `katana`, `uro`, `kxss`, `dalfox` |
+| [`test_403_bypasses.sh`](test_403_bypasses.sh) / [`.ps1`](test_403_bypasses.ps1) | Bash / PWSH | Phase 3 (Auditing) | [`forbidden_403_bypass.md`](../skills/infrastructure/forbidden_403_bypass.md) | PowerShell 7+, [`payloads/headers/`](../payloads/headers/) |
+| [`test_ssrf_bypasses.sh`](test_ssrf_bypasses.sh) / [`.ps1`](test_ssrf_bypasses.ps1) | Bash / PWSH | Phase 3 (Auditing) | [`backend_ssrf_rce.md`](../skills/infrastructure/backend_ssrf_rce.md) | PowerShell 7+, Burp Collaborator / Interactsh |
+| [`audit_graphql_endpoints.sh`](audit_graphql_endpoints.sh) / [`.ps1`](audit_graphql_endpoints.ps1) | Bash / PWSH | Phase 3 (Auditing) | [`graphql_attacks.md`](../skills/infrastructure/graphql_attacks.md) | PowerShell 7+ |
+| [`extract_js_secrets.sh`](extract_js_secrets.sh) / [`.ps1`](extract_js_secrets.ps1) | Bash / PWSH | Phase 2 & 3 | Hardcoded Credentials & Hidden API Discovery | PowerShell 7+, `curl` |
+| [`analyze_js_bundle.sh`](analyze_js_bundle.sh) / [`.ps1`](analyze_js_bundle.ps1) | Bash / PWSH | Phase 1 & 2 (Recon & Mapping) | 13-Pattern JS Bundle Deep Regex Inspection | PowerShell 7+ |
+| [`find_broken_links.sh`](find_broken_links.sh) / [`.ps1`](find_broken_links.ps1) | Bash / PWSH | Phase 3 (Auditing) | [`broken_link_hijacking.md`](../skills/infrastructure/broken_link_hijacking.md) | PowerShell 7+ |
+| [`param_reflection_pipeline.sh`](param_reflection_pipeline.sh) / [`.ps1`](param_reflection_pipeline.ps1) | Bash / PWSH | Phase 3 (Auditing) | [`xss_variations.md`](../skills/infrastructure/xss_variations.md) | `katana`, `uro`, `kxss`, `dalfox` |
 | [`quick_hunt_setup.sh`](quick_hunt_setup.sh) / [`.ps1`](quick_hunt_setup.ps1) | Bash / PWSH | Setup | Session Initialization & Scaffolding | Standard shell utilities |
+| [`setup_target.sh`](setup_target.sh) / [`.ps1`](setup_target.ps1) | Bash / PWSH | Setup / Onboarding | Automated Target Scaffolding & ArchHunter Deployment | PowerShell 5.1+ / 7+ |
 | [`download_medium_writeup.py`](download_medium_writeup.py) | Python 3 | Intelligence | Real-World Research Ingestion | Python 3, `beautifulsoup4`, `requests` |
+| [`intel/fetch_h1_reports.py`](intel/fetch_h1_reports.py) | Python 3 | Intelligence | Disclosed H1 Report Ingestion (auth / ai / state presets) | Python 3, `requests` |
+| [`intel/fetch_telegram_intel.py`](intel/fetch_telegram_intel.py) | Python 3 | Intelligence | Telegram Channel Writeup Crawler → `research/case_studies/` | Python 3, `telethon`, `beautifulsoup4`, `requests` |
+| [`intel/tg_login.py`](intel/tg_login.py) | Python 3 | Intelligence | One-time Telegram Session Provisioning (interactive) | Python 3, `telethon` |
 
 ---
 
@@ -80,35 +84,70 @@ This directory contains the production-ready tactical automation scripts for the
     ./scripts/fuzz_sensitive_backups.sh target.com
     ```
 
-### 7. `test_403_bypasses.ps1`
+### 7. `test_403_bypasses.sh` / `.ps1`
+*   **Purpose:** Path normalizations, rewrite headers, IP spoofing, verb overrides, and optional extended header wordlist against restricted 403/401 endpoints.
+*   **Usage (Bash/WSL):**
+    ```bash
+    ./scripts/test_403_bypasses.sh -u "https://target.com/admin" -x
+    ```
+
+### 7b. `test_403_bypasses.ps1`
 *   **Purpose:** Automated testing of 5,865 reverse proxy bypass headers from [`payloads/headers/403_bypass_headers.txt`](../payloads/headers/403_bypass_headers.txt), matrix path mutations, and HTTP verb overrides against restricted 403/401 endpoints.
 *   **Usage:**
     ```powershell
     .\scripts\test_403_bypasses.ps1 -Url "https://target.com/admin" -HeadersFile "payloads\headers\403_bypass_headers.txt"
     ```
 
-### 8. `audit_graphql_endpoints.ps1`
+### 8. `audit_graphql_endpoints.sh` / `.ps1`
+*   **Purpose:** Probes common GraphQL paths for discovery, introspection status, array-based batching, and field-suggestion leaks.
+*   **Usage (Bash/WSL):**
+    ```bash
+    ./scripts/audit_graphql_endpoints.sh https://target.com
+    ```
+
+### 8b. `audit_graphql_endpoints.ps1`
 *   **Purpose:** Probes identified GraphQL endpoints for enabled introspection, field suggestion leakage, array-based query batching (brute-force amplification), and circular recursion DoS vulnerabilities.
 *   **Usage:**
     ```powershell
     .\scripts\audit_graphql_endpoints.ps1 -Endpoint "https://target.com/graphql"
     ```
 
-### 9. `extract_js_secrets.ps1`
+### 9. `extract_js_secrets.sh` / `.ps1`
+*   **Purpose:** Discovers JS bundles from a page, checks exposed `.js.map` source files, extracts API routes, and flags hardcoded cloud/API secrets.
+*   **Usage (Bash/WSL):**
+    ```bash
+    ./scripts/extract_js_secrets.sh https://target.com
+    ```
+
+### 9b. `extract_js_secrets.ps1`
 *   **Purpose:** Downloads loaded JavaScript bundles from target URLs and runs high-precision regex extraction for AWS Access Keys, Google API keys, JWT tokens, Stripe secrets, and internal staging endpoints.
 *   **Usage:**
     ```powershell
     .\scripts\extract_js_secrets.ps1 -UrlList "targets\target.com\js_files.txt"
     ```
 
-### 10. `find_broken_links.ps1`
+### 10. `find_broken_links.sh` / `.ps1`
+*   **Purpose:** Extracts external links, probes HTTP status (HEAD with GET fallback), and flags 404/410 on high-value third-party assets (GitHub, Twitter/X, LinkedIn, S3, Bitly).
+*   **Usage (Bash/WSL):**
+    ```bash
+    ./scripts/find_broken_links.sh https://docs.target.com
+    ```
+
+### 10b. `find_broken_links.ps1`
 *   **Purpose:** Crawls target domains and documentation to detect expired/unclaimed social handles (Twitter/X, LinkedIn, Telegram), dead GitHub user repos, and dangling external CDNs.
 *   **Usage:**
     ```powershell
     .\scripts\find_broken_links.ps1 -TargetUrl "https://target.com"
     ```
 
-### 11. `param_reflection_pipeline.ps1`
+### 11. `param_reflection_pipeline.sh` / `.ps1`
+*   **Purpose:** Collects URLs (OTX/Wayback/file), dedupes parameterized endpoints, injects canary tokens, and classifies reflection contexts (tag/attribute/script/comment) with unescaped-char analysis.
+*   **Usage (Bash/WSL):**
+    ```bash
+    ./scripts/param_reflection_pipeline.sh -d example.com -n 100
+    ```
+
+### 11b. `param_reflection_pipeline.ps1`
 *   **Purpose:** Mines parameterized URLs, extracts high-risk reflection sinks, and passes them to `kxss` and `dalfox` for non-destructive XSS confirmation.
 *   **Usage:**
     ```powershell
@@ -122,11 +161,41 @@ This directory contains the production-ready tactical automation scripts for the
     ./scripts/quick_hunt_setup.sh target.com
     ```
 
+### 12b. `analyze_js_bundle.sh` / `.ps1`
+*   **Purpose:** 13-pattern deep inspection of local JS bundles (API endpoints, admin routes, auth flows, GraphQL ops, WebSockets, source maps) producing `api-list.txt` + JSON report.
+*   **Usage (Bash/WSL):**
+    ```bash
+    ./scripts/analyze_js_bundle.sh -d recon/js -o recon/api
+    ```
+
+### 12c. `setup_target.sh` / `.ps1`
+*   **Purpose:** Per-target engagement scaffolding: clean ArchHunter copy (no `.git`/`_archive`), customized `TARGET_SESSION.md`, recon hierarchy, scope files, and fresh Runtime `session_id`.
+*   **Usage (Bash/WSL):**
+    ```bash
+    BASE_DIR=/mnt/z/bug_bounty ./scripts/setup_target.sh acme acme.com
+    ```
+
 ### 13. `download_medium_writeup.py`
 *   **Purpose:** Downloads real-world bug bounty writeups from Medium/blogs, removes ads, extracts actionable methodology patterns, and converts them to structured markdown for the knowledge base.
 *   **Usage:**
     ```bash
     python scripts/download_medium_writeup.py "https://medium.com/@author/writeup-title" -o research/writeups/
+    ```
+
+### 14. `intel/fetch_h1_reports.py`
+*   **Purpose:** Pulls disclosed HackerOne reports matching a mechanism preset (`auth` / `ai` / `state`) or custom hacktivity queries, converts each full disclosure to Markdown, and writes an `INDEX.md`. Output lands in `research/case_studies/_fresh/` by default.
+*   **Usage:**
+    ```bash
+    python scripts/intel/fetch_h1_reports.py --preset ai --limit 20
+    python scripts/intel/fetch_h1_reports.py --query 'title:"Race Condition" AND disclosed:true' --limit 10
+    ```
+
+### 15. `intel/fetch_telegram_intel.py`
+*   **Purpose:** Crawls the channels inside a Telegram dialog filter, keyword-filters messages, fetches linked full articles, and archives them under categorized subfolders in `research/case_studies/_fresh_tg/`. Credentials are read from `TELEGRAM_API_ID` / `TELEGRAM_API_HASH` / `TELEGRAM_SESSION` env vars (never hardcode them).
+*   **Usage:**
+    ```bash
+    python scripts/intel/tg_login.py                      # one-time session provisioning
+    python scripts/intel/fetch_telegram_intel.py --keywords "ssrf,mcp,llm" --folder-filter bug_bounty
     ```
 
 ---

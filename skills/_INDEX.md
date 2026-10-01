@@ -1,6 +1,6 @@
 # Bug Bounty STRIDE Index
 
-This index maps the STRIDE threat modeling categories directly to the 47 curated mechanism manuals within the knowledge base.
+This index maps the STRIDE threat modeling categories directly to the 49 curated mechanism manuals within the knowledge base.
 
 ## Spoofing (Authenticity)
 *   [`auth_logic/saml_xsw_sso.md`](auth_logic/saml_xsw_sso.md) - Forging identity via SAML XML Signature Wrapping (XSW 1-8) and comment injection.
@@ -48,6 +48,7 @@ This index maps the STRIDE threat modeling categories directly to the 47 curated
 *   [`infrastructure/webhook_integration_trust.md`](infrastructure/webhook_integration_trust.md) - Disclosing cloud metadata and internal ports via blind Webhook SSRF.
 *   [`state_management/cors_regex_bypass.md`](state_management/cors_regex_bypass.md) - Exfiltrating sensitive JSON data across origins.
 *   [`emerging/llm_rag_privesc.md`](emerging/llm_rag_privesc.md) - Leaking cross-tenant data via AI chatbots.
+*   [`emerging/indirect_prompt_injection_exfiltration.md`](emerging/indirect_prompt_injection_exfiltration.md) - Exfiltrating secrets and cross-tenant data via poisoned content rendered/fetched by AI pipelines.
 *   [`infrastructure/origin_ip_discovery_waf_bypass.md`](infrastructure/origin_ip_discovery_waf_bypass.md) - Disclosing backend origin IP via Favicon Hash and TLS history.
 *   [`infrastructure/backend_ssrf_rce.md`](infrastructure/backend_ssrf_rce.md) - Disclosing internal metadata and cloud keys via server-side requests.
 *   [`infrastructure/infrastructure_misconfigurations.md`](infrastructure/infrastructure_misconfigurations.md) - Disclosing secrets via path traversal and exposed `.git`.
@@ -74,6 +75,7 @@ This index maps the STRIDE threat modeling categories directly to the 47 curated
 *   [`state_management/distributed_auth_propagation.md`](state_management/distributed_auth_propagation.md) - Escalating privileges through transitive graph-relationships and global consistency gaps.
 *   [`state_management/websocket_state_abuse.md`](state_management/websocket_state_abuse.md) - Escalating privileges within an active stateful connection.
 *   [`emerging/llm_rag_privesc.md`](emerging/llm_rag_privesc.md) - Using high-privilege backend AI agents for unauthorized actions, persistent context poisoning, and quota bypass.
+*   [`emerging/mcp_agent_tool_poisoning.md`](emerging/mcp_agent_tool_poisoning.md) - Hijacking agent tool execution via MCP config poisoning, tool-description injection, and consent-dialog abuse.
 *   [`infrastructure/server_side_template_injection.md`](infrastructure/server_side_template_injection.md) - Escalating from template injection to full remote system command execution.
 *   [`infrastructure/file_upload_rce.md`](infrastructure/file_upload_rce.md) - Escalating from unvalidated file upload to web shell code execution.
 *   [`infrastructure/advanced_injection_rce.md`](infrastructure/advanced_injection_rce.md) - Achieving operating system host compromise, container breakout, and remote root shell execution.

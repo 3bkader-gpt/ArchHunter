@@ -42,9 +42,33 @@ cd runtime
 go run cmd/runtime/main.go -input testdata/sample_signals.jsonl
 ```
 
-## 5. Next Steps
+## 5. Live gRPC Bridge (Go ↔ Python)
+The runtime can dispatch inference to the live Python reasoning worker instead
+of the built-in mock client. Start the worker, then point the runtime at it:
+
+```bash
+# Terminal 1 — Python reasoning worker (gRPC server)
+cd Runtime/workers
+python reasoning_worker.py --port 50051
+
+# Terminal 2 — Go runtime dispatching inference over gRPC
+cd Runtime
+go run cmd/runtime/main.go -input testdata/sample_signals.jsonl -workers-addr localhost:50051 -legacy
+```
+
+Behavior:
+*   `-workers-addr` (or `ARCHHUNTER_WORKERS_ADDR` env var) activates the
+    `inference.GrpcClient`; node types, labels, and properties are forwarded to
+    the worker and its hypotheses are merged into the report (IDs prefixed `py_`).
+*   If the worker is offline, the runtime logs
+    `[gRPC] Worker ... offline (skipping remote call)` and completes with the
+    remaining pipeline — no hard dependency.
+*   Omitting the flag keeps the fully self-contained mock-client behavior.
+
+## 6. Next Steps
 *   [X] Implement gRPC contract layer.
-*   [ ] Compile `.proto` files into Go/Python stubs.
-*   [ ] Implement the actual gRPC bridge between Go and Python.
-*   [ ] Replace `MockClient` in `internal/inference` with the real gRPC client.
+*   [X] Compile `.proto` files into Go/Python stubs.
+*   [X] Implement the actual gRPC bridge between Go and Python.
+*   [X] Replace `MockClient` in `internal/inference` with the real gRPC client (opt-in via `-workers-addr`).
 *   [ ] Implement more sophisticated graph walkers for trust boundaries.
+*   [ ] Expand the Python worker's hypothesis repertoire (race, desync, smuggling heuristics).

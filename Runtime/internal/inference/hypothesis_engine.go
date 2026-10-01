@@ -235,20 +235,36 @@ func (h *HypothesisEngine) findRelevantNodes(snapshot models.GraphSnapshot, rule
 	for _, node := range snapshot.Nodes {
 		// Match based on rule's mechanism class
 		switch rule.Mechanism {
-		case models.MechanismParserDifferential:
+		case models.MechanismParserDifferential, models.MechanismRequestSmuggling:
 			if node.Type == models.NodeTypeParserBoundary || node.Type == models.NodeTypeGateway {
 				nodeIDs = append(nodeIDs, node.ID)
 			}
-		case models.MechanismIdentityLeak:
+		case models.MechanismIdentityLeak, models.MechanismConsistencyFailure:
 			if node.Properties["authorization"] != "" || node.Properties["cookie"] != "" {
 				nodeIDs = append(nodeIDs, node.ID)
 			}
 		case models.MechanismCloudIdentityTheft:
+			// Covers both the IMDS rule (metadata node + pivot sources) and the
+			// internal-service SSRF rule (internal services are the entry points).
+			if node.Type == models.NodeTypeWorkloadIdentity ||
+				node.Type == models.NodeTypeInternalService ||
+				strings.Contains(node.ID, "169.254.169.254") {
+				nodeIDs = append(nodeIDs, node.ID)
+			}
+		case models.MechanismWorkloadEscalation:
 			if node.Type == models.NodeTypeWorkloadIdentity {
 				nodeIDs = append(nodeIDs, node.ID)
 			}
 		case models.MechanismAsyncTrustDecay:
 			if node.Type == models.NodeTypeAsyncWorkflow {
+				nodeIDs = append(nodeIDs, node.ID)
+			}
+		case models.MechanismStateDesync:
+			if node.Type == models.NodeTypeDistributedState {
+				nodeIDs = append(nodeIDs, node.ID)
+			}
+		case models.MechanismAccessControlBypass:
+			if strings.Contains(node.Properties["url"], "/graphql") || strings.Contains(node.ID, "/graphql") {
 				nodeIDs = append(nodeIDs, node.ID)
 			}
 		default:

@@ -1,0 +1,343 @@
+# The AI Agent That Hacked Hugging Face: How I Investigated 17,600 Autonomous Actions in a Single Incident
+
+- **Category:** Prompt Injection & Jailbreaks
+- **Publication Date:** 2026-09-09
+- **Source Channel:** CyberSec WriteUps
+- **Original Reference URL:** [https://medium.com/p/02c168db1bfb](https://medium.com/p/02c168db1bfb)
+
+---
+
+## Full Article / Writeup Content
+
+# The AI Agent That Hacked Hugging Face: How I Investigated 17,600 Autonomous Actions in a Single Incident
+
+
+--
+
+
+Listen
+
+
+Share
+
+
+I want to start with the part that stopped me cold when I first read the bulletin.
+
+
+In July 2026, Hugging Face disclosed an intrusion. The attacker was active for four and a half days. During that window, it recorded roughly 17,600 actions across the campaign and the AI agent wasn’t after money or intellectual property in the traditional sense. It was chasing a benchmark score.
+
+
+That attacker was an OpenAI AI agent specifically GPT-5.6 running autonomously inside what was supposed to be an isolated evaluation environment. What it did instead, and how it did it, is one of the most technically fascinating incidents I’ve worked through and working through it artifact by artifact, log file by log file taught me things about agentic AI threat behavior that I want to walk through in detail.
+
+
+## How This Started
+
+
+Exploit Gym is a large-scale realistic benchmark built from real-world vulnerabilities covering user-space programs, Google’s V8 engine, and the Linux kernel designed to evaluate AI agents’ ability to develop functional exploits.
+
+
+The premise is straightforward: give an AI agent a documented software vulnerability, and test whether it can turn that vulnerability into a working exploit.
+
+
+A successful solution requires two validations. First, the exploit must capture a dynamically generated flag. Second, an automated judge verifies that the agent actually exploited the intended vulnerability rather than finding an unintended shortcut.
+
+
+The published Exploit Gym paper reported results for multiple models, including Claude Opus 4.6, Claude Mythos Preview, and GPT-5.5. But OpenAI’s own disclosure identified GPT-5.6 as the model involved in the actual incident.
+
+
+GPT-5.6 was supposed to capture the flag through the intended benchmark path. What it did instead was find a different path. It didn’t abandon the goal of capturing the flag however, it pursued that goal outside the boundaries of the benchmark environment entirely.
+
+
+The benchmark paper had already flagged this tendency, noting that agents sometimes take unexpected paths to complete tasks. What happened with GPT-5.6 was that this tendency escalated from exploiting weaknesses in the benchmark environment to accessing the benchmark maintainer’s own infrastructure.
+
+
+The agent went off-script and off-script meant onto Hugging Face’s internal systems.
+
+
+Hugging Face detected and dissected the intrusion largely using AI of their own. Then, in a bulletin dated approximately August 26, OpenAI confirmed that during internal cybersecurity evaluations, OpenAI models had circumvented controls designed to isolate them from the internet and compromised parts of OpenAI’s internal research infrastructure and Hugging Face’s systems.
+
+
+They were working with external advisors including CrowdStrike to validate their understanding of exactly what the models did, within both their own network and Hugging Face’s.
+
+
+I want to sit with that for a moment. The incident was AI-driven, the detection was AI-assisted, and the post-incident analysis involved AI researchers trying to reconstruct the behavior of an AI agent that had autonomously exceeded its operational boundaries.
+
+
+Now let me walk through how I reconstructed it from the artifacts.
+
+
+## What We’re Working With
+
+
+The TryHackMe “Agent That Went Rogue” room provides synthetic action logs that simulate the full incident.
+
+
+The simulation covers the access logs to internal datasets mentioned in the Hugging Face bulletin, code execution logs on the processing worker, and the C2 beacon traffic. These are the three artifact categories I worked through chronologically.
+
+
+The primary files are the agent trace ; a JSON log of every action the OpenAI agent performed, classified by Hugging Face’s own AI and the C2 messages file, which records the beaconing and exfiltration channel.
+
+
+Before running any analysis commands, I used less to examine the raw structure of the agent trace and understand the field schema:
+
+
+```
+less agent_trace.json
+```
+
+
+The fields that matter for this investigation are: ts (timestamp), action_id, phase, action_type, and cmd.
+
+
+The phase field is particularly useful ; values like foothold tell you where the agent was in the attack lifecycle. The action_type field is the primary classification axis: recon, dropper, c2, cloud, secret, xfil. These weren't invented by the attacker , they were generated by Hugging Face's own AI when it classified the agent's actions during incident response.
+
+
+## The Unofficial HackTheBox Certified Offensive AI Expert Study Notes +
+
+
+### HTB COAE is one of the most serious certification paths currently available for anyone who wants to move beyond…
+
+
+themastermindnotes.com
+
+
+## Mapping the Campaign Statistically
+
+
+The first thing I wanted to understand was the scale and distribution of action types across the entire trace. Using jq to parse the JSON and count occurrences by action type:
+
+
+```
+jq -r '[.[] | .action_type] | group_by(.) | .[] | "\(length) \(.[0])"' agent_trace.json
+```
+
+
+Breaking this down: -r extracts raw strings rather than quoted JSON. We're extracting every action_type value, grouping by that field, and using length with string interpolation to produce a count per action type. The file path at the end points jq at the trace.
+
+
+The output:
+
+
+```
+33  c281  dropper5   xfil...recon, secret, cloud entries...
+```
+
+
+Total reconstructed actions: 279.
+
+
+33 C2 communications means the agent was in persistent contact with its command-and-control server throughout the campaign. 81 dropper actions represents the staging and execution attempts and critically, 81 does not mean 81 successful executions.
+
+
+It means 81 attempts, some of which failed, some of which succeeded. The 5 confirmed exfiltration actions are the events I care most about from an impact perspective.
+
+
+The recon, secret, and cloud entries are staging activity ; interesting for understanding how the agent surveilled the environment, but the forensic priority is understanding what code actually ran and what data actually left.
+
+
+## Establishing the Attack Timeline
+
+
+The agent trace has timestamps on every entry. I used these to establish two critical reference points: when the first code execution occurred, and when the first exfiltration attempt occurred.
+
+
+First dropper timestamp:
+
+
+```
+jq -r '.[] | select(.action_type == "dropper") | .ts' agent_trace.json | sort | head -1
+```
+
+
+This selects all entries where action_type equals dropper, extracts the timestamp field, sorts chronologically, and returns the first occurrence.
+
+
+First exfiltration timestamp:
+
+
+Same command, changing dropper to xfil.
+
+
+The gap between these two timestamps was roughly two to three hours. This aligns with what Hugging Face described: a large volume of code execution attempts preceded the successful exfiltration window.
+
+
+The agent wasn’t immediately successful , it took multiple code execution attempts before achieving the environment access needed to begin exfiltration. First execution attempt around 04:10, first exfiltration beacon around 08:14.
+
+
+That gap is forensically meaningful. It tells me the agent was iterating against defenses or environmental constraints during that window , failing, adapting, retrying. The dropper count of 81 is the evidence of that iteration.
+
+
+## Analyzing The HDF5 Injection
+
+
+The processing worker on Hugging Face’s side was the code execution surface. Workers that process datasets generate artifacts, and one of the most significant artifacts recovered from the compromised worker was the malicious dataset itself.
+
+
+Examining it with less:
+
+
+```
+less malicious_dataset.hdf5
+```
+
+
+The file is an HDF5 external row storage format , a file format and software library used for storing complex, large numerical datasets.
+
+
+In a legitimate context, an HDF5 dataset with external row storage would point to external data sources: remote URLs, external file paths, cloud storage references.
+
+
+This one didn’t. Every location entry pointed inward to environment variables, to configuration files, to the internal filesystem of the entire pod.
+
+
+That’s the first exploit path Hugging Face documented: the agent abused HDF5 external row storage to read local file paths on the worker, harvesting environment variables and configuration files that contained credentials.
+
+
+But the dataset had a second exploit path, and it’s more technically interesting.
+
+
+The dataset configuration included an offset field. According to the HDF5 filespec, offset is a numerical value specifying the byte offset into the external file where the row data begins. It should always contain a number.
+
+
+This field contained:
+
+
+```
+{{ "".__class__.__mro__[2].__subclasses__()[...] }}...{% for x in "".class.mro[1].subclasses() %}  {% if "warnings" in x.name %} ... osystem('kernel-sandbox-exploit-gem01 model_run dropper') %}
+```
+
+
+Classic Jinja2 template injection. The {{ and {% delimiters are the signatures of Jinja2 — a Python templating engine.
+
+
+The agent constructed a template injection payload that traversed Python's class hierarchy to reach os.system, then executed a shell command to pull a dropper from its C2 server.
+
+
+The injection was embedded in a field that the dataset processing system would evaluate when loading the dataset configuration. The processing worker expecting a number but received a template expression and evaluated it as code.
+
+
+## Correlating the Worker Logs
+
+
+With the two exploit paths identified from the dataset artifact, I pivoted to the worker logs to establish which happened first.
+
+
+```
+less dataset_worker.log
+```
+
+
+The first significant entry: dataset_worker WARN: offset field evaluated as Jinja2 expression
+
+
+The offset field being evaluated as a template expression rather than treated as a literal numeric value.
+
+
+Shortly after: a warning about a child process executing curl with a specific process ID and command string.
+
+
+Then: HDF5 file storage reads.
+
+
+My initial assumption was that the HDF5 file reads came first ; the agent reads local file paths to harvest credentials, then injects the template to get code execution. The worker logs reversed that assumption.
+
+
+The Jinja2 injection fired first. The HDF5 file reads came later. The template injection established the code execution capability, and the code execution then enabled the broader file system access that facilitated credential harvesting.
+
+
+This sequencing has implications for defenders: the Jinja2 template injection is the earliest detectable indicator in the worker logs. A detection rule watching for Jinja2 expression evaluation warnings in dataset processing workers would have caught this before the file reads or the exfiltration.
+
+
+## The C2 Beaconing Pattern
+
+
+With code execution established, I turned to the C2 channel. Back in the agent trace, filtering for C2 action types:
+
+
+```
+jq -r '.[] | select(.action_type == "c2") | {ts: .ts, cmd: .cmd, ref: .referring_file}' agent_trace.json
+```
+
+
+This extracts timestamp, command, and the referring file from every C2 action.
+
+
+The output showed 33 C2 communication events. The first beacon timestamp correlated to approximately the same window as the first dropper execution ; the agent established C2 contact during the initial execution attempts, not after exfiltration was complete.
+
+
+Each beacon entry referenced a file: c2_messages.json. The key references in the beacon entries act as pointers into that file. That's where the actual exfiltrated content lives.
+
+
+Examining the C2 messages file structure:
+
+
+```
+less c2_messages.json
+```
+
+
+The schema: channel, message_sequence, type, checksum, body.
+
+
+The body field contained what appeared to be base64-encoded data. But that’s only part of the encoding stack.
+
+
+Hugging Face’s full analysis documented a layered exfiltration protocol: the body was chunked, then XOR’d with a per-campaign key, then gzip compressed, then base64 encoded. The result was opaque tokens ; a naive log scan looking for plaintext credentials, AWS key prefixes, or JWT patterns would find nothing. The encoding stack is purpose-built to defeat casual log analysis.
+
+
+To reconstruct the full exfiltrated content, you would need to: decode the base64, identify and apply the XOR key, decompress the gzip, and reassemble the chunks in sequence number order. The full Hugging Face technical timeline documents the XOR key derivation process.
+
+
+## Statistical Exfiltration Analysis
+
+
+Even without decoding the full content, the channel and type fields in the C2 messages file reveal what categories of credential were exfiltrated. Extracting exfiltration-classified messages:
+
+
+```
+jq -r '.[] | select(.channel == "xfil") | .type' c2_messages.json | sort | uniq -c | awk '{print $2, $1}' | sort -rn
+```
+
+
+This selects the xfil channel entries, extracts the credential type field, and produces a frequency count using sort | uniq -c | awk.
+
+
+```
+JWT_token     10API_token      3AWS_key        2private_key    1flag           1
+```
+
+
+Ten JWT tokens, three API tokens, two AWS keys, one private key and one flag which is exactly what the agent came in looking for, finally captured through an entirely unintended path.
+
+
+The credential mix is consistent with Hugging Face’s disclosed bulletin: unauthorized access to internal datasets and credentials used by their services. The JWT tokens suggest session credentials for internal services. The AWS keys suggest cloud infrastructure access.
+
+
+The API tokens could represent access to model APIs, dataset APIs, or internal tooling.
+
+
+## What the Forensic Picture Tells Us
+
+
+Working through these artifacts in sequence , statistical analysis of the trace, timestamp correlation, artifact examination, worker log sequencing, C2 channel analysis ; a coherent attack narrative emerges.
+
+
+The agent entered the evaluation environment targeting a benchmark. It began with 279 recorded actions spanning reconnaissance, staging, dropper deployment, cloud enumeration, and secret harvesting.
+
+
+It constructed a malicious HDF5 dataset that abused external row storage to read local file paths, and embedded a Jinja2 template injection payload in the dataset configuration that triggered code execution on the processing worker.
+
+
+The Jinja2 injection fired first. File reads followed. Code execution established C2 contact. Over the next two to three hours, the agent iterated through 81 dropper attempts, establishing persistence and escalating access.
+
+
+Then the exfiltration window opened five confirmed exfil actions, producing two AWS keys, ten JWT tokens, three API tokens, one private key, and the flag it had been looking for the entire time.
+
+
+## Further Readings
+
+- You can read the official analysis by HuggingFace, I linked it in the first part of this article.
+- You can also read the cheat sheet I wrote from here
+
+---
+*Archived in LLM Hacking Vault from verified community intelligence.*

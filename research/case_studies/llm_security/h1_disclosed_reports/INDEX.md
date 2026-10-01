@@ -1,0 +1,29 @@
+# HackerOne Disclosed LLM & AI Security Reports Index
+
+Total Curated High-Signal Reports: **21 Verified Disclosed Reports**
+
+Every report below is archived in its complete, unabridged form directly from HackerOne, containing the original vulnerability description, functional proof-of-concept (PoC), and remediation details.
+
+| Report ID | Vulnerability Title | Target Program | Severity | Bounty | Upvotes | Direct Report |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| [#2372363](./2372363_LLM01__Invisible_Prompt_Injection.md) | **LLM01: Invisible Prompt Injection via Unicode Tag Chars** | `HackerOne` | Medium | Undisclosed | 158 | [HackerOne](https://hackerone.com/reports/2372363) |
+| [#3176157](./3176157_DNS_Rebinding_SSRF_in_Burp_Suite_MCP_Server_Enables_Internal_Network_Access_via_send_http1_request_T.md) | **DNS Rebinding SSRF in Burp Suite MCP Server via Tool Call** | `PortSwigger` | High | Undisclosed | 142 | [HackerOne](https://hackerone.com/reports/3176157) |
+| [#2218334](./2218334_IDOR_vulnerability_in_unreleased_HackerOne_Copilot_feature.md) | **IDOR in unreleased HackerOne Copilot Feature** | `HackerOne` | High | Undisclosed | 210 | [HackerOne](https://hackerone.com/reports/2218334) |
+| [#3086301](./3086301_Prompt_Injection_via_GitHub_Patch_in_Brave_AI_Chat_(Leo).md) | **Prompt Injection via GitHub Patch in Brave AI Chat (Leo)** | `Brave Software` | High | Swag | 77 | [HackerOne](https://hackerone.com/reports/3086301) |
+| [#3211031](./3211031_`use-mcp`'s_oauth2_process_uses_a_window.open_call_with_untrusted_mcp_server_provided_data_allowing_.md) | **Arbitrary Code Execution via Untrusted MCP Server Data in `use-mcp`** | `Cloudflare` | Medium | $550 | 75 | [HackerOne](https://hackerone.com/reports/3211031) |
+| [#3112106](./3112106_BAC_–_Bypass_chatbot_restrictions_via_unauthorized_mention_injection.md) | **BAC: Bypass Chatbot Restrictions via Mention Injection** | `Dust` | High | Undisclosed | 64 | [HackerOne](https://hackerone.com/reports/3112106) |
+| [#2383092](./2383092_Source_Code_and_data_exfiltration_via_Github_Copilot.md) | **Source Code and Data Exfiltration via GitHub Copilot** | `GitHub` | High | Undisclosed | 63 | [HackerOne](https://hackerone.com/reports/2383092) |
+| [#2370955](./2370955_LLM03__Training_Data_Poisoning_via_ASCII_decoding.md) | **LLM03: Training Data Poisoning via ASCII Decoding** | `HackerOne` | Medium | Undisclosed | 62 | [HackerOne](https://hackerone.com/reports/2370955) |
+| [#3424998](./3424998_AI_Playground_XSS_to_steal_user-chat_messages_and_access_to_connected_MCP_Server.md) | **AI Playground XSS to Steal Chat Messages & Access MCP Server** | `Cloudflare` | Medium | Undisclosed | 60 | [HackerOne](https://hackerone.com/reports/3424998) |
+| [#3577145](./3577145_QuickSight_Authorization_Bypass__Chat_Agents_Accessible_Despite_Custom_Permissions_Denial.md) | **QuickSight Auth Bypass: Chat Agents Accessible Despite Denial** | `AWS VDP` | Medium | N/A | 59 | [HackerOne](https://hackerone.com/reports/3577145) |
+| [#3056937](./3056937_Bedrock_Guardrails_Evasion_with_Prompt_Formatting.md) | **Bedrock Guardrails Evasion with Prompt Formatting** | `AWS VDP` | Medium | N/A | 53 | [HackerOne](https://hackerone.com/reports/3056937) |
+| [#3632577](./3632577_Bedrock_AgentCore_Starter_Toolkit_Creates_Gateway_IAM_Roles_Without_Confused_Deputy_Protections.md) | **Bedrock AgentCore Gateway Roles Confused Deputy Vulnerability** | `AWS VDP` | Medium | N/A | 47 | [HackerOne](https://hackerone.com/reports/3632577) |
+| [#3702072](./3702072_bedrock-mantle.api.aws_accepts_Bedrock_API_keys_outside_the_IAM_Deny,_CloudTrail_signal,_and_invocat.md) | **Bedrock Mantle API Accepts Keys Outside IAM Deny & CloudTrail** | `AWS VDP` | High | N/A | 44 | [HackerOne](https://hackerone.com/reports/3702072) |
+| [#2800091](./2800091_Non-Production_API_Endpoints_for_the_bedrock-agent_Service_Fail_to_Log_to_CloudTrail_Resulting_in_Si.md) | **Bedrock-Agent Non-Prod Endpoints Fail to Log to CloudTrail** | `AWS VDP` | Medium | N/A | 42 | [HackerOne](https://hackerone.com/reports/2800091) |
+| [#2951803](./2951803_Non-Production_API_Endpoints_for_the_bedrock_Service_Fail_to_Log_to_CloudTrail_Resulting_in_Silent_P.md) | **Bedrock Service Non-Prod Endpoints Silent Permission Enumeration** | `AWS VDP` | Medium | N/A | 41 | [HackerOne](https://hackerone.com/reports/2951803) |
+| [#2972435](./2972435_Non-Production_API_Endpoints_for_the_cloudwatch_Service_Fail_to_Log_to_CloudTrail_Resulting_in_Silen.md) | **Bedrock Monitoring Endpoints Fail to Log to CloudTrail** | `AWS VDP` | Medium | N/A | 39 | [HackerOne](https://hackerone.com/reports/2972435) |
+| [#3316910](./3316910_Second-Order_XSS_via_javascript_protocol_in_MCP_Server_Portal_Apps_leads_to_ATO.md) | **Second-Order XSS in MCP Server Portal Apps Leads to Account Takeover** | `Security` | High | Undisclosed | 35 | [HackerOne](https://hackerone.com/reports/3316910) |
+| [#3427370](./3427370_Command_Injection_on_Amazon_Q_Developer_CLI_via_malicious_.amazonq_mcp.json_leads_to_arbitrary_code_.md) | **Command Injection on Amazon Q Developer CLI via `.amazonq/mcp.json`** | `AWS VDP` | High | N/A | 19 | [HackerOne](https://hackerone.com/reports/3427370) |
+| [#3557138](./3557138_Arbitrary_Code_Execution_via_Scanner_Bypass_in___aws-diagram-mcp-server___`exec()`_Namespace.md) | **RCE via Scanner Bypass in `aws-diagram-mcp-server` `exec()`** | `Security` | High | Undisclosed | 15 | [HackerOne](https://hackerone.com/reports/3557138) |
+| [#1735622](./1735622_Reflected_XSS_in_chatbot.md) | **Reflected XSS in Customer Support Chatbot** | `MTN Group` | Medium | N/A | 9 | [HackerOne](https://hackerone.com/reports/1735622) |
+| [#3717354](./3717354_UI_Consent_Bypass_via_Comma_Injection_in_`addAutoApproveTarget`_—_User-Approval_Dialog_and_Persisten.md) | **UI Consent Bypass via Comma Injection in Agent Auto-Approve Target** | `Security` | Medium | Undisclosed | 8 | [HackerOne](https://hackerone.com/reports/3717354) |
