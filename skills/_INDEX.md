@@ -1,6 +1,6 @@
 # Bug Bounty STRIDE Index
 
-This index maps the STRIDE threat modeling categories directly to the 49 curated mechanism manuals within the knowledge base.
+This index maps the STRIDE threat modeling categories directly to the 53 curated mechanism manuals within the knowledge base.
 
 ## Spoofing (Authenticity)
 *   [`auth_logic/saml_xsw_sso.md`](auth_logic/saml_xsw_sso.md) - Forging identity via SAML XML Signature Wrapping (XSW 1-8) and comment injection.
@@ -36,6 +36,7 @@ This index maps the STRIDE threat modeling categories directly to the 49 curated
 *   [`infrastructure/file_upload_rce.md`](infrastructure/file_upload_rce.md) - Tampering with server storage via Zip Slip archive traversal, SVG injection, and polyglot web shells.
 *   [`infrastructure/xss_variations.md`](infrastructure/xss_variations.md) - Client-side script injection, DOM clobbering, mutation XSS (mXSS), and CSP bypass techniques.
 *   [`infrastructure/advanced_injection_rce.md`](infrastructure/advanced_injection_rce.md) - High-impact command injection, argument injection, and web shell execution leading to RCE.
+*   [`mobile/deep_link_webview_abuse.md`](mobile/deep_link_webview_abuse.md) - Tampering with client routing/state via attacker-controlled deep links, WebView bridges, and link-IDOR swaps.
 
 ## Repudiation (Non-repudiability)
 *   [`state_management/cross_subdomain_csrf.md`](state_management/cross_subdomain_csrf.md) - Forcing non-attributable victim actions.
@@ -54,6 +55,7 @@ This index maps the STRIDE threat modeling categories directly to the 49 curated
 *   [`infrastructure/infrastructure_misconfigurations.md`](infrastructure/infrastructure_misconfigurations.md) - Disclosing secrets via path traversal and exposed `.git`.
 *   [`state_management/cache_attacks.md`](state_management/cache_attacks.md) - Disclosing sensitive PII via Web Cache Deception and static extension confusion (`.svg`).
 *   [`infrastructure/xss_variations.md`](infrastructure/xss_variations.md) - Exfiltrating session cookies, localStorage tokens, DOM data, and CSRF nonces via injected JavaScript.
+*   [`mobile/exported_component_abuse.md`](mobile/exported_component_abuse.md) - Disclosing PII, tokens, and databases via exported providers, backups, and intent leaks.
 
 ## Denial of Service (Availability)
 *   [`state_management/rate_limiting_evasion.md`](state_management/rate_limiting_evasion.md) - Exhausting server resources and brute-forcing passwords/OTPs without rate limits.
@@ -76,6 +78,7 @@ This index maps the STRIDE threat modeling categories directly to the 49 curated
 *   [`state_management/websocket_state_abuse.md`](state_management/websocket_state_abuse.md) - Escalating privileges within an active stateful connection.
 *   [`emerging/llm_rag_privesc.md`](emerging/llm_rag_privesc.md) - Using high-privilege backend AI agents for unauthorized actions, persistent context poisoning, and quota bypass.
 *   [`emerging/mcp_agent_tool_poisoning.md`](emerging/mcp_agent_tool_poisoning.md) - Hijacking agent tool execution via MCP config poisoning, tool-description injection, and consent-dialog abuse.
+*   [`auth_logic/shadow_api_exploitation.md`](auth_logic/shadow_api_exploitation.md) - Forging access via undocumented endpoints, retired API version skew, and spec-leaked internal routes.
 *   [`infrastructure/server_side_template_injection.md`](infrastructure/server_side_template_injection.md) - Escalating from template injection to full remote system command execution.
 *   [`infrastructure/file_upload_rce.md`](infrastructure/file_upload_rce.md) - Escalating from unvalidated file upload to web shell code execution.
 *   [`infrastructure/advanced_injection_rce.md`](infrastructure/advanced_injection_rce.md) - Achieving operating system host compromise, container breakout, and remote root shell execution.

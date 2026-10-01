@@ -154,6 +154,40 @@ func (h *HypothesisEngine) extractTraits(snapshot models.GraphSnapshot) map[stri
 			strings.Contains(path, "/render") || strings.Contains(path, "/export") {
 			traits["file-processor"] = true
 		}
+
+		// Depth-first surface traits
+		url := strings.ToLower(props["url"])
+		if url == "" {
+			url = strings.ToLower(node.ID)
+		}
+		if isStagingHost(url) {
+			traits["staging-env"] = true
+		}
+		if hasAnySuffix(path, []string{"openapi.json", "swagger.json", "api-docs", "schema.graphql", "openid-configuration"}) ||
+			strings.Contains(path, "/api/__docs") {
+			traits["spec-exposure"] = true
+		}
+		if hasAnySubstring(path, []string{"/debug", "/actuator", "/console", "/internal-api"}) {
+			traits["debug-endpoints"] = true
+		}
+	}
+
+	// API version skew: any host serving two or more /api/vN versions.
+	versionsByHost := map[string]map[string]bool{}
+	for _, node := range snapshot.Nodes {
+		url := strings.ToLower(node.Properties["url"])
+		if url == "" {
+			url = strings.ToLower(node.ID)
+		}
+		if v, host, _ := apiVersionOf(url); v != "" {
+			if versionsByHost[host] == nil {
+				versionsByHost[host] = map[string]bool{}
+			}
+			versionsByHost[host][v] = true
+			if len(versionsByHost[host]) >= 2 {
+				traits["api-version-skew"] = true
+			}
+		}
 	}
 
 	// Edge-based traits
@@ -267,6 +301,18 @@ func (h *HypothesisEngine) findRelevantNodes(snapshot models.GraphSnapshot, rule
 			if strings.Contains(node.Properties["url"], "/graphql") || strings.Contains(node.ID, "/graphql") {
 				nodeIDs = append(nodeIDs, node.ID)
 			}
+		case models.MechanismEnvParityDrift:
+			if isStagingNode(node) {
+				nodeIDs = append(nodeIDs, node.ID)
+			}
+		case models.MechanismAPIVersionSkew:
+			if version, _, _ := apiVersionOf(nodeURL(node)); version != "" {
+				nodeIDs = append(nodeIDs, node.ID)
+			}
+		case models.MechanismShadowAPISurface:
+			if isSpecNode(node) || isDebugNode(node) {
+				nodeIDs = append(nodeIDs, node.ID)
+			}
 		default:
 			// Include high-confidence nodes as general evidence
 			if node.ConfidenceScore >= 0.7 {
@@ -322,6 +368,94 @@ func (h *HypothesisEngine) generateBoundaryHypothesis(boundary models.TrustBound
 		Rationale:       boundary.Description,
 		GeneratedAt:     time.Now(),
 	}
+}
+
+// nodeURL returns the best-effort lowercased URL for a node (property first, ID fallback).
+func nodeURL(n models.Node) string {
+	if u := strings.ToLower(n.Properties["url"]); u != "" {
+		return u
+	}
+	return strings.ToLower(n.ID)
+}
+
+// isStagingHost reports whether the URL's host carries a non-prod environment label.
+func isStagingHost(u string) bool {
+	rest := u
+	if i := strings.Index(rest, "://"); i != -1 {
+		rest = rest[i+3:]
+	}
+	host := rest
+	if i := strings.IndexAny(host, "/?#"); i != -1 {
+		host = host[:i]
+	}
+	for _, label := range strings.Split(host, ".") {
+		for _, marker := range []string{"dev", "stg", "staging", "uat", "preprod", "test", "qa", "sandbox", "demo"} {
+			if label == marker || strings.HasPrefix(label, marker+"-") {
+				return true
+			}
+		}
+	}
+	return false
+}
+
+// apiVersionOf extracts an API version segment (/api/vN or /vN) and its host.
+func apiVersionOf(u string) (version, host string, ok bool) {
+	rest := u
+	if i := strings.Index(rest, "://"); i != -1 {
+		rest = rest[i+3:]
+	}
+	if i := strings.IndexAny(rest, "/?"); i != -1 {
+		host = rest[:i]
+		rest = rest[i:]
+	} else {
+		return "", "", false
+	}
+	for _, marker := range []string{"/api/v", "/v"} {
+		if i := strings.Index(rest, marker); i != -1 {
+			tail := rest[i+len(marker):]
+			end := 0
+			for end < len(tail) && tail[end] >= '0' && tail[end] <= '9' {
+				end++
+			}
+			if end > 0 {
+				return tail[:end], host, true
+			}
+		}
+	}
+	return "", "", false
+}
+
+func hasAnySuffix(s string, suffixes []string) bool {
+	for _, suf := range suffixes {
+		if strings.HasSuffix(s, suf) {
+			return true
+		}
+	}
+	return false
+}
+
+func hasAnySubstring(s string, subs []string) bool {
+	for _, sub := range subs {
+		if strings.Contains(s, sub) {
+			return true
+		}
+	}
+	return false
+}
+
+func isSpecNode(n models.Node) bool {
+	path := strings.ToLower(n.ID)
+	return hasAnySuffix(path, []string{"openapi.json", "swagger.json", "api-docs", "schema.graphql", "openid-configuration"}) ||
+		strings.Contains(path, "/api/__docs")
+}
+
+func isDebugNode(n models.Node) bool {
+	path := strings.ToLower(n.ID)
+	return hasAnySubstring(path, []string{"/debug", "/actuator", "/console", "/internal-api"})
+}
+
+func isStagingNode(n models.Node) bool {
+	return isStagingHost(nodeURL(n))
 }
 
 func isEdgeServerStr(s string) bool {
@@ -439,16 +573,47 @@ func defaultHypothesisRules() []HypothesisRule {
 			SkillRef:       "skills/auth_logic/logic_idor_auth.md",
 			Description:    "GraphQL endpoint detected — potential for query depth abuse, batch attacks, and field-level authorization bypass",
 		},
-		// === Medium: SSRF via Internal Service ===
-		{
-			ID:             "ssrf_internal",
-			RequiredTraits: []string{"internal-service"},
-			OptionalTraits: []string{"aws", "workload-identity", "webhook-api"},
-			Mechanism:      models.MechanismCloudIdentityTheft,
-			Label:          "Internal Service → SSRF to Cloud Metadata",
-			BaseRisk:       0.7,
-			SkillRef:       "skills/infrastructure/backend_ssrf_rce.md",
-			Description:    "Internal service port exposed — potential for SSRF pivot to cloud metadata or internal APIs",
-		},
+	// === Medium: SSRF via Internal Service ===
+	{
+		ID:             "ssrf_internal",
+		RequiredTraits: []string{"internal-service"},
+		OptionalTraits: []string{"aws", "workload-identity", "webhook-api"},
+		Mechanism:      models.MechanismCloudIdentityTheft,
+		Label:          "Internal Service → SSRF to Cloud Metadata",
+		BaseRisk:       0.7,
+		SkillRef:       "skills/infrastructure/backend_ssrf_rce.md",
+		Description:    "Internal service port exposed — potential for SSRF pivot to cloud metadata or internal APIs",
+	},
+	// === Depth-first surface rules (shadow APIs, env parity, version skew) ===
+	{
+		ID:             "env_parity_drift",
+		RequiredTraits: []string{"staging-env"},
+		OptionalTraits: []string{"debug-endpoints", "identity-flow", "aws"},
+		Mechanism:      models.MechanismEnvParityDrift,
+		Label:          "Staging/Preview Environment → Prod Identity Parity Gap",
+		BaseRisk:       0.75,
+		SkillRef:       "skills/auth_logic/shadow_api_exploitation.md",
+		Description:    "Staging/preview environment detected sharing identity infrastructure — authz hardening and WAF rules often lag production; test version skew and debug endpoints there",
+	},
+	{
+		ID:             "api_version_skew",
+		RequiredTraits: []string{"api-version-skew"},
+		OptionalTraits: []string{"identity-flow", "jwt"},
+		Mechanism:      models.MechanismAPIVersionSkew,
+		Label:          "Multi-Version API Coexistence → Legacy Authz Skew",
+		BaseRisk:       0.7,
+		SkillRef:       "skills/auth_logic/shadow_api_exploitation.md",
+		Description:    "Multiple API versions live on the same host — authz fixes land newest-first; replay authz tests against the oldest version",
+	},
+	{
+		ID:             "shadow_api_surface",
+		RequiredTraits: []string{"spec-exposure"},
+		OptionalTraits: []string{"debug-endpoints", "internal-service", "cdn-gateway"},
+		Mechanism:      models.MechanismShadowAPISurface,
+		Label:          "Exposed Spec / Debug Routes → Shadow API Surface",
+		BaseRisk:       0.65,
+		SkillRef:       "skills/auth_logic/shadow_api_exploitation.md",
+		Description:    "Readable OpenAPI/Swagger/schema artifact or debug route detected — enumerates undocumented (shadow) API surface invisible to the public spec",
+	},
 	}
 }

@@ -85,3 +85,21 @@
 - `browser_hacking_vault.zip` / BCNY target work (separate engagement, separate plan at `llm/implementation_plan.md`).
 - Bulk-dumping raw vault files into `books/` or `transcripts/` — only curated, indexed content enters `research/`.
 - Any change to `claude.md` doctrine or the mandatory research header.
+
+---
+
+# Sprint 2 — Depth-First Doctrine Integration (2026-10-01)
+
+> **Input:** External depth-first hunting corpus (Web/API, Mobile, Next-Level Recon).
+> **Review verdict:** High quality, fully aligned with "Mechanism over Payload". Bug-class *mechanics* already covered by the 49 skills — **do not duplicate, cross-link**. Genuinely new: (1) depth-first doctrine & weekly cadence, (2) web/API state-machine + authz-matrix methodology, (3) an entire Mobile track, (4) next-level recon (org/ASN/time-travel/CI-CD/shadow APIs), (5) business-logic chaining, (6) shadow-API as a first-class mechanism, (7) engine rules derivable from plain recon signals — the actual differentiator vs generic AI agents.
+
+| Phase | Deliverable | Destination |
+|---|---|---|
+| **P9 ✅** | Depth-first doctrine (mindset, chaining non-issues, "why the scanner missed it") | `Methodology/DEPTH_FIRST_DOCTRINE.md` + `claude.md` wiring |
+| **P10 ✅** | Workflows 10-12 (web/api, mobile, next-level recon) + business-logic chains appended to `07_chain_building.md` | `Workflow/` |
+| **P11 ✅** | New skills: `mobile/` pillar (3) + `shadow_api_exploitation.md` (1) → 53 skills; indexes + counts | `skills/` |
+| **P12 ✅** | Engine operationalization: new traits (staging-env, api-version-skew, spec-exposure, debug-endpoints) → 3 new hypothesis rules + findRelevantNodes cases; extended test fixtures | `Runtime/internal/inference/` |
+| **P13 ✅** | Per-target hunting artifacts: state-machine map, authz matrix, chaining worksheet; wired into `setup_target` | `templates/` |
+| **P14 ✅** | Scripts: `time_travel_recon.sh`, `shadow_api_probe.sh`; README updates; commit | `scripts/` |
+
+**Execution order:** P9 → P10 → P11 → P12 → P13 → P14.

@@ -62,6 +62,11 @@ const (
 	MechanismCloudIdentityTheft  MechanismClass = "CLOUD_IDENTITY_THEFT"
 	MechanismStateDesync         MechanismClass = "STATE_DESYNC"
 	MechanismRequestSmuggling    MechanismClass = "REQUEST_SMUGGLING"
+	// Depth-first surface mechanisms (not in the gRPC proto enum; map to
+	// UNKNOWN_MECHANISM when crossing the Go<->Python bridge).
+	MechanismEnvParityDrift   MechanismClass = "ENV_PARITY_DRIFT"
+	MechanismAPIVersionSkew   MechanismClass = "API_VERSION_SKEW"
+	MechanismShadowAPISurface MechanismClass = "SHADOW_API_SURFACE"
 )
 
 // --- Core Entities ---

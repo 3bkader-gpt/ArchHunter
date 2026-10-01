@@ -121,7 +121,23 @@ if [ ! -f "$SCOPE_OUT" ]; then
     echo -e "${GREEN}[+] Created: $SCOPE_OUT${NC}"
 fi
 
-# 9. Update Runtime config session ID
+# 9. Seed depth-first hunting artifacts from templates
+TPL_DIR="$TARGET_ARCHHUNTER/templates"
+declare -A ARTIFACTS=(
+    ["STATE_MACHINE_MAP_TEMPLATE.md"]="STATE_MACHINE_MAP.md"
+    ["AUTHZ_MATRIX_TEMPLATE.md"]="AUTHZ_MATRIX.md"
+    ["CHAINING_WORKSHEET_TEMPLATE.md"]="CHAINING_WORKSHEET.md"
+)
+for tpl in "${!ARTIFACTS[@]}"; do
+    src="$TPL_DIR/$tpl"
+    dst="$TARGET_ARCHHUNTER/notes/${ARTIFACTS[$tpl]}"
+    if [ -f "$src" ] && [ ! -f "$dst" ]; then
+        sed -e "s/\[TARGET_NAME\]/$TARGET_NAME/g" -e "s/\[DATE\]/$(date '+%Y-%m-%d')/g" "$src" > "$dst"
+        echo -e "${GREEN}[+] Seeded: $dst${NC}"
+    fi
+done
+
+# 10. Update Runtime config session ID
 RUNTIME_CONFIG="$TARGET_ARCHHUNTER/Runtime/configs/mvp_config.json"
 if [ -f "$RUNTIME_CONFIG" ]; then
     SESSION_ID="session_$(echo "$TARGET_NAME" | tr -c 'a-zA-Z0-9_' '_')_$(date '+%Y%m%d')"

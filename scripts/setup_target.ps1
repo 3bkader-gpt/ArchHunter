@@ -146,7 +146,25 @@ if (-not (Test-Path $scopeOutPath)) {
     Write-Host "[+] Created: $scopeOutPath" -ForegroundColor Green
 }
 
-# 9. Update Runtime Config Session ID
+# 9. Seed depth-first hunting artifacts from templates
+$templateArtifacts = @{
+    "STATE_MACHINE_MAP_TEMPLATE.md" = "STATE_MACHINE_MAP.md"
+    "AUTHZ_MATRIX_TEMPLATE.md"      = "AUTHZ_MATRIX.md"
+    "CHAINING_WORKSHEET_TEMPLATE.md" = "CHAINING_WORKSHEET.md"
+}
+$todayDate = (Get-Date).ToString("yyyy-MM-dd")
+foreach ($entry in $templateArtifacts.GetEnumerator()) {
+    $tplPath = Join-Path $targetArchHunter "templates\$($entry.Key)"
+    $dstPath = Join-Path $targetArchHunter "notes\$($entry.Value)"
+    if ((Test-Path $tplPath) -and (-not (Test-Path $dstPath))) {
+        $artifactContent = Get-Content $tplPath -Raw -Encoding UTF8
+        $artifactContent = $artifactContent.Replace("[TARGET_NAME]", $TargetName).Replace("[DATE]", $todayDate)
+        Set-Content -Path $dstPath -Value $artifactContent -Encoding UTF8
+        Write-Host "[+] Seeded: $dstPath" -ForegroundColor Green
+    }
+}
+
+# 10. Update Runtime Config Session ID
 $runtimeConfig = Join-Path $targetArchHunter "Runtime\configs\mvp_config.json"
 if (Test-Path $runtimeConfig) {
     try {

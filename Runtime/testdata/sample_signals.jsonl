@@ -27,3 +27,7 @@
 {"input":"https://api.target.com/v1/admin/settings","source":"katana","method":"GET","endpoint":"https://api.target.com/v1/admin/settings"}
 {"input":"https://api.target.com/static/js/app.bundle.js","source":"katana","method":"GET","endpoint":"https://api.target.com/static/js/app.bundle.js"}
 {"input":"https://api.target.com/v1/integrations/slack/webhook","source":"katana","method":"POST","endpoint":"https://api.target.com/v1/integrations/slack/webhook"}
+{"input":"https://staging.target.com/api/v1/users","source":"httpx","method":"GET","endpoint":"https://staging.target.com/api/v1/users"}
+{"input":"https://staging.target.com/actuator/env","source":"katana","method":"GET","endpoint":"https://staging.target.com/actuator/env"}
+{"input":"https://api.target.com/openapi.json","source":"katana","method":"GET","endpoint":"https://api.target.com/openapi.json"}
+{"input":"https://api.target.com/v2/users","source":"httpx","method":"GET","endpoint":"https://api.target.com/v2/users"}

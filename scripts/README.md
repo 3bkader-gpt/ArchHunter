@@ -24,6 +24,8 @@ This directory contains the production-ready tactical automation scripts for the
 | [`quick_hunt_setup.sh`](quick_hunt_setup.sh) / [`.ps1`](quick_hunt_setup.ps1) | Bash / PWSH | Setup | Session Initialization & Scaffolding | Standard shell utilities |
 | [`setup_target.sh`](setup_target.sh) / [`.ps1`](setup_target.ps1) | Bash / PWSH | Setup / Onboarding | Automated Target Scaffolding & ArchHunter Deployment | PowerShell 5.1+ / 7+ |
 | [`download_medium_writeup.py`](download_medium_writeup.py) | Python 3 | Intelligence | Real-World Research Ingestion | Python 3, `beautifulsoup4`, `requests` |
+| [`time_travel_recon.sh`](time_travel_recon.sh) | Bash | Phase 1 (Recon — passive) | [`Workflow/12`](../Workflow/12_next_level_recon.md) Time-Travel: CT/DNS/Wayback diff | `curl`, `jq`, `dig` |
+| [`shadow_api_probe.sh`](shadow_api_probe.sh) | Bash | Phase 2 & 3 (Surface) | [`shadow_api_exploitation.md`](../skills/auth_logic/shadow_api_exploitation.md) | `curl`, `jq` |
 | [`intel/fetch_h1_reports.py`](intel/fetch_h1_reports.py) | Python 3 | Intelligence | Disclosed H1 Report Ingestion (auth / ai / state presets) | Python 3, `requests` |
 | [`intel/fetch_telegram_intel.py`](intel/fetch_telegram_intel.py) | Python 3 | Intelligence | Telegram Channel Writeup Crawler → `research/case_studies/` | Python 3, `telethon`, `beautifulsoup4`, `requests` |
 | [`intel/tg_login.py`](intel/tg_login.py) | Python 3 | Intelligence | One-time Telegram Session Provisioning (interactive) | Python 3, `telethon` |
@@ -173,6 +175,20 @@ This directory contains the production-ready tactical automation scripts for the
 *   **Usage (Bash/WSL):**
     ```bash
     BASE_DIR=/mnt/z/bug_bounty ./scripts/setup_target.sh acme acme.com
+    ```
+
+### 12d. `time_travel_recon.sh`
+*   **Purpose:** Passive time-travel recon per [`Workflow/12`](../Workflow/12_next_level_recon.md) Phase 2: CT history vs current DNS (forgotten hosts), Wayback legacy-API-version mining, and robots.txt drift baseline.
+*   **Usage:**
+    ```bash
+    ./scripts/time_travel_recon.sh target.com recon/timetravel
+    ```
+
+### 12e. `shadow_api_probe.sh`
+*   **Purpose:** Spec-artifact brute-force (openapi.json / swagger / api-docs / schema.graphql), GraphQL introspection check, and shadow-route fingerprinting (401/403 = exists + authz gap) per [`Workflow/12`](../Workflow/12_next_level_recon.md) Phase 4.
+*   **Usage:**
+    ```bash
+    ./scripts/shadow_api_probe.sh https://target.com
     ```
 
 ### 13. `download_medium_writeup.py`

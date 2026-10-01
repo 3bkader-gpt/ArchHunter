@@ -88,7 +88,8 @@ fi
 echo "[+] [5/5] Checking Parameter Reflections (qsreplace + kxss)..."
 if [ -s "${RECON_DIR}/params/xss.txt" ]; then
     if command -v qsreplace &> /dev/null && command -v kxss &> /dev/null; then
-        cat "${RECON_DIR}/params/xss.txt" | qsreplace 'kXss73<"'\`>' | kxss | anew "${RECON_DIR}/reflections/kxss_findings.txt"
+        CANARY=$(printf 'kXss73<\042\047\140>')
+        cat "${RECON_DIR}/params/xss.txt" | qsreplace "$CANARY" | kxss | anew "${RECON_DIR}/reflections/kxss_findings.txt"
     else
         echo "[!] Running PowerShell fallback reflection pipeline..."
         pwsh ./scripts/param_reflection_pipeline.ps1 -UrlFile "${RECON_DIR}/params/xss.txt" -OutputFile "${RECON_DIR}/reflections/reflected_params.json"

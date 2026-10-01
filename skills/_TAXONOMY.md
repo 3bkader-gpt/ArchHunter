@@ -63,5 +63,11 @@ Focuses on new paradigms, AI integrations, and non-traditional attack surfaces.
 *   **`mcp_agent_tool_poisoning.md`**: Poisoning MCP server registrations, tool descriptions, and approval dialogs to hijack agent tool execution.
 *   **`indirect_prompt_injection_exfiltration.md`**: Seeding stored injection payloads into retrieved content and exfiltrating data through model output channels.
 
-## 5. Operational Mapping
+## 5. Mobile (`skills/mobile/`)
+Native client attack surface invisible to web scanners: deep links, exported components, and client-side business-logic trust.
+*   **`deep_link_webview_abuse.md`**: Attacker-controlled URIs driving privileged routing, WebView hijack, and link-parameter IDOR.
+*   **`exported_component_abuse.md`**: Zero-auth invocation of exported activities, providers, and receivers from any app or ADB.
+*   **`client_side_trust_abuse.md`**: Tampering with client-computed prices, entitlement flags, and biometric gates the server honors.
+
+## 6. Operational Mapping
 *   **`OPERATIONAL_MAP.md`**: The root-level flat index for rapid mechanism-based pivoting during a hunt.

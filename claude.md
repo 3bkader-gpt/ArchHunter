@@ -15,14 +15,16 @@ You do not guess random payloads. You analyze the target from first principles:
 ### STEP A: INITIALIZE THE ROADMAP & SESSION
 Before starting any target:
 1. Read `Methodology/OPERATIONAL_PLAYBOOK.md` — Unified tactical playbook.
-2. Read `Methodology/index.md` — Overview of reasoning modules.
-3. Check for `TARGET_SESSION.md` in root. If starting a new target, copy from `templates/TARGET_SESSION_TEMPLATE.md`.
+2. Read `Methodology/DEPTH_FIRST_DOCTRINE.md` — Depth-first doctrine: map state machines, fill authz matrices, chain non-issues. Breadth belongs to the Runtime; depth belongs to you.
+3. Read `Methodology/index.md` — Overview of reasoning modules.
+4. Check for `TARGET_SESSION.md` in root. If starting a new target, copy from `templates/TARGET_SESSION_TEMPLATE.md`.
 
 Follow the **4-Phase Playbook** in strict order:
 - **Phase 1: Reconnaissance (Passive & Active)** → `Workflow/01`, `Workflow/02`, `Workflow/03`
 - **Phase 2: Mapping & Architecture Inference** → `Workflow/04`, `Workflow/05`, `Architecture_Inference/`
 - **Phase 3: Vulnerability Analysis & Mechanism Auditing** → `Workflow/06`, `skills/`
 - **Phase 4: Exploitation, Chain Building & Reporting** → `Workflow/07`, `Workflow/08`, `Workflow/09`
+- **Depth-First Tracks (run per feature, after Phase 3):** `Workflow/10_depth_first_web_api.md` (state machine → authz matrix → business logic → JS) · `Workflow/11_depth_first_mobile.md` (static map → pinning → instrumentation) · `Workflow/12_next_level_recon.md` (org/ASN, time-travel, CI/CD leaks, shadow APIs) · artifacts: `templates/STATE_MACHINE_MAP_TEMPLATE.md`, `templates/AUTHZ_MATRIX_TEMPLATE.md`, `templates/CHAINING_WORKSHEET_TEMPLATE.md`
 
 ### STEP B: AUTOMATE ARCHITECTURE INFERENCE (RUNTIME)
 When recon files (`httpx.jsonl`, `katana.jsonl`, `nmap.jsonl`) are collected, run the Reasoning Runtime:
@@ -46,6 +48,8 @@ When auditing specific mechanisms in **Phase 3**, load only the matching file in
 - *IAM Role Delegation:* `skills/auth_logic/iam_trust_boundaries.md`
 - *Async Jobs / Queues:* `skills/state_management/async_workflow_integrity.md`
 - *Parser Smuggling:* `skills/infrastructure/parser_differential_abuse.md`
+- *Shadow APIs / Version Skew / Env Parity:* `skills/auth_logic/shadow_api_exploitation.md`
+- *Mobile Deep Links / Exported Components / Client-Side Trust:* `skills/mobile/`
 - *Full Index:* `skills/_INDEX.md` and `OPERATIONAL_MAP.md`
 
 ### STEP E: TRIAGE BEFORE SUBMIT
@@ -116,7 +120,7 @@ Before declaring any vulnerability candidate as a finding, answer:
 ArchHunter/
 ├── README.md               # Quick-start and directory overview
 ├── claude.md               # Single source of truth (this briefing)
-├── OPERATIONAL_MAP.md      # Rapid mechanism pivot index (linking all 49 skills)
+├── OPERATIONAL_MAP.md      # Rapid mechanism pivot index (linking all 53 skills)
 ├── templates/              # Engagement & Report templates
 │   ├── TARGET_SESSION_TEMPLATE.md
 │   └── VULNERABILITY_REPORT_TEMPLATE.md
@@ -128,7 +132,7 @@ ArchHunter/
 │   ├── Architectural_Trust_Boundary_Analysis.md
 │   ├── STRIDE_Threat_Modeling_Workflow.md
 │   └── Recon_to_Architecture_Mapping.md
-├── Workflow/               # 9 step-by-step sequential workflows
+├── Workflow/               # 12 step-by-step sequential workflows (10-12: depth-first tracks)
 │   ├── 01_target_selection.md
 │   ├── 02_passive_recon.md
 │   ├── 03_active_mapping.md
@@ -139,8 +143,8 @@ ArchHunter/
 │   ├── 08_impact_modeling.md
 │   └── 09_reporting.md
 ├── Architecture_Inference/ # 8 architectural inference heuristics
-├── skills/                 # Offensive knowledge base (49 skills across 4 pillars)
-│   ├── _INDEX.md           # STRIDE Threat-to-Skill index (49 skills mapped)
+├── skills/                 # Offensive knowledge base (53 skills across 5 pillars)
+│   ├── _INDEX.md           # STRIDE Threat-to-Skill index (53 skills mapped)
 │   ├── _TAXONOMY.md        # 4-pillar architectural taxonomy
 │   ├── auth_logic/         # IDOR, OAuth/SSO, IAM boundaries, Auth bypass
 │   ├── state_management/   # Async, Consistency, Race, WebSockets, Sagas
